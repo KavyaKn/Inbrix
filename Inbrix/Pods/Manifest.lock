@@ -1,0 +1,57 @@
+PODS:
+  - AFNetworking (2.6.3):
+    - AFNetworking/NSURLConnection (= 2.6.3)
+    - AFNetworking/NSURLSession (= 2.6.3)
+    - AFNetworking/Reachability (= 2.6.3)
+    - AFNetworking/Security (= 2.6.3)
+    - AFNetworking/Serialization (= 2.6.3)
+    - AFNetworking/UIKit (= 2.6.3)
+  - AFNetworking/NSURLConnection (2.6.3):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/NSURLSession (2.6.3):
+    - AFNetworking/Reachability
+    - AFNetworking/Security
+    - AFNetworking/Serialization
+  - AFNetworking/Reachability (2.6.3)
+  - AFNetworking/Security (2.6.3)
+  - AFNetworking/Serialization (2.6.3)
+  - AFNetworking/UIKit (2.6.3):
+    - AFNetworking/NSURLConnection
+    - AFNetworking/NSURLSession
+  - Alamofire (3.4.0)
+  - IQKeyboardManager (4.0.3)
+  - SlideMenuControllerSwift (2.2.0)
+  - TTPLLibrary (0.1.0)
+  - UIColor_Hex_Swift (2.1)
+  - XMLDictionary (1.4)
+
+DEPENDENCIES:
+  - AFNetworking (~> 2.4)
+  - Alamofire (~> 3.3)
+  - IQKeyboardManager
+  - SlideMenuControllerSwift
+  - TTPLLibrary (from `https://github.com/iosttpl/TTPLLibrary.git`)
+  - UIColor_Hex_Swift (~> 2.1)
+  - XMLDictionary (~> 1.4)
+
+EXTERNAL SOURCES:
+  TTPLLibrary:
+    :git: https://github.com/iosttpl/TTPLLibrary.git
+
+CHECKOUT OPTIONS:
+  TTPLLibrary:
+    :commit: 87372b69c55fcdc6f4e1307eb29e51393ed225db
+    :git: https://github.com/iosttpl/TTPLLibrary.git
+
+SPEC CHECKSUMS:
+  AFNetworking: cb8d14a848e831097108418f5d49217339d4eb60
+  Alamofire: c19a627cefd6a95f840401c49ab1f124e07f54ee
+  IQKeyboardManager: be9695ffc5a52077deb4847608f338771022d6d1
+  SlideMenuControllerSwift: 16dac00b1aaad153e64fffb5d6969ab31ad88372
+  TTPLLibrary: d88a85ad87aab8929b1da53382d092f75ad3d365
+  UIColor_Hex_Swift: e91dc51f6bf252ec7bf74c8704ceedeeb7640c1c
+  XMLDictionary: f9f51601ba76678b594ab485f2b00ec1fed23724
+
+COCOAPODS: 0.39.0

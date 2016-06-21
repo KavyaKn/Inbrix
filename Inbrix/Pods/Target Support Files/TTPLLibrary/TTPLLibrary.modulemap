@@ -1,0 +1,6 @@
+framework module TTPLLibrary {
+  umbrella header "TTPLLibrary-umbrella.h"
+
+  export *
+  module * { export * }
+}

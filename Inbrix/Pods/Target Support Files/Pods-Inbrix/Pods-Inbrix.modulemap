@@ -1,0 +1,6 @@
+framework module Pods_Inbrix {
+  umbrella header "Pods-Inbrix-umbrella.h"
+
+  export *
+  module * { export * }
+}

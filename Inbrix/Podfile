@@ -1,0 +1,37 @@
+# Uncomment this line to define a global platform for your project
+platform :ios, '8.0'
+# Uncomment this line if you're using Swift
+use_frameworks!
+
+target 'Inbrix' do
+
+## Networking frame for api calls.
+pod 'AFNetworking', '~> 2.4'
+
+## Convert XML data into Dictionary
+pod 'XMLDictionary', '~> 1.4'
+
+## Menu drawer pod
+pod 'SlideMenuControllerSwift'
+
+
+## TTPL Library
+pod 'TTPLLibrary', :git => 'https://github.com/iosttpl/TTPLLibrary.git'
+
+## IQKeyboard Manager
+pod 'IQKeyboardManager'
+
+pod 'Alamofire', '~> 3.3'
+
+pod 'UIColor_Hex_Swift', '~> 2.1'
+
+end
+
+target 'InbrixTests' do
+
+end
+
+target 'InbrixUITests' do
+
+end
+

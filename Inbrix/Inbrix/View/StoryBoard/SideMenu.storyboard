@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="rey-5x-hqC">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <scenes>
+        <!--MenuVC-->
+        <scene sceneID="ece-pI-q4H">
+            <objects>
+                <viewController storyboardIdentifier="IBMenuVC" id="RVi-na-DZI" customClass="IBMenuVC" customModule="Inbrix" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Uon-d3-AVV"/>
+                        <viewControllerLayoutGuide type="bottom" id="ibk-Lo-grA"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="UzZ-Jg-HvU">
+                        <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="lVg-n0-Iws">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="sectionIndexColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="RVi-na-DZI" id="oz4-vV-dym"/>
+                                    <outlet property="delegate" destination="RVi-na-DZI" id="bY5-uz-cCa"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="lVg-n0-Iws" firstAttribute="bottom" secondItem="ibk-Lo-grA" secondAttribute="top" id="Lel-pH-6RY"/>
+                            <constraint firstItem="lVg-n0-Iws" firstAttribute="leading" secondItem="UzZ-Jg-HvU" secondAttribute="leading" id="ql0-1Z-zlc"/>
+                            <constraint firstAttribute="trailing" secondItem="lVg-n0-Iws" secondAttribute="trailing" id="x5P-Yw-Ek4"/>
+                            <constraint firstItem="lVg-n0-Iws" firstAttribute="top" secondItem="UzZ-Jg-HvU" secondAttribute="top" id="zY9-yU-tMh"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="93c-5L-ADc"/>
+                    <connections>
+                        <outlet property="menuTableView" destination="lVg-n0-Iws" id="oAU-0X-ZVX"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kEP-G0-JWM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1125" y="386"/>
+        </scene>
+        <!--Base NavigationVC-->
+        <scene sceneID="v43-TE-amE">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="rey-5x-hqC" customClass="IBBaseNavigationVC" customModule="Inbrix" customModuleProvider="target" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="i40-NG-vhQ">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" red="1" green="0.49803921569999998" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="RVi-na-DZI" kind="relationship" relationship="rootViewController" id="5vM-ut-N6i"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4Xc-yx-sB2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="70" y="346"/>
+        </scene>
+    </scenes>
+</document>

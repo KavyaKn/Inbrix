@@ -83,6 +83,7 @@
 		52E12EF11D095DF4003F38A0 /* IBBaseNavigationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E12EF01D095DF4003F38A0 /* IBBaseNavigationVC.swift */; };
 		52E12EF41D09615C003F38A0 /* IBMenuHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E12EF31D09615C003F38A0 /* IBMenuHeaderView.swift */; };
 		52E12EF61D096181003F38A0 /* IBMenuHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52E12EF51D096181003F38A0 /* IBMenuHeaderView.xib */; };
+		52F1E9E61D1951D1003C8465 /* IBEstablishmentDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F1E9E51D1951D1003C8465 /* IBEstablishmentDetailVC.swift */; };
 		52FBC4CA1D13E12D00128287 /* IBLocationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52FBC4C91D13E12D00128287 /* IBLocationModel.swift */; };
 		52FBC4CD1D14082800128287 /* IBLocalizableKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52FBC4CC1D14082800128287 /* IBLocalizableKey.swift */; };
 		52FBC4CF1D141DC200128287 /* IBGeneralConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52FBC4CE1D141DC200128287 /* IBGeneralConstants.swift */; };
@@ -197,6 +198,7 @@
 		52E12EF01D095DF4003F38A0 /* IBBaseNavigationVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBaseNavigationVC.swift; sourceTree = "<group>"; };
 		52E12EF31D09615C003F38A0 /* IBMenuHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBMenuHeaderView.swift; sourceTree = "<group>"; };
 		52E12EF51D096181003F38A0 /* IBMenuHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IBMenuHeaderView.xib; sourceTree = "<group>"; };
+		52F1E9E51D1951D1003C8465 /* IBEstablishmentDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBEstablishmentDetailVC.swift; sourceTree = "<group>"; };
 		52FBC4C91D13E12D00128287 /* IBLocationModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBLocationModel.swift; sourceTree = "<group>"; };
 		52FBC4CC1D14082800128287 /* IBLocalizableKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBLocalizableKey.swift; sourceTree = "<group>"; };
 		52FBC4CE1D141DC200128287 /* IBGeneralConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBGeneralConstants.swift; sourceTree = "<group>"; };
@@ -446,6 +448,7 @@
 		52D5925F1D081FBA00A64F1F /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				52F1E9E41D19518D003C8465 /* EstablishmentDetailVC */,
 				52D592601D081FBA00A64F1F /* BaseVC */,
 				52D592611D081FBA00A64F1F /* LoginVC */,
 				52D592631D081FBA00A64F1F /* PlaceListVC */,
@@ -732,6 +735,14 @@
 			path = CustomViews;
 			sourceTree = "<group>";
 		};
+		52F1E9E41D19518D003C8465 /* EstablishmentDetailVC */ = {
+			isa = PBXGroup;
+			children = (
+				52F1E9E51D1951D1003C8465 /* IBEstablishmentDetailVC.swift */,
+			);
+			path = EstablishmentDetailVC;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -928,6 +939,7 @@
 			files = (
 				52D5927D1D08214300A64F1F /* IBLocalizationString.swift in Sources */,
 				52E12EE01D095159003F38A0 /* IBLabel.swift in Sources */,
+				52F1E9E61D1951D1003C8465 /* IBEstablishmentDetailVC.swift in Sources */,
 				52D592691D081FDF00A64F1F /* IBBaseVC.swift in Sources */,
 				520A2D5C1D0A89F000216F94 /* DKAssetGroupGridLayout.swift in Sources */,
 				520A2D641D0A89F000216F94 /* RMImagePickerController.swift in Sources */,

@@ -250,6 +250,13 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		5208AFB61D20FA1A00EC8163 /* IBLocationDetailCell */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = IBLocationDetailCell;
+			sourceTree = "<group>";
+		};
 		520A2D2F1D0A89F000216F94 /* Camera */ = {
 			isa = PBXGroup;
 			children = (
@@ -642,6 +649,7 @@
 		52D592991D08293300A64F1F /* TableViewCell */ = {
 			isa = PBXGroup;
 			children = (
+				5208AFB61D20FA1A00EC8163 /* IBLocationDetailCell */,
 				520A2D801D0AA64E00216F94 /* IBHeaderViewCell */,
 				52D5929A1D08293300A64F1F /* IBExapandableTableViewCell */,
 			);

@@ -14,9 +14,7 @@ import CoreData
 let cellSize = CGSize(width: 80, height: 80)
 var cellImageViewTag : Int = 1
 
-class IBPlaceDetailVC: IBBaseVC, UICollectionViewDataSource, UICollectionViewDelegate, RMImagePickerControllerDelegate, DKImagePickerControllerDelegate, SwiftAlertViewDelegate, UIScrollViewDelegate, RNGridMenuDelegate {
-    
-    @IBOutlet weak var imageCollectionView: UICollectionView!
+class IBPlaceDetailVC: IBBaseVC, RMImagePickerControllerDelegate, DKImagePickerControllerDelegate, SwiftAlertViewDelegate, UIScrollViewDelegate, RNGridMenuDelegate {
     
     @IBOutlet weak var imagePageControl: UIPageControl!
     @IBOutlet weak var imageScrollView: UIScrollView!
@@ -35,7 +33,6 @@ class IBPlaceDetailVC: IBBaseVC, UICollectionViewDataSource, UICollectionViewDel
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        imageCollectionView?.alwaysBounceHorizontal = true
         if let result = CoreDataManager.sharedInstance.fetchImages() {
             self.imageAssets = result
         }
@@ -44,6 +41,7 @@ class IBPlaceDetailVC: IBBaseVC, UICollectionViewDataSource, UICollectionViewDel
         }
         countriesinAsia = ["Japan","China","India"]
         totalPages = self.imageAssets.count
+        self.initializeView()
     }
     
     
@@ -53,7 +51,6 @@ class IBPlaceDetailVC: IBBaseVC, UICollectionViewDataSource, UICollectionViewDel
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
-        
         configureScrollView()
         configurePageControl()
     }
@@ -63,42 +60,21 @@ class IBPlaceDetailVC: IBBaseVC, UICollectionViewDataSource, UICollectionViewDel
         // Dispose of any resources that can be recreated.
     }
     
-    // MARK: UICollectionViewDataSource
-    
-    func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
-        return 1
+    func initializeView() {
+        let cameraImage   = UIImage(named: "CameraPlaceHolder")!
+        let locationImage = UIImage(named: "Location")!
+        
+        let cameraButton   = UIBarButtonItem(image: cameraImage,  style: .Plain, target: self, action: #selector(IBPlaceDetailVC.didTapCameraButton(_:)))
+        let locationButton = UIBarButtonItem(image: locationImage,  style: .Plain, target: self, action: #selector(IBPlaceDetailVC.didTapLocationButton(_:)))
+        
+        navigationItem.rightBarButtonItems = [cameraButton, locationButton]
     }
     
-    
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if self.imageAssets.count == 0{
-            return 20
-        } else {
-            return self.imageAssets.count
-        }
+    func didTapCameraButton(sender: AnyObject){
+        self.showGrid()
     }
     
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(kIBCollectionViewCellIdentifier, forIndexPath: indexPath)
-        if self.imageAssets.count != 0 {
-            let locationImage = self.imageAssets[indexPath.row] as IBLocationImages
-            let imageView: UIImageView = cell.viewWithTag(cellImageViewTag) as! UIImageView
-            print(locationImage)
-            if (locationImage.image != nil) {
-                let data = locationImage.image
-                imageView.image = UIImage(data: data!)
-            }
-            imageView.layer.borderWidth = 1.0
-            imageView.layer.masksToBounds = false
-            imageView.layer.borderColor = UIColor.whiteColor().CGColor
-            imageView.layer.cornerRadius = imageView.frame.size.width/2
-            imageView.clipsToBounds = true
-        }
-        return cell
-    }
-    
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        print("Selected")
+    func didTapLocationButton(sender: AnyObject){
     }
     
     // MARK: - RMImagePickerControllerDelegate
@@ -138,9 +114,9 @@ class IBPlaceDetailVC: IBBaseVC, UICollectionViewDataSource, UICollectionViewDel
         pickerController.dismissViewControllerAnimated(true, completion: nil)
     }
     
-    @IBAction func addImageButtonClicked(sender: AnyObject) {
-        self.showGrid()
-    }
+//    @IBAction func addImageButtonClicked(sender: AnyObject) {
+//        self.showGrid()
+//    }
     
     func showGrid() {
         items = [RNGridMenuItem(image: UIImage(named: "Camera"), title: "Camera"),
@@ -208,7 +184,6 @@ class IBPlaceDetailVC: IBBaseVC, UICollectionViewDataSource, UICollectionViewDel
             print("didSelectAssets")
             
             self.CameraAssets = assets
-            self.imageCollectionView?.reloadData()
         }
         self.dismissViewControllerAnimated(true, completion: nil)
         self.presentViewController(pickerController, animated: true) {}

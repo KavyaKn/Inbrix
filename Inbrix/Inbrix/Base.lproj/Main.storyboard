@@ -207,7 +207,6 @@
                             <constraint firstItem="AnH-TU-t7E" firstAttribute="top" secondItem="qN2-GD-a6y" secondAttribute="bottom" id="1zK-5s-PNv"/>
                             <constraint firstItem="vk4-2E-Zpb" firstAttribute="top" secondItem="AnH-TU-t7E" secondAttribute="bottom" constant="8" symbolic="YES" id="4Va-Kn-mmB"/>
                             <constraint firstItem="qN2-GD-a6y" firstAttribute="leading" secondItem="7RP-Gs-JTR" secondAttribute="leadingMargin" constant="-20" id="FrZ-E7-SEi"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="AnH-TU-t7E" secondAttribute="trailing" constant="260" id="Q2O-lH-TTG"/>
                             <constraint firstItem="qN2-GD-a6y" firstAttribute="top" secondItem="6wp-60-PWT" secondAttribute="bottom" id="Qs4-qP-NT3"/>
                             <constraint firstAttribute="trailingMargin" secondItem="vk4-2E-Zpb" secondAttribute="trailing" constant="-20" id="g7c-5L-83w"/>
                             <constraint firstAttribute="trailingMargin" secondItem="qN2-GD-a6y" secondAttribute="trailing" constant="-20" id="l3z-7U-CDX"/>
@@ -220,6 +219,7 @@
                     <connections>
                         <outlet property="imagePageControl" destination="AnH-TU-t7E" id="Ufw-ou-9tJ"/>
                         <outlet property="imageScrollView" destination="qN2-GD-a6y" id="uw3-Hr-uTA"/>
+                        <outlet property="locationDetailTableView" destination="vk4-2E-Zpb" id="Pk3-og-Qhl"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FuS-ck-EAm" userLabel="First Responder" sceneMemberID="firstResponder"/>

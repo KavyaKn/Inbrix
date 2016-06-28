@@ -18,7 +18,9 @@ class IBPlaceDetailVC: IBBaseVC, RMImagePickerControllerDelegate, DKImagePickerC
     
     @IBOutlet weak var imagePageControl: UIPageControl!
     @IBOutlet weak var imageScrollView: UIScrollView!
+    @IBOutlet weak var locationDetailTableView: UITableView!
     lazy var imageManager = PHImageManager.defaultManager()
+    var selectedIndexPath : NSIndexPath?
     var gallaryAssets: [PHAsset] = []
     var CameraAssets: [DKAsset]?
     var imageAssets = [IBLocationImages]()
@@ -42,6 +44,7 @@ class IBPlaceDetailVC: IBBaseVC, RMImagePickerControllerDelegate, DKImagePickerC
         countriesinAsia = ["Japan","China","India"]
         totalPages = self.imageAssets.count
         self.initializeView()
+        self.registerCell()
     }
     
     
@@ -68,6 +71,15 @@ class IBPlaceDetailVC: IBBaseVC, RMImagePickerControllerDelegate, DKImagePickerC
         let locationButton = UIBarButtonItem(image: locationImage,  style: .Plain, target: self, action: #selector(IBPlaceDetailVC.didTapLocationButton(_:)))
         
         navigationItem.rightBarButtonItems = [cameraButton, locationButton]
+    }
+    
+    func registerCell() {
+        let segmentHeaderCellNib = UINib(nibName:"IBSegmentHeaderViewCell" , bundle: nil)
+        locationDetailTableView.registerNib(segmentHeaderCellNib, forCellReuseIdentifier: "IBSegmentHeaderViewCell")
+        let brandHeaderCellNib = UINib(nibName:"IBBrandHeaderCell" , bundle: nil)
+        locationDetailTableView.registerNib(brandHeaderCellNib, forCellReuseIdentifier: "IBBrandHeaderCell")
+        let expandedBrandDetailCellNib = UINib(nibName:"IBExpandedBrandDetailCell" , bundle: nil)
+        locationDetailTableView.registerNib(expandedBrandDetailCellNib, forCellReuseIdentifier: "IBExpandedBrandDetailCell")
     }
     
     func didTapCameraButton(sender: AnyObject){
@@ -113,10 +125,6 @@ class IBPlaceDetailVC: IBBaseVC, RMImagePickerControllerDelegate, DKImagePickerC
         self.navigationController!.pushViewController(imageEditingVC , animated: true)
         pickerController.dismissViewControllerAnimated(true, completion: nil)
     }
-    
-//    @IBAction func addImageButtonClicked(sender: AnyObject) {
-//        self.showGrid()
-//    }
     
     func showGrid() {
         items = [RNGridMenuItem(image: UIImage(named: "Camera"), title: "Camera"),
@@ -192,14 +200,18 @@ class IBPlaceDetailVC: IBBaseVC, RMImagePickerControllerDelegate, DKImagePickerC
     // MARK: - Tableview Methods
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        // 1
-        // Return the number of sections.
-        return 1
+        return 2
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // 2
-        return 3
+        var numberOfRowCount = 0
+        if section == 0 {
+            numberOfRowCount = 1
+        }
+        if section == 1 {
+            numberOfRowCount = 4
+        }
+        return numberOfRowCount
     }
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -208,17 +220,63 @@ class IBPlaceDetailVC: IBBaseVC, RMImagePickerControllerDelegate, DKImagePickerC
     
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
-        cell.textLabel?.text = countriesinAsia[indexPath.row] as? String
+        var cell : UITableViewCell = UITableViewCell()
+        
+        if (indexPath.section == 0) {
+            
+        } else {
+            let expandedBrandDetailCell = tableView.dequeueReusableCellWithIdentifier("IBExpandedBrandDetailCell", forIndexPath: indexPath) as! IBExpandedBrandDetailCell
+            expandedBrandDetailCell.brandTitleLabel.text = ": Test Title"
+            expandedBrandDetailCell.storeNameLabel.text = ": First"
+            expandedBrandDetailCell.storeNumberLabel.text = ": second"
+            expandedBrandDetailCell.storeAddressLabel.text = ": Third"
+            cell = expandedBrandDetailCell
+        }
         return cell
     }
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let  headerCell = NSBundle.mainBundle().loadNibNamed(kIBSegmentHeaderViewCellNibName, owner: nil, options: nil)[0] as? IBSegmentHeaderViewCell
-        headerCell?.customHeaderView()
-        headerCell?.segmentedHeaderView.addTarget(self, action: #selector(IBPlaceDetailVC.segmentedControlClicked), forControlEvents: UIControlEvents.ValueChanged)
-        segmentedControlClicked((headerCell?.segmentedHeaderView)!)
+        var headerCell : UIView = UIView()
+        if (section == 0) {
+            let  segmentedHeaderCell = NSBundle.mainBundle().loadNibNamed(kIBSegmentHeaderViewCellNibName, owner: nil, options: nil)[0] as! IBSegmentHeaderViewCell
+            segmentedHeaderCell.customHeaderView()
+            segmentedHeaderCell.segmentedHeaderView.addTarget(self, action: #selector(IBPlaceDetailVC.segmentedControlClicked), forControlEvents: UIControlEvents.ValueChanged)
+            segmentedControlClicked((segmentedHeaderCell.segmentedHeaderView)!)
+            headerCell = segmentedHeaderCell
+        } else {
+            let  brandHeaderCell = NSBundle.mainBundle().loadNibNamed("IBBrandHeaderCell", owner: nil, options: nil)[0] as! IBBrandHeaderCell
+            brandHeaderCell.brandHeaderLabel.text = "BRANDS"
+            headerCell = brandHeaderCell
+        }
         return headerCell
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        let previousIndexPath = selectedIndexPath
+        if indexPath == selectedIndexPath {
+            selectedIndexPath = nil
+        } else {
+            selectedIndexPath = indexPath
+        }
+        
+        var indexPaths : Array<NSIndexPath> = []
+        if let previous = previousIndexPath{
+            indexPaths += [previous]
+        }
+        if let current = selectedIndexPath {
+            indexPaths += [current]
+        }
+        if indexPaths.count > 0 {
+            tableView.reloadRowsAtIndexPaths(indexPaths, withRowAnimation: UITableViewRowAnimation.Automatic)
+        }
+    }
+        
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        if indexPath == selectedIndexPath {
+            return IBExpandedBrandDetailCell.expandedHeight
+        } else {
+            return IBExpandedBrandDetailCell.defaultHeight
+        }
     }
     
     func segmentedControlClicked(sender :UISegmentedControl){

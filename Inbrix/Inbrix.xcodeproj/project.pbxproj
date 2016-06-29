@@ -38,6 +38,8 @@
 		520A2D791D0A8DB500216F94 /* IBImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520A2D781D0A8DB500216F94 /* IBImageCollectionViewCell.swift */; };
 		520A2D7F1D0A99E100216F94 /* RNGridMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 520A2D7E1D0A99E100216F94 /* RNGridMenu.m */; };
 		5262F66A1D11138B0010C230 /* IBImageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5262F6691D11138B0010C230 /* IBImageView.xib */; };
+		52CF60111D239C7000CC08D9 /* IBLocationDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52CF600F1D239C7000CC08D9 /* IBLocationDetailCell.swift */; };
+		52CF60121D239C7000CC08D9 /* IBLocationDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52CF60101D239C7000CC08D9 /* IBLocationDetailCell.xib */; };
 		52D5922D1D081ED200A64F1F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D5922C1D081ED200A64F1F /* AppDelegate.swift */; };
 		52D592321D081ED200A64F1F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 52D592301D081ED200A64F1F /* Main.storyboard */; };
 		52D592351D081ED200A64F1F /* Inbrix.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 52D592331D081ED200A64F1F /* Inbrix.xcdatamodeld */; };
@@ -147,6 +149,8 @@
 		520A2D7D1D0A99E100216F94 /* RNGridMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNGridMenu.h; sourceTree = "<group>"; };
 		520A2D7E1D0A99E100216F94 /* RNGridMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNGridMenu.m; sourceTree = "<group>"; };
 		5262F6691D11138B0010C230 /* IBImageView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IBImageView.xib; sourceTree = "<group>"; };
+		52CF600F1D239C7000CC08D9 /* IBLocationDetailCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBLocationDetailCell.swift; sourceTree = "<group>"; };
+		52CF60101D239C7000CC08D9 /* IBLocationDetailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IBLocationDetailCell.xib; sourceTree = "<group>"; };
 		52D592291D081ED100A64F1F /* Inbrix.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Inbrix.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		52D5922C1D081ED200A64F1F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		52D592311D081ED200A64F1F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -370,6 +374,15 @@
 				520A2D7E1D0A99E100216F94 /* RNGridMenu.m */,
 			);
 			path = CustomAlertView;
+			sourceTree = "<group>";
+		};
+		52CF600E1D239C5300CC08D9 /* IBLocationDetailCell */ = {
+			isa = PBXGroup;
+			children = (
+				52CF600F1D239C7000CC08D9 /* IBLocationDetailCell.swift */,
+				52CF60101D239C7000CC08D9 /* IBLocationDetailCell.xib */,
+			);
+			path = IBLocationDetailCell;
 			sourceTree = "<group>";
 		};
 		52D592201D081ED100A64F1F = {
@@ -641,6 +654,7 @@
 		52D592991D08293300A64F1F /* TableViewCell */ = {
 			isa = PBXGroup;
 			children = (
+				52CF600E1D239C5300CC08D9 /* IBLocationDetailCell */,
 				52D99AAF1D228D850089DBC1 /* IBBrandHeaderCell */,
 				52D99AA61D22871A0089DBC1 /* IBSegmentHeaderViewCell */,
 				52D99AA51D2286EB0089DBC1 /* IBBrandDetailCell */,
@@ -894,6 +908,7 @@
 				52D99AAE1D22874B0089DBC1 /* IBExpandedBrandDetailCell.xib in Resources */,
 				52D592321D081ED200A64F1F /* Main.storyboard in Resources */,
 				520A2D651D0A89F000216F94 /* RMImages.xcassets in Resources */,
+				52CF60121D239C7000CC08D9 /* IBLocationDetailCell.xib in Resources */,
 				52D592A51D08293300A64F1F /* DetailView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -987,6 +1002,7 @@
 				520A2D631D0A89F000216F94 /* RMAssetCollectionPicker.swift in Sources */,
 				52D592A91D0829F400A64F1F /* ParallaxTableHeaderView.swift in Sources */,
 				520A2D791D0A8DB500216F94 /* IBImageCollectionViewCell.swift in Sources */,
+				52CF60111D239C7000CC08D9 /* IBLocationDetailCell.swift in Sources */,
 				52D592A21D08293300A64F1F /* CustomTableViewCell.swift in Sources */,
 				52E12EE21D0951B7003F38A0 /* IBColor.swift in Sources */,
 				520A2D6F1D0A8AE300216F94 /* IBLocationImages+CoreDataProperties.swift in Sources */,

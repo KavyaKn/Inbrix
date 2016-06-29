@@ -15,15 +15,13 @@ class IBExpandedBrandDetailCell: UITableViewCell {
     @IBOutlet weak var storeNameLabel: UILabel!
     @IBOutlet weak var storeNumberLabel: UILabel!
     @IBOutlet weak var storeAddressLabel: UILabel!
+    @IBOutlet weak var brandDetailView: UIView!
     class var expandedHeight : CGFloat{ get { return 150} }
     class var defaultHeight : CGFloat{ get { return 40} }
     
     var frameAdded = false
     func checkHeight(){
-        storeNameLabel.hidden = (frame.size.height < IBExpandedBrandDetailCell.expandedHeight)
-        storeNumberLabel.hidden = (frame.size.height < IBExpandedBrandDetailCell.expandedHeight)
-        storeAddressLabel.hidden = (frame.size.height < IBExpandedBrandDetailCell.expandedHeight)
-        
+        brandDetailView.hidden = (frame.size.height < IBExpandedBrandDetailCell.expandedHeight)
     }
     
     func watchFrameChanges() {
@@ -45,6 +43,7 @@ class IBExpandedBrandDetailCell: UITableViewCell {
             checkHeight()
         }
     }
+    
     deinit {
         print("deinit called");
         ignoreFrameChanges()

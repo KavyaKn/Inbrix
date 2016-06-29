@@ -74,6 +74,8 @@ class IBPlaceDetailVC: IBBaseVC, RMImagePickerControllerDelegate, DKImagePickerC
     }
     
     func registerCell() {
+        let locationDetailCellNib = UINib(nibName:"IBLocationDetailCell" , bundle: nil)
+        locationDetailTableView.registerNib(locationDetailCellNib, forCellReuseIdentifier: "IBLocationDetailCell")
         let segmentHeaderCellNib = UINib(nibName:"IBSegmentHeaderViewCell" , bundle: nil)
         locationDetailTableView.registerNib(segmentHeaderCellNib, forCellReuseIdentifier: "IBSegmentHeaderViewCell")
         let brandHeaderCellNib = UINib(nibName:"IBBrandHeaderCell" , bundle: nil)
@@ -215,24 +217,29 @@ class IBPlaceDetailVC: IBBaseVC, RMImagePickerControllerDelegate, DKImagePickerC
     }
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 50
+        return 40
     }
     
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell : UITableViewCell = UITableViewCell()
+        var cell : UITableViewCell?
         
         if (indexPath.section == 0) {
+            let locationDetailCell = tableView.dequeueReusableCellWithIdentifier("IBLocationDetailCell", forIndexPath: indexPath) as! IBLocationDetailCell
+            
+            
+            cell = locationDetailCell
             
         } else {
             let expandedBrandDetailCell = tableView.dequeueReusableCellWithIdentifier("IBExpandedBrandDetailCell", forIndexPath: indexPath) as! IBExpandedBrandDetailCell
-            expandedBrandDetailCell.brandTitleLabel.text = ": Test Title"
-            expandedBrandDetailCell.storeNameLabel.text = ": First"
-            expandedBrandDetailCell.storeNumberLabel.text = ": second"
-            expandedBrandDetailCell.storeAddressLabel.text = ": Third"
+            expandedBrandDetailCell.checkHeight()
+            expandedBrandDetailCell.brandTitleLabel.text = "BMW"
+            expandedBrandDetailCell.storeNameLabel.text = "The BMW Store"
+            expandedBrandDetailCell.storeNumberLabel.text = "19051"
+            expandedBrandDetailCell.storeAddressLabel.text = "2040 Burrard Street Vancouver, B.C., V6J 3H5 Direct: 604-659-3200"
             cell = expandedBrandDetailCell
         }
-        return cell
+        return cell!
     }
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -245,7 +252,7 @@ class IBPlaceDetailVC: IBBaseVC, RMImagePickerControllerDelegate, DKImagePickerC
             headerCell = segmentedHeaderCell
         } else {
             let  brandHeaderCell = NSBundle.mainBundle().loadNibNamed("IBBrandHeaderCell", owner: nil, options: nil)[0] as! IBBrandHeaderCell
-            brandHeaderCell.brandHeaderLabel.text = "BRANDS"
+            brandHeaderCell.brandHeaderLabel.text = "Brands"
             headerCell = brandHeaderCell
         }
         return headerCell
@@ -270,13 +277,19 @@ class IBPlaceDetailVC: IBBaseVC, RMImagePickerControllerDelegate, DKImagePickerC
             tableView.reloadRowsAtIndexPaths(indexPaths, withRowAnimation: UITableViewRowAnimation.Automatic)
         }
     }
-        
+    
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if indexPath == selectedIndexPath {
-            return IBExpandedBrandDetailCell.expandedHeight
+        var rowHeight : CGFloat
+        if (indexPath.section == 0) {
+            rowHeight = 155
         } else {
-            return IBExpandedBrandDetailCell.defaultHeight
+            if indexPath == selectedIndexPath {
+                rowHeight = IBExpandedBrandDetailCell.expandedHeight
+            } else {
+                rowHeight = IBExpandedBrandDetailCell.defaultHeight
+            }
         }
+        return rowHeight
     }
     
     func segmentedControlClicked(sender :UISegmentedControl){
@@ -370,6 +383,6 @@ class IBPlaceDetailVC: IBBaseVC, RMImagePickerControllerDelegate, DKImagePickerC
         imageScrollView.scrollRectToVisible(newFrame, animated: true)
         
     }
-
+    
     
 }

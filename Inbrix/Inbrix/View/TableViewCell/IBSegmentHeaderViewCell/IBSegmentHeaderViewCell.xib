@@ -35,7 +35,7 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="segmentedHeaderView" destination="eZm-Hc-E48" id="gwE-vc-wt1"/>
+                <outlet property="segmentedControl" destination="eZm-Hc-E48" id="9BO-QE-uNR"/>
             </connections>
             <point key="canvasLocation" x="316" y="392.5"/>
         </tableViewCell>

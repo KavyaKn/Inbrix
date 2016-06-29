@@ -181,11 +181,11 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="loactionPhoneNoLabel" destination="meg-4H-9af" id="jH0-v8-VXD"/>
                 <outlet property="locationAddressLabel" destination="RU9-VJ-Zsp" id="6eQ-ef-s04"/>
                 <outlet property="locationEmailLabel" destination="m8d-8t-Exf" id="gW7-3P-w9Z"/>
                 <outlet property="locationIdLabel" destination="Czb-3C-dlj" id="lC0-tZ-vYa"/>
                 <outlet property="locationNameLabel" destination="QRk-Fb-Z1O" id="fpg-ez-Xzz"/>
+                <outlet property="locationPhoneNoLabel" destination="meg-4H-9af" id="J4I-kD-fMG"/>
             </connections>
             <point key="canvasLocation" x="315" y="381"/>
         </tableViewCell>

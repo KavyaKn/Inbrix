@@ -12,7 +12,7 @@ class IBLocationDetailCell: UITableViewCell {
 
     @IBOutlet weak var locationNameLabel: UILabel!
     @IBOutlet weak var locationIdLabel: UILabel!
-    @IBOutlet weak var loactionPhoneNoLabel: UILabel!
+    @IBOutlet weak var locationPhoneNoLabel: UILabel!
     @IBOutlet weak var locationEmailLabel: UILabel!
     @IBOutlet weak var locationAddressLabel: UILabel!
     

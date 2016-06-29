@@ -10,7 +10,7 @@ import UIKit
 
 class IBSegmentHeaderViewCell: UITableViewCell {
 
-    @IBOutlet weak var segmentedHeaderView: UISegmentedControl!
+    @IBOutlet weak var segmentedControl: UISegmentedControl!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -33,13 +33,13 @@ class IBSegmentHeaderViewCell: UITableViewCell {
             NSFontAttributeName : UIFont.cellLabelFont()
         ]
         
-        segmentedHeaderView.setTitleTextAttributes(normalTitleAttributesDictionary, forState: .Normal)
-        segmentedHeaderView.setTitleTextAttributes(selectedTitleAttributesDictionary, forState: .Selected)
-        segmentedHeaderView.tintColor = UIColor.whiteColor()
-        segmentedHeaderView.backgroundColor = UIColor.segmentedControlBackgroundColor()
-        segmentedHeaderView.layer.cornerRadius = 0.0
-        segmentedHeaderView.layer.borderColor = UIColor.segmentedControlBorderColor().CGColor
-        segmentedHeaderView.layer.borderWidth = 1
+        segmentedControl.setTitleTextAttributes(normalTitleAttributesDictionary, forState: .Normal)
+        segmentedControl.setTitleTextAttributes(selectedTitleAttributesDictionary, forState: .Selected)
+        segmentedControl.tintColor = UIColor.whiteColor()
+        segmentedControl.backgroundColor = UIColor.segmentedControlBackgroundColor()
+        segmentedControl.layer.cornerRadius = 0.0
+        segmentedControl.layer.borderColor = UIColor.segmentedControlBorderColor().CGColor
+        segmentedControl.layer.borderWidth = 1
     }
     
 }

@@ -66,11 +66,10 @@ class IBPlaceDetailVC: IBBaseVC, RMImagePickerControllerDelegate, DKImagePickerC
     func initializeView() {
         let cameraImage   = UIImage(named: "CameraPlaceHolder")!
         let locationImage = UIImage(named: "Location")!
-        
         let cameraButton   = UIBarButtonItem(image: cameraImage,  style: .Plain, target: self, action: #selector(IBPlaceDetailVC.didTapCameraButton(_:)))
         let locationButton = UIBarButtonItem(image: locationImage,  style: .Plain, target: self, action: #selector(IBPlaceDetailVC.didTapLocationButton(_:)))
-        
         navigationItem.rightBarButtonItems = [cameraButton, locationButton]
+        self.locationDetailTableView.tag = 0
     }
     
     func registerCell() {
@@ -202,16 +201,24 @@ class IBPlaceDetailVC: IBBaseVC, RMImagePickerControllerDelegate, DKImagePickerC
     // MARK: - Tableview Methods
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 2
+        if (self.locationDetailTableView.tag == 0) {
+            return 2
+        } else {
+            return 1
+        }
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var numberOfRowCount = 0
-        if section == 0 {
-            numberOfRowCount = 1
-        }
-        if section == 1 {
-            numberOfRowCount = 4
+        if (self.locationDetailTableView.tag == 0) {
+            if section == 0 {
+                numberOfRowCount = 1
+            }
+            if section == 1 {
+                numberOfRowCount = 4
+            }
+        } else {
+            numberOfRowCount = 10
         }
         return numberOfRowCount
     }
@@ -223,21 +230,29 @@ class IBPlaceDetailVC: IBBaseVC, RMImagePickerControllerDelegate, DKImagePickerC
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell : UITableViewCell?
-        
-        if (indexPath.section == 0) {
-            let locationDetailCell = tableView.dequeueReusableCellWithIdentifier("IBLocationDetailCell", forIndexPath: indexPath) as! IBLocationDetailCell
-            
-            
-            cell = locationDetailCell
-            
+        if ( self.locationDetailTableView.tag == 0) {
+            if (indexPath.section == 0) {
+                let locationDetailCell = tableView.dequeueReusableCellWithIdentifier("IBLocationDetailCell", forIndexPath: indexPath) as! IBLocationDetailCell
+                locationDetailCell.locationNameLabel.text = ""
+                locationDetailCell.locationIdLabel.text = ""
+                locationDetailCell.locationPhoneNoLabel.text = ""
+                locationDetailCell.locationEmailLabel.text = ""
+                locationDetailCell.locationAddressLabel.text = ""
+                cell = locationDetailCell
+                
+            } else {
+                let expandedBrandDetailCell = tableView.dequeueReusableCellWithIdentifier("IBExpandedBrandDetailCell", forIndexPath: indexPath) as! IBExpandedBrandDetailCell
+                expandedBrandDetailCell.checkHeight()
+                expandedBrandDetailCell.brandTitleLabel.text = "BMW"
+                expandedBrandDetailCell.storeNameLabel.text = "The BMW Store"
+                expandedBrandDetailCell.storeNumberLabel.text = "19051"
+                expandedBrandDetailCell.storeAddressLabel.text = "2040 Burrard Street Vancouver, B.C., V6J 3H5 Direct: 604-659-3200"
+                cell = expandedBrandDetailCell
+            }
         } else {
-            let expandedBrandDetailCell = tableView.dequeueReusableCellWithIdentifier("IBExpandedBrandDetailCell", forIndexPath: indexPath) as! IBExpandedBrandDetailCell
-            expandedBrandDetailCell.checkHeight()
-            expandedBrandDetailCell.brandTitleLabel.text = "BMW"
-            expandedBrandDetailCell.storeNameLabel.text = "The BMW Store"
-            expandedBrandDetailCell.storeNumberLabel.text = "19051"
-            expandedBrandDetailCell.storeAddressLabel.text = "2040 Burrard Street Vancouver, B.C., V6J 3H5 Direct: 604-659-3200"
-            cell = expandedBrandDetailCell
+            let establishmentCell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) 
+            establishmentCell.textLabel?.text = "EST 1"
+            cell = establishmentCell
         }
         return cell!
     }
@@ -245,11 +260,12 @@ class IBPlaceDetailVC: IBBaseVC, RMImagePickerControllerDelegate, DKImagePickerC
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         var headerCell : UIView = UIView()
         if (section == 0) {
-            let  segmentedHeaderCell = NSBundle.mainBundle().loadNibNamed(kIBSegmentHeaderViewCellNibName, owner: nil, options: nil)[0] as! IBSegmentHeaderViewCell
-            segmentedHeaderCell.customHeaderView()
-            segmentedHeaderCell.segmentedHeaderView.addTarget(self, action: #selector(IBPlaceDetailVC.segmentedControlClicked), forControlEvents: UIControlEvents.ValueChanged)
-            segmentedControlClicked((segmentedHeaderCell.segmentedHeaderView)!)
-            headerCell = segmentedHeaderCell
+            let  segmentedHeaderView = NSBundle.mainBundle().loadNibNamed(kIBSegmentHeaderViewCellNibName, owner: nil, options: nil)[0] as! IBSegmentHeaderViewCell
+            segmentedHeaderView.customHeaderView()
+            segmentedHeaderView.segmentedControl.addTarget(self, action: #selector(IBPlaceDetailVC.segmentedControlClicked), forControlEvents: UIControlEvents.ValueChanged)
+            segmentedHeaderView.segmentedControl.selectedSegmentIndex = tableView.tag
+            segmentedControlClicked((segmentedHeaderView.segmentedControl)!)
+            headerCell = segmentedHeaderView
         } else {
             let  brandHeaderCell = NSBundle.mainBundle().loadNibNamed("IBBrandHeaderCell", owner: nil, options: nil)[0] as! IBBrandHeaderCell
             brandHeaderCell.brandHeaderLabel.text = "Brands"
@@ -259,35 +275,44 @@ class IBPlaceDetailVC: IBBaseVC, RMImagePickerControllerDelegate, DKImagePickerC
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        let previousIndexPath = selectedIndexPath
-        if indexPath == selectedIndexPath {
-            selectedIndexPath = nil
+        if (self.locationDetailTableView.tag == 0) {
+            let previousIndexPath = selectedIndexPath
+            if indexPath == selectedIndexPath {
+                selectedIndexPath = nil
+            } else {
+                selectedIndexPath = indexPath
+            }
+            
+            var indexPaths : Array<NSIndexPath> = []
+            if let previous = previousIndexPath{
+                indexPaths += [previous]
+            }
+            if let current = selectedIndexPath {
+                indexPaths += [current]
+            }
+            if indexPaths.count > 0 {
+                tableView.reloadRowsAtIndexPaths(indexPaths, withRowAnimation: UITableViewRowAnimation.Automatic)
+            }
         } else {
-            selectedIndexPath = indexPath
+            
         }
         
-        var indexPaths : Array<NSIndexPath> = []
-        if let previous = previousIndexPath{
-            indexPaths += [previous]
-        }
-        if let current = selectedIndexPath {
-            indexPaths += [current]
-        }
-        if indexPaths.count > 0 {
-            tableView.reloadRowsAtIndexPaths(indexPaths, withRowAnimation: UITableViewRowAnimation.Automatic)
-        }
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         var rowHeight : CGFloat
-        if (indexPath.section == 0) {
-            rowHeight = 155
-        } else {
-            if indexPath == selectedIndexPath {
-                rowHeight = IBExpandedBrandDetailCell.expandedHeight
+        if (self.locationDetailTableView.tag == 0) {
+            if (indexPath.section == 0) {
+                rowHeight = 155
             } else {
-                rowHeight = IBExpandedBrandDetailCell.defaultHeight
+                if indexPath == selectedIndexPath {
+                    rowHeight = IBExpandedBrandDetailCell.expandedHeight
+                } else {
+                    rowHeight = IBExpandedBrandDetailCell.defaultHeight
+                }
             }
+        } else {
+            rowHeight = 40
         }
         return rowHeight
     }
@@ -302,20 +327,10 @@ class IBPlaceDetailVC: IBBaseVC, RMImagePickerControllerDelegate, DKImagePickerC
                 view.tintColor = UIColor.orangeColor()
             }
         }
-        switch (sender.selectedSegmentIndex) {
-        case 0:
-            NSLog("First was selected");
-            break;
-        case 1:
-            NSLog("Second was selected");
-            break;
-        case 2:
-            NSLog("Third was selected");
-            break;
-        default:
-            break;
+        if (locationDetailTableView.tag != sender.selectedSegmentIndex) {
+            self.locationDetailTableView.tag = sender.selectedSegmentIndex
+            self.locationDetailTableView.reloadData()
         }
-        
     }
     
     // MARK: Custom Page control method implementation

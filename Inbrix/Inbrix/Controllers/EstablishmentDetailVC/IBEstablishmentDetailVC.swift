@@ -17,6 +17,7 @@ class IBEstablishmentDetailVC: IBBaseVC, UITableViewDataSource, UITableViewDeleg
     @IBOutlet weak var establishmentAddressLabel: UILabel!
     @IBOutlet weak var establismentSegmentedControl: UISegmentedControl!
     @IBOutlet weak var establismentDetailTableView: UITableView!
+    var addButton : UIBarButtonItem = UIBarButtonItem()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,11 +30,16 @@ class IBEstablishmentDetailVC: IBBaseVC, UITableViewDataSource, UITableViewDeleg
         self.establismentSegmentedControl.addTarget(self, action: #selector(IBPlaceDetailVC.segmentedControlClicked), forControlEvents: UIControlEvents.ValueChanged)
         segmentedControlClicked((self.establismentSegmentedControl)!)
         self.addCustomBackButton()
+        let addButtonImage   = UIImage(named: "add")!
+        addButton = UIBarButtonItem(image: addButtonImage,  style: .Plain, target: self, action: #selector(IBEstablishmentDetailVC.didTapAddButton(_:)))
     }
     
     func registerCell() {
         let establishmentCellNib = UINib(nibName:"IBEstablishmentCell" , bundle: nil)
         establismentDetailTableView.registerNib(establishmentCellNib, forCellReuseIdentifier: "IBEstablishmentCell")
+    }
+    
+    func didTapAddButton(sender: AnyObject){
     }
 
     override func didReceiveMemoryWarning() {
@@ -73,14 +79,14 @@ class IBEstablishmentDetailVC: IBBaseVC, UITableViewDataSource, UITableViewDeleg
         switch(establismentSegmentedControl.selectedSegmentIndex)
         {
         case 0:
-            returnValue = 10
+            returnValue = 15
             break
         case 1:
             returnValue = 5
             break
             
         case 2:
-            returnValue = 10
+            returnValue = 15
             break
             
         default:
@@ -90,51 +96,47 @@ class IBEstablishmentDetailVC: IBBaseVC, UITableViewDataSource, UITableViewDeleg
         
         return returnValue
         
-    }
-    
-    func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        
-        var returnValue = ""
-        
-        switch(establismentSegmentedControl.selectedSegmentIndex)
-        {
-        case 0:
-            returnValue = ""
-            break
-        case 1:
-            switch section {
-            case 0:
-                returnValue = "Mobile Forms"
-                
-            case 1:
-                returnValue = "Global Forms"
-                
-            default:
-                returnValue = ""
-            }
-            break
-            
-        case 2:
-            returnValue = ""
-            break
-            
-        default:
-            break
-            
-        }
-        
-        return returnValue
     }
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         var headerCell : UIView = UIView()
-        let  formsHeaderCell = NSBundle.mainBundle().loadNibNamed("IBEstablishmentCell", owner: nil, options: nil)[0] as! IBEstablishmentCell
-        formsHeaderCell.establishmentCellLabel.text = "Brands"
-        headerCell = formsHeaderCell
+        var baseView : UIView = UIView()
+        if (establismentSegmentedControl.selectedSegmentIndex == 1) {
+            headerCell = UIView(frame: CGRectMake(5, 5, tableView.frame.size.width - 10, 45))
+            baseView = UIView(frame: CGRectMake(5, 5, tableView.frame.size.width - 10, 45))
+            baseView.backgroundColor = UIColor.orangeColor()
+            baseView.layer.cornerRadius = 2
+            
+            var frame = headerCell.frame
+            frame.origin.x = 10
+            frame.size.width -= 10
+            
+            var establishmentHeaderCellLabel = UILabel()
+            establishmentHeaderCellLabel = UILabel(frame: frame)
+            establishmentHeaderCellLabel.textColor = UIColor.whiteColor()
+            establishmentHeaderCellLabel.backgroundColor = UIColor.orangeColor()
+            switch section {
+            case 0:
+                establishmentHeaderCellLabel.text = "Mobile Forms"
+            case 1:
+                establishmentHeaderCellLabel.text = "Global Forms"
+                
+            default:
+                establishmentHeaderCellLabel.text = ""
+            }
+            headerCell.addSubview(baseView)
+            headerCell.addSubview(establishmentHeaderCellLabel)
+        }
         return headerCell
     }
 
-    
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if (establismentSegmentedControl.selectedSegmentIndex == 1) {
+            return 50
+        } else {
+            return 0
+        }
+    }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
     {
@@ -143,13 +145,15 @@ class IBEstablishmentDetailVC: IBBaseVC, UITableViewDataSource, UITableViewDeleg
         switch(establismentSegmentedControl.selectedSegmentIndex)
         {
         case 0:
+            navigationItem.rightBarButtonItems = nil
             establishmentCell.establishmentCellLabel.text = "XML 1"
             break
         case 1:
+            navigationItem.rightBarButtonItems = [addButton]
             establishmentCell.establishmentCellLabel.text = "XML 1"
             break
-            
         case 2:
+            navigationItem.rightBarButtonItems = nil
             establishmentCell.establishmentCellLabel.text = "XML 1"
             break
             

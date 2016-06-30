@@ -323,9 +323,6 @@ extension IBPlaceListVC {
     func detailViewClicked() {
         print("Push To detail view")
         self.performSegueWithIdentifier("LocationDetailSegue", sender: nil)
-//        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-//        let nextViewController = storyBoard.instantiateViewControllerWithIdentifier("IBPlaceDetailVC") as! IBPlaceDetailVC
-//        self.navigationController?.pushViewController(nextViewController, animated: true)
     }
     
 // MARK: -SMSegment Delegate

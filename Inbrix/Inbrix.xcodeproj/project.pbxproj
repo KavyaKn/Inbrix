@@ -40,6 +40,7 @@
 		5262F66A1D11138B0010C230 /* IBImageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5262F6691D11138B0010C230 /* IBImageView.xib */; };
 		526FB3311D24D22400B0AE20 /* IBEstablishmentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526FB32F1D24D22400B0AE20 /* IBEstablishmentCell.swift */; };
 		526FB3321D24D22400B0AE20 /* IBEstablishmentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 526FB3301D24D22400B0AE20 /* IBEstablishmentCell.xib */; };
+		526FB3351D24E70F00B0AE20 /* IBSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526FB3341D24E70F00B0AE20 /* IBSegmentedControl.swift */; };
 		52CF60111D239C7000CC08D9 /* IBLocationDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52CF600F1D239C7000CC08D9 /* IBLocationDetailCell.swift */; };
 		52CF60121D239C7000CC08D9 /* IBLocationDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52CF60101D239C7000CC08D9 /* IBLocationDetailCell.xib */; };
 		52D5922D1D081ED200A64F1F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D5922C1D081ED200A64F1F /* AppDelegate.swift */; };
@@ -153,6 +154,7 @@
 		5262F6691D11138B0010C230 /* IBImageView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IBImageView.xib; sourceTree = "<group>"; };
 		526FB32F1D24D22400B0AE20 /* IBEstablishmentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBEstablishmentCell.swift; sourceTree = "<group>"; };
 		526FB3301D24D22400B0AE20 /* IBEstablishmentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IBEstablishmentCell.xib; sourceTree = "<group>"; };
+		526FB3341D24E70F00B0AE20 /* IBSegmentedControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBSegmentedControl.swift; sourceTree = "<group>"; };
 		52CF600F1D239C7000CC08D9 /* IBLocationDetailCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBLocationDetailCell.swift; sourceTree = "<group>"; };
 		52CF60101D239C7000CC08D9 /* IBLocationDetailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IBLocationDetailCell.xib; sourceTree = "<group>"; };
 		52D592291D081ED100A64F1F /* Inbrix.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Inbrix.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -389,6 +391,14 @@
 			path = IBEstablishmentCell;
 			sourceTree = "<group>";
 		};
+		526FB3331D24E6EF00B0AE20 /* UISegmentedControl */ = {
+			isa = PBXGroup;
+			children = (
+				526FB3341D24E70F00B0AE20 /* IBSegmentedControl.swift */,
+			);
+			path = UISegmentedControl;
+			sourceTree = "<group>";
+		};
 		52CF600E1D239C5300CC08D9 /* IBLocationDetailCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -545,6 +555,7 @@
 		52D5926C1D08214300A64F1F /* Catagories */ = {
 			isa = PBXGroup;
 			children = (
+				526FB3331D24E6EF00B0AE20 /* UISegmentedControl */,
 				52E12ED81D094FE9003F38A0 /* Font */,
 				52E12ED91D094FE9003F38A0 /* Label */,
 				52E12EDA1D094FE9003F38A0 /* NavigationController */,
@@ -1061,6 +1072,7 @@
 				52D99AA91D22871A0089DBC1 /* IBSegmentHeaderViewCell.swift in Sources */,
 				52D5927A1D08214300A64F1F /* IBButtons.swift in Sources */,
 				52E12EDE1D095109003F38A0 /* IBFont.swift in Sources */,
+				526FB3351D24E70F00B0AE20 /* IBSegmentedControl.swift in Sources */,
 				520A2D5A1D0A89F000216F94 /* DKPopoverViewController.swift in Sources */,
 				52D99AAD1D22874B0089DBC1 /* IBExpandedBrandDetailCell.swift in Sources */,
 				52D5928F1D08286F00A64F1F /* AEXibceptionView.swift in Sources */,

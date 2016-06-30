@@ -263,7 +263,6 @@ class IBPlaceDetailVC: IBBaseVC, RMImagePickerControllerDelegate, DKImagePickerC
         var headerCell : UIView = UIView()
         if (section == 0) {
             let  segmentedHeaderView = NSBundle.mainBundle().loadNibNamed(kIBSegmentHeaderViewCellNibName, owner: nil, options: nil)[0] as! IBSegmentHeaderViewCell
-            segmentedHeaderView.customHeaderView()
             segmentedHeaderView.segmentedControl.addTarget(self, action: #selector(IBPlaceDetailVC.segmentedControlClicked), forControlEvents: UIControlEvents.ValueChanged)
             segmentedHeaderView.segmentedControl.selectedSegmentIndex = tableView.tag
             segmentedControlClicked((segmentedHeaderView.segmentedControl)!)
@@ -296,7 +295,7 @@ class IBPlaceDetailVC: IBBaseVC, RMImagePickerControllerDelegate, DKImagePickerC
                 tableView.reloadRowsAtIndexPaths(indexPaths, withRowAnimation: UITableViewRowAnimation.Automatic)
             }
         } else {
-            
+            self.performSegueWithIdentifier("EstablismentDetailSegue", sender: nil)
         }
         
     }

@@ -81,6 +81,8 @@ class IBPlaceDetailVC: IBBaseVC, RMImagePickerControllerDelegate, DKImagePickerC
         locationDetailTableView.registerNib(brandHeaderCellNib, forCellReuseIdentifier: "IBBrandHeaderCell")
         let expandedBrandDetailCellNib = UINib(nibName:"IBExpandedBrandDetailCell" , bundle: nil)
         locationDetailTableView.registerNib(expandedBrandDetailCellNib, forCellReuseIdentifier: "IBExpandedBrandDetailCell")
+        let establishmentCellNib = UINib(nibName:"IBEstablishmentCell" , bundle: nil)
+        locationDetailTableView.registerNib(establishmentCellNib, forCellReuseIdentifier: "IBEstablishmentCell")
     }
     
     func didTapCameraButton(sender: AnyObject){
@@ -250,8 +252,8 @@ class IBPlaceDetailVC: IBBaseVC, RMImagePickerControllerDelegate, DKImagePickerC
                 cell = expandedBrandDetailCell
             }
         } else {
-            let establishmentCell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) 
-            establishmentCell.textLabel?.text = "EST 1"
+            let establishmentCell = tableView.dequeueReusableCellWithIdentifier("IBEstablishmentCell", forIndexPath: indexPath) as? IBEstablishmentCell
+            establishmentCell!.establishmentCellLabel.text = "Establishment 1"
             cell = establishmentCell
         }
         return cell!

@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		5202D6631D2E313000E89FBF /* IBMobileFormVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5202D6621D2E313000E89FBF /* IBMobileFormVC.swift */; };
+		5202D6661D2E5C7200E89FBF /* CheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5202D6651D2E5C7200E89FBF /* CheckBox.swift */; };
+		5202D66A1D2E5CEB00E89FBF /* IBCheckListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5202D6681D2E5CEB00E89FBF /* IBCheckListTableViewCell.swift */; };
+		5202D66B1D2E5CEB00E89FBF /* IBCheckListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5202D6691D2E5CEB00E89FBF /* IBCheckListTableViewCell.xib */; };
 		520A2D501D0A89F000216F94 /* DKCamera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520A2D311D0A89F000216F94 /* DKCamera.swift */; };
 		520A2D511D0A89F000216F94 /* DKCameraResource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 520A2D321D0A89F000216F94 /* DKCameraResource.bundle */; };
 		520A2D521D0A89F000216F94 /* DKGroupDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520A2D351D0A89F000216F94 /* DKGroupDataManager.swift */; };
@@ -121,6 +124,9 @@
 /* Begin PBXFileReference section */
 		2B629CAE9E32BC552569883A /* Pods-Inbrix.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Inbrix.release.xcconfig"; path = "Pods/Target Support Files/Pods-Inbrix/Pods-Inbrix.release.xcconfig"; sourceTree = "<group>"; };
 		5202D6621D2E313000E89FBF /* IBMobileFormVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBMobileFormVC.swift; sourceTree = "<group>"; };
+		5202D6651D2E5C7200E89FBF /* CheckBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CheckBox.swift; sourceTree = "<group>"; };
+		5202D6681D2E5CEB00E89FBF /* IBCheckListTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBCheckListTableViewCell.swift; sourceTree = "<group>"; };
+		5202D6691D2E5CEB00E89FBF /* IBCheckListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IBCheckListTableViewCell.xib; sourceTree = "<group>"; };
 		520A2D311D0A89F000216F94 /* DKCamera.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DKCamera.swift; sourceTree = "<group>"; };
 		520A2D321D0A89F000216F94 /* DKCameraResource.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = DKCameraResource.bundle; sourceTree = "<group>"; };
 		520A2D351D0A89F000216F94 /* DKGroupDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DKGroupDataManager.swift; sourceTree = "<group>"; };
@@ -276,6 +282,23 @@
 				5202D6621D2E313000E89FBF /* IBMobileFormVC.swift */,
 			);
 			path = MobileFormVC;
+			sourceTree = "<group>";
+		};
+		5202D6641D2E5C7200E89FBF /* CheckBox */ = {
+			isa = PBXGroup;
+			children = (
+				5202D6651D2E5C7200E89FBF /* CheckBox.swift */,
+			);
+			path = CheckBox;
+			sourceTree = "<group>";
+		};
+		5202D6671D2E5CC100E89FBF /* IBCheckListTableViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				5202D6681D2E5CEB00E89FBF /* IBCheckListTableViewCell.swift */,
+				5202D6691D2E5CEB00E89FBF /* IBCheckListTableViewCell.xib */,
+			);
+			path = IBCheckListTableViewCell;
 			sourceTree = "<group>";
 		};
 		520A2D2F1D0A89F000216F94 /* Camera */ = {
@@ -493,14 +516,14 @@
 		52D5925F1D081FBA00A64F1F /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				5202D6611D2E310D00E89FBF /* MobileFormVC */,
-				52F1E9E41D19518D003C8465 /* EstablishmentDetailVC */,
 				52D592601D081FBA00A64F1F /* BaseVC */,
 				52D592611D081FBA00A64F1F /* LoginVC */,
-				52D592631D081FBA00A64F1F /* PlaceListVC */,
-				52D592621D081FBA00A64F1F /* PlaceDetailVC */,
-				520A2D751D0A8D6900216F94 /* ImageEditingVC */,
 				52E12ECE1D094E4E003F38A0 /* MenuDrawer */,
+				52D592631D081FBA00A64F1F /* PlaceListVC */,
+				520A2D751D0A8D6900216F94 /* ImageEditingVC */,
+				52D592621D081FBA00A64F1F /* PlaceDetailVC */,
+				52F1E9E41D19518D003C8465 /* EstablishmentDetailVC */,
+				5202D6611D2E310D00E89FBF /* MobileFormVC */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -627,6 +650,7 @@
 		52D592811D08286F00A64F1F /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
+				5202D6641D2E5C7200E89FBF /* CheckBox */,
 				520A2D7C1D0A99E100216F94 /* CustomAlertView */,
 				520A2D2F1D0A89F000216F94 /* Camera */,
 				520A2D451D0A89F000216F94 /* ImagePicker */,
@@ -689,6 +713,7 @@
 		52D592991D08293300A64F1F /* TableViewCell */ = {
 			isa = PBXGroup;
 			children = (
+				5202D6671D2E5CC100E89FBF /* IBCheckListTableViewCell */,
 				526FB32E1D24D20A00B0AE20 /* IBEstablishmentCell */,
 				52CF600E1D239C5300CC08D9 /* IBLocationDetailCell */,
 				52D99AAF1D228D850089DBC1 /* IBBrandHeaderCell */,
@@ -945,6 +970,7 @@
 				52D592321D081ED200A64F1F /* Main.storyboard in Resources */,
 				526FB3321D24D22400B0AE20 /* IBEstablishmentCell.xib in Resources */,
 				520A2D651D0A89F000216F94 /* RMImages.xcassets in Resources */,
+				5202D66B1D2E5CEB00E89FBF /* IBCheckListTableViewCell.xib in Resources */,
 				52CF60121D239C7000CC08D9 /* IBLocationDetailCell.xib in Resources */,
 				52D592A51D08293300A64F1F /* DetailView.xib in Resources */,
 			);
@@ -1064,9 +1090,11 @@
 				52FBC4CA1D13E12D00128287 /* IBLocationModel.swift in Sources */,
 				520A2D591D0A89F000216F94 /* DKImageResource.swift in Sources */,
 				52E12EF41D09615C003F38A0 /* IBMenuHeaderView.swift in Sources */,
+				5202D6661D2E5C7200E89FBF /* CheckBox.swift in Sources */,
 				520A2D5D1D0A89F000216F94 /* DKAssetGroupListVC.swift in Sources */,
 				52D592A61D08293300A64F1F /* HeaderView.swift in Sources */,
 				52FBC4CD1D14082800128287 /* IBLocalizableKey.swift in Sources */,
+				5202D66A1D2E5CEB00E89FBF /* IBCheckListTableViewCell.swift in Sources */,
 				52E12ED51D094F13003F38A0 /* UIStoryboard.swift in Sources */,
 				52D592A41D08293300A64F1F /* DetailView.swift in Sources */,
 				520A2D541D0A89F000216F94 /* DKAssetGroup.swift in Sources */,

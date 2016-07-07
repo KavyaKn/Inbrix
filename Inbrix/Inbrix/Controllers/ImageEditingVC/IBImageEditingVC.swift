@@ -19,8 +19,6 @@ class IBImageEditingVC: UIViewController , UICollectionViewDataSource, UICollect
     @IBOutlet weak var selectedImage: UIImageView!
     @IBOutlet weak var editingImageCollectionView: UICollectionView!
     
-    
-    
     lazy var imageManager = PHImageManager.defaultManager()
     var gallaryAssets: [PHAsset] = []
     var cameraAssets: [DKAsset] = []
@@ -32,7 +30,6 @@ class IBImageEditingVC: UIViewController , UICollectionViewDataSource, UICollect
         super.viewDidLoad()
         self.imageNameTextField.addTarget(self, action: #selector(IBImageEditingVC.textFieldDidChange(_:)), forControlEvents: UIControlEvents.EditingChanged)
         self.imageNameTextField.delegate = self
-        self.navigationController?.navigationBarHidden = true
         self.storingInDictionary()
     }
     

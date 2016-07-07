@@ -235,11 +235,11 @@ class IBPlaceDetailVC: IBBaseVC, RMImagePickerControllerDelegate, DKImagePickerC
         if ( self.locationDetailTableView.tag == 0) {
             if (indexPath.section == 0) {
                 let locationDetailCell = tableView.dequeueReusableCellWithIdentifier("IBLocationDetailCell", forIndexPath: indexPath) as! IBLocationDetailCell
-                locationDetailCell.locationNameLabel.text = ""
-                locationDetailCell.locationIdLabel.text = ""
-                locationDetailCell.locationPhoneNoLabel.text = ""
-                locationDetailCell.locationEmailLabel.text = ""
-                locationDetailCell.locationAddressLabel.text = ""
+                locationDetailCell.locationNameLabel.text = "BMW"
+                locationDetailCell.locationIdLabel.text = "19503"
+                locationDetailCell.locationPhoneNoLabel.text = "1234567890"
+                locationDetailCell.locationEmailLabel.text = "info@bmw-parsolimotors.in"
+                locationDetailCell.locationAddressLabel.text = "White Wagon, Rajkot-Ahmedabad Highway, Nr. Greenland Circle, Rajkot, Gujarat 360003"
                 cell = locationDetailCell
                 
             } else {
@@ -253,7 +253,7 @@ class IBPlaceDetailVC: IBBaseVC, RMImagePickerControllerDelegate, DKImagePickerC
             }
         } else {
             let establishmentCell = tableView.dequeueReusableCellWithIdentifier("IBEstablishmentCell", forIndexPath: indexPath) as? IBEstablishmentCell
-            establishmentCell!.establishmentCellLabel.text = "Establishment 1"
+            establishmentCell!.establishmentCellLabel.text = "Establishment \(indexPath.row)"
             cell = establishmentCell
         }
         return cell!

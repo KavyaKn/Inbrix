@@ -23,6 +23,7 @@ class IBEstablishmentDetailVC: IBBaseVC, UITableViewDataSource, UITableViewDeleg
         super.viewDidLoad()
         self.initializeView()
         self.registerCell()
+        self.labelInitialData()
     }
     
     func initializeView () {
@@ -37,6 +38,17 @@ class IBEstablishmentDetailVC: IBBaseVC, UITableViewDataSource, UITableViewDeleg
     func registerCell() {
         let establishmentCellNib = UINib(nibName:"IBEstablishmentCell" , bundle: nil)
         establismentDetailTableView.registerNib(establishmentCellNib, forCellReuseIdentifier: "IBEstablishmentCell")
+    }
+    
+    func labelInitialData() {
+        self.establismentNameLabel.text = "BMW"
+        self.establishmentIdLabel.text = "19503"
+        self.establismentPhoneNoLabel.text = "1234567890"
+        self.establismentEmailLabel.text = "info@bmw-parsolimotors.in"
+        self.establishmentAddressLabel.text = "White Wagon, Rajkot-Ahmedabad Highway, Nr. Greenland Circle, Rajkot, Gujarat 360003"
+        self.establishmentAddressLabel.numberOfLines = 0
+        self.establishmentAddressLabel.lineBreakMode = NSLineBreakMode.ByWordWrapping
+        self.establishmentAddressLabel.sizeToFit()
     }
     
     func didTapAddButton(sender: AnyObject){
@@ -146,15 +158,15 @@ class IBEstablishmentDetailVC: IBBaseVC, UITableViewDataSource, UITableViewDeleg
         {
         case 0:
             navigationItem.rightBarButtonItems = nil
-            establishmentCell.establishmentCellLabel.text = "XML 1"
+            establishmentCell.establishmentCellLabel.text = "XML \(indexPath.row)"
             break
         case 1:
             navigationItem.rightBarButtonItems = [addButton]
-            establishmentCell.establishmentCellLabel.text = "XML 1"
+            establishmentCell.establishmentCellLabel.text = "XML \(indexPath.row)"
             break
         case 2:
             navigationItem.rightBarButtonItems = nil
-            establishmentCell.establishmentCellLabel.text = "XML 1"
+            establishmentCell.establishmentCellLabel.text = "XML \(indexPath.row)"
             break
             
         default:

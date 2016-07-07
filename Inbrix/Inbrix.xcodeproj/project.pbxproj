@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5202D6631D2E313000E89FBF /* IBMobileFormVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5202D6621D2E313000E89FBF /* IBMobileFormVC.swift */; };
 		520A2D501D0A89F000216F94 /* DKCamera.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520A2D311D0A89F000216F94 /* DKCamera.swift */; };
 		520A2D511D0A89F000216F94 /* DKCameraResource.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 520A2D321D0A89F000216F94 /* DKCameraResource.bundle */; };
 		520A2D521D0A89F000216F94 /* DKGroupDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520A2D351D0A89F000216F94 /* DKGroupDataManager.swift */; };
@@ -119,6 +120,7 @@
 
 /* Begin PBXFileReference section */
 		2B629CAE9E32BC552569883A /* Pods-Inbrix.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Inbrix.release.xcconfig"; path = "Pods/Target Support Files/Pods-Inbrix/Pods-Inbrix.release.xcconfig"; sourceTree = "<group>"; };
+		5202D6621D2E313000E89FBF /* IBMobileFormVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBMobileFormVC.swift; sourceTree = "<group>"; };
 		520A2D311D0A89F000216F94 /* DKCamera.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DKCamera.swift; sourceTree = "<group>"; };
 		520A2D321D0A89F000216F94 /* DKCameraResource.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = DKCameraResource.bundle; sourceTree = "<group>"; };
 		520A2D351D0A89F000216F94 /* DKGroupDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DKGroupDataManager.swift; sourceTree = "<group>"; };
@@ -266,6 +268,14 @@
 				2B629CAE9E32BC552569883A /* Pods-Inbrix.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		5202D6611D2E310D00E89FBF /* MobileFormVC */ = {
+			isa = PBXGroup;
+			children = (
+				5202D6621D2E313000E89FBF /* IBMobileFormVC.swift */,
+			);
+			path = MobileFormVC;
 			sourceTree = "<group>";
 		};
 		520A2D2F1D0A89F000216F94 /* Camera */ = {
@@ -483,6 +493,7 @@
 		52D5925F1D081FBA00A64F1F /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				5202D6611D2E310D00E89FBF /* MobileFormVC */,
 				52F1E9E41D19518D003C8465 /* EstablishmentDetailVC */,
 				52D592601D081FBA00A64F1F /* BaseVC */,
 				52D592611D081FBA00A64F1F /* LoginVC */,
@@ -1073,6 +1084,7 @@
 				52D5927A1D08214300A64F1F /* IBButtons.swift in Sources */,
 				52E12EDE1D095109003F38A0 /* IBFont.swift in Sources */,
 				526FB3351D24E70F00B0AE20 /* IBSegmentedControl.swift in Sources */,
+				5202D6631D2E313000E89FBF /* IBMobileFormVC.swift in Sources */,
 				520A2D5A1D0A89F000216F94 /* DKPopoverViewController.swift in Sources */,
 				52D99AAD1D22874B0089DBC1 /* IBExpandedBrandDetailCell.swift in Sources */,
 				52D5928F1D08286F00A64F1F /* AEXibceptionView.swift in Sources */,

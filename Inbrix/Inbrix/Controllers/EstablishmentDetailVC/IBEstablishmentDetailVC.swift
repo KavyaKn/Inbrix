@@ -52,6 +52,7 @@ class IBEstablishmentDetailVC: IBBaseVC, UITableViewDataSource, UITableViewDeleg
     }
     
     func didTapAddButton(sender: AnyObject){
+        self.performSegueWithIdentifier("MobileFormSegue", sender: nil)
     }
 
     override func didReceiveMemoryWarning() {
@@ -177,7 +178,7 @@ class IBEstablishmentDetailVC: IBBaseVC, UITableViewDataSource, UITableViewDeleg
         return establishmentCell
     }
     
-    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool{
+    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         
         switch (establismentSegmentedControl.selectedSegmentIndex) {
         case 1:
@@ -189,18 +190,15 @@ class IBEstablishmentDetailVC: IBBaseVC, UITableViewDataSource, UITableViewDeleg
         return indexPath.section != 0
     }
     
-    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]?
-    {
+    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
         
         let delete = UITableViewRowAction(style: UITableViewRowActionStyle.Default, title: "DELETE"){(UITableViewRowAction,NSIndexPath) -> Void in
-            
             print("What u want while Pressed delete")
         }
         let edit = UITableViewRowAction(style: UITableViewRowActionStyle.Normal, title: "EDIT"){(UITableViewRowAction,NSIndexPath) -> Void in
-            
+            self.performSegueWithIdentifier("MobileFormSegue", sender: nil)
             print("What u want while Pressed Edit")
         }
-        
         edit.backgroundColor = UIColor.orangeColor()
         return [delete,edit]
     }

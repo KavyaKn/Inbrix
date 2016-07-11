@@ -114,15 +114,15 @@ class IBPlaceDetailVC: IBBaseVC, RMImagePickerControllerDelegate, DKImagePickerC
     
     // MARK: - DKImagePickerControllerDelegate
     
-    func dkImagePickerController(picker: DKImagePickerController, didFinishPickingAssets assets: [DKAsset]){
+    func dkImagePickerController(picker: DKImagePickerController, didFinishPickingAssets assets: [DKAsset]) {
         self.dismissCameraPopover()
     }
     
-    func dkImagePickerControllerDidCancel(picker: DKImagePickerController){
+    func dkImagePickerControllerDidCancel(picker: DKImagePickerController) {
         self.dismissCameraPopover()
     }
     
-    func dismissCameraPopover(){
+    func dismissCameraPopover() {
         let imageEditingVC:IBImageEditingVC = UIStoryboard(name:kIBMainStoryboardIdentifier, bundle: nil).instantiateViewControllerWithIdentifier(kIBImageEditingViewControllerIdentifier) as! IBImageEditingVC
         imageEditingVC.cameraAssets = self.CameraAssets!
         self.navigationController!.pushViewController(imageEditingVC , animated: true)
@@ -156,7 +156,7 @@ class IBPlaceDetailVC: IBBaseVC, RMImagePickerControllerDelegate, DKImagePickerC
         self.presentViewController(imagePicker, animated: true, completion: nil)
     }
     
-    func takePhoto(){
+    func takePhoto() {
         isGallary = false
         print("ButtonTapped")
         let sourceType:DKImagePickerControllerSourceType = .Camera

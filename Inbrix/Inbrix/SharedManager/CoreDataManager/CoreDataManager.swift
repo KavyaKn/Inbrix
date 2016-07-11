@@ -91,9 +91,6 @@ class CoreDataManager: NSObject {
             locationImage.imageId = String(imageModel["imageId"])
             locationImage.imageAddedTime = imageModel["imageAddedTime"] as? NSDate
             locationImage.imageName = String(imageModel["imageName"])
-            
-            print(locationImage.imageName)
-            
             self.saveContext()
         }
     }
@@ -106,12 +103,8 @@ class CoreDataManager: NSObject {
             let result = try self.managedObjectContext.executeFetchRequest(fetchRequest) as! [IBLocationImages]
             
             if (!result.isEmpty) {
-                print(result[0].imageName)
                 print(result[0].imageId)
-                print(result[0].imageAddedTime)
-                //                print(result[0].image)
             }
-            print(result)
             return result
         } catch {
             let fetchError = error as NSError

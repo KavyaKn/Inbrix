@@ -17,6 +17,7 @@ class IBEstablishmentDetailVC: IBBaseVC, UITableViewDataSource, UITableViewDeleg
     @IBOutlet weak var establishmentAddressLabel: UILabel!
     @IBOutlet weak var establismentSegmentedControl: UISegmentedControl!
     @IBOutlet weak var establismentDetailTableView: UITableView!
+    
     var addButton : UIBarButtonItem = UIBarButtonItem()
     
     override func viewDidLoad() {
@@ -51,7 +52,7 @@ class IBEstablishmentDetailVC: IBBaseVC, UITableViewDataSource, UITableViewDeleg
         self.establishmentAddressLabel.sizeToFit()
     }
     
-    func didTapAddButton(sender: AnyObject){
+    func didTapAddButton(sender: AnyObject) {
         self.performSegueWithIdentifier("MobileFormSegue", sender: nil)
     }
 
@@ -85,8 +86,7 @@ class IBEstablishmentDetailVC: IBBaseVC, UITableViewDataSource, UITableViewDeleg
     }
     
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int
-    {
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var returnValue = 0
         
         switch(establismentSegmentedControl.selectedSegmentIndex)
@@ -203,7 +203,7 @@ class IBEstablishmentDetailVC: IBBaseVC, UITableViewDataSource, UITableViewDeleg
         return [delete,edit]
     }
     
-    func segmentedControlClicked(sender :UISegmentedControl){
+    func segmentedControlClicked(sender :UISegmentedControl) {
         let sortedViews = sender.subviews.sort( { $0.frame.origin.x < $1.frame.origin.x } )
         
         for (index, view) in sortedViews.enumerate() {

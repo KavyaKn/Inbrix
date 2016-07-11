@@ -53,7 +53,7 @@
                 <outlet property="checkListButton" destination="hZH-f4-h29" id="exC-Ny-F7Q"/>
                 <outlet property="checkListLabel" destination="IPa-SD-Xi5" id="hcb-o2-X55"/>
             </connections>
-            <point key="canvasLocation" x="460" y="313.5"/>
+            <point key="canvasLocation" x="417" y="308.5"/>
         </tableViewCell>
     </objects>
 </document>

@@ -57,12 +57,12 @@ class IBPlaceListVC: AEAccordionTableViewController, SMSegmentViewDelegate, UISe
         super.didReceiveMemoryWarning()
     }
     
-//    deinit{
-//        if let superView = locationSearchController.view.superview
-//        {
-//            superView.removeFromSuperview()
-//        }
-//    }
+    deinit{
+        if let superView = locationSearchController.view.superview
+        {
+            superView.removeFromSuperview()
+        }
+    }
     
     func headerViewMethods(){
         // Set the table views header cell and delegate

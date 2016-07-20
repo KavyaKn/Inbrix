@@ -13,7 +13,6 @@ class IBBaseVC: UIViewController, UIAlertViewDelegate {
     // Add custom back button
     
     func addCustomBackButton() {
-        
         let backBtn: UIButton = UIButton(type: .Custom)
         let backBtnImage: UIImage = UIImage(named: "back.png")!
         backBtn.setBackgroundImage(backBtnImage, forState: .Normal)

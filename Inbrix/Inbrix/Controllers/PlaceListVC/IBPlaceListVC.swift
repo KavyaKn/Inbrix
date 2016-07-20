@@ -10,10 +10,9 @@ import UIKit
 import MapKit
 import CoreLocation
 
-class IBPlaceListVC: UIViewController,SMSegmentViewDelegate , UISearchResultsUpdating, MKMapViewDelegate, CLLocationManagerDelegate {
+class IBPlaceListVC: UIViewController,SMSegmentViewDelegate , UISearchBarDelegate, MKMapViewDelegate, CLLocationManagerDelegate {
     
     private var locationArray = [IBLocationModel]()
-    
     var segmentView: SMSegmentView!
     var alphaSegmentView: SMBasicSegmentView!
     var margin: CGFloat = 0.0
@@ -28,7 +27,14 @@ class IBPlaceListVC: UIViewController,SMSegmentViewDelegate , UISearchResultsUpd
     var userCurrentLocation : CLLocation = CLLocation()
     var titleArray = [IBLocations]()
     var annotationArray = [IBPlaceListAnnotations]()
-    
+    var annotation:MKAnnotation!
+    var localSearchRequest:MKLocalSearchRequest!
+    var localSearch:MKLocalSearch!
+//    var localSearchResponse:MKLocalSearchResponse!
+    var error:NSError!
+    var pointAnnotation:MKPointAnnotation!
+    var pinAnnotationView:MKPinAnnotationView!
+    var locationSearchController: UISearchController = UISearchController()
     
     @IBOutlet weak var placeListMapView: MKMapView!
     
@@ -68,7 +74,6 @@ class IBPlaceListVC: UIViewController,SMSegmentViewDelegate , UISearchResultsUpd
     func callPlaceListAPI() {
         let apiObject = IBPlaceListapi()
         APIManager.sharedInstance.makeAPIRequest(apiObject, completionHandler: {(response :Dictionary<String, AnyObject>?, error:NSError?) -> Void in
-            print(apiObject.nearByPlaceListArray)
             IBLocations.saveNearByPlaces(apiObject.nearByPlaceListArray)
             self.annotationView()
         })
@@ -98,49 +103,52 @@ class IBPlaceListVC: UIViewController,SMSegmentViewDelegate , UISearchResultsUpd
         let rightBarButton = UIBarButtonItem()
         rightBarButton.customView = searchBtn
         self.navigationItem.rightBarButtonItem = rightBarButton
-        locationSearchController.searchResultsUpdater = self
     }
     
     func addAction() {
-        if isTitleBar == true {
-            self.navigationItem.titleView = locationSearchController.searchBar
-            self.locationSearchController.searchBar.becomeFirstResponder()
-            searchBtn.setImage(UIImage(named: "SearchGrayIcon"), forState: .Normal)
-            isTitleBar = false
-        } else {
-            let label:UILabel = UILabel(frame: CGRectMake(0, 0, self.navigationItem.titleView!.frame.size.width, self.navigationItem.titleView!.frame.size.height))
-            label.text = "NearBy"
-            label.textAlignment = NSTextAlignment.Center
-            label.textColor = UIColor.whiteColor()
-            self.navigationItem.titleView = label
-            
-            searchBtn.setImage(UIImage(named: "SearchWhiteIcon"), forState: .Normal)
-            isTitleBar = true
-        }
+        locationSearchController = UISearchController(searchResultsController: nil)
+        locationSearchController.hidesNavigationBarDuringPresentation = true
+        locationSearchController.dimsBackgroundDuringPresentation = false
+        locationSearchController.searchBar.tintColor = UIColor.whiteColor()
+        locationSearchController.searchBar.backgroundColor = UIColor.defaultNavigationBarTintColor()
+        locationSearchController.searchBar.searchBarStyle = .Minimal
+        locationSearchController.searchBar.clipsToBounds = true
+        self.locationSearchController.searchBar.delegate = self
+        locationSearchController.searchBar.sizeToFit()
+        presentViewController(locationSearchController, animated: true, completion: nil)
     }
     
-    // MARK: -Search controller Delegate
-    
-    var locationSearchController: UISearchController = ({
-        
-        let controller = UISearchController(searchResultsController: nil)
-        controller.hidesNavigationBarDuringPresentation = false
-        controller.dimsBackgroundDuringPresentation = false
-        controller.searchBar.searchBarStyle = .Minimal
-        controller.searchBar.tintColor = UIColor.whiteColor()
-        controller.searchBar.layer.cornerRadius = 10
-        controller.searchBar.clipsToBounds = true
-        controller.searchBar.sizeToFit()
-        return controller
-    })()
-    
-    func updateSearchResultsForSearchController(searchController: UISearchController) {
-        searchArray.removeAll(keepCapacity: false)
-        
-        let array = locationArray.filter {
-            $0.locationTitle.rangeOfString(searchController.searchBar.text!) != nil
+    //MARK: UISearchBar Delegate
+    func searchBarSearchButtonClicked(searchBar: UISearchBar){
+        //1
+        searchBar.resignFirstResponder()
+        dismissViewControllerAnimated(true, completion: nil)
+        if self.placeListMapView.annotations.count != 0{
+            annotation = self.placeListMapView.annotations[0]
+            self.placeListMapView.removeAnnotation(annotation)
         }
-        searchArray = array
+        //2
+        localSearchRequest = MKLocalSearchRequest()
+        localSearchRequest.naturalLanguageQuery = searchBar.text
+        localSearch = MKLocalSearch(request: localSearchRequest)
+        localSearch.startWithCompletionHandler { (localSearchResponse, error) -> Void in
+            
+            if localSearchResponse == nil{
+                let alertController = UIAlertController(title: nil, message: "Place Not Found", preferredStyle: UIAlertControllerStyle.Alert)
+                alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil))
+                self.presentViewController(alertController, animated: true, completion: nil)
+                return
+            }
+            //3
+            self.pointAnnotation = MKPointAnnotation()
+            self.pointAnnotation.title = searchBar.text
+            self.pointAnnotation.coordinate = CLLocationCoordinate2D(latitude: localSearchResponse!.boundingRegion.center.latitude, longitude:     localSearchResponse!.boundingRegion.center.longitude)
+            
+            
+            self.pinAnnotationView = MKPinAnnotationView(annotation: self.pointAnnotation, reuseIdentifier: nil)
+            self.placeListMapView.centerCoordinate = self.pointAnnotation.coordinate
+            self.placeListMapView.addAnnotation(self.pinAnnotationView.annotation!)
+        }
     }
     
     // MARK: - Location update

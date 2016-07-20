@@ -1,4 +1,4 @@
-//
+
 //  IBPlaceDetailVC.swift
 //  Inbrix
 //
@@ -35,12 +35,12 @@ class IBPlaceDetailVC: IBBaseVC, RMImagePickerControllerDelegate, DKImagePickerC
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let result = CoreDataManager.sharedInstance.fetchImages() {
-            self.imageAssets = result
-        }
-        for (_, element) in imageAssets.enumerate() {
-            print(element.valueForKey("imageId"))
-        }
+//        if let result = CoreDataManager.sharedInstance.fetchImages() {
+//            self.imageAssets = result
+//        }
+//        for (_, element) in imageAssets.enumerate() {
+//            print(element.valueForKey("imageId"))
+//        }
         countriesinAsia = ["Japan","China","India"]
         totalPages = self.imageAssets.count
         self.initializeView()

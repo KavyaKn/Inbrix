@@ -127,7 +127,6 @@ class IBImageEditingVC: UIViewController , UICollectionViewDataSource, UICollect
     }
     
     @IBAction func saveButtonClicked(sender: AnyObject) {
-        CoreDataManager().saveImages(self.imagesArray)
         print(self.imagesArray.count)
         let imagePickerVC:IBPlaceDetailVC = UIStoryboard(name:kIBMainStoryboardIdentifier, bundle: nil).instantiateViewControllerWithIdentifier(kIBPlaceDetailViewControllerIdentifier) as! IBPlaceDetailVC
         self.navigationController?.pushViewController(imagePickerVC, animated: true)

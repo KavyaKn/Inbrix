@@ -6,7 +6,16 @@
         <attribute name="imageId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="imageName" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
+    <entity name="IBLocations" representedClassName=".IBLocations" syncable="YES">
+        <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="locationDistance" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="locationId" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="locationNumber" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="locationTitle" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+    </entity>
     <elements>
         <element name="IBLocationImages" positionX="-63" positionY="-18" width="128" height="105"/>
+        <element name="IBLocations" positionX="-63" positionY="9" width="128" height="135"/>
     </elements>
 </model>

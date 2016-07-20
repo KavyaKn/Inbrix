@@ -37,7 +37,6 @@
 		520A2D671D0A89F000216F94 /* SwiftAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520A2D4F1D0A89F000216F94 /* SwiftAlertView.swift */; };
 		520A2D6F1D0A8AE300216F94 /* IBLocationImages+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520A2D6D1D0A8AE300216F94 /* IBLocationImages+CoreDataProperties.swift */; };
 		520A2D701D0A8AE300216F94 /* IBLocationImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520A2D6E1D0A8AE300216F94 /* IBLocationImages.swift */; };
-		520A2D721D0A8B7300216F94 /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520A2D711D0A8B7300216F94 /* CoreDataManager.swift */; };
 		520A2D771D0A8D6900216F94 /* IBImageEditingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520A2D761D0A8D6900216F94 /* IBImageEditingVC.swift */; };
 		520A2D791D0A8DB500216F94 /* IBImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520A2D781D0A8DB500216F94 /* IBImageCollectionViewCell.swift */; };
 		520A2D7F1D0A99E100216F94 /* RNGridMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 520A2D7E1D0A99E100216F94 /* RNGridMenu.m */; };
@@ -86,6 +85,9 @@
 		52D99AAE1D22874B0089DBC1 /* IBExpandedBrandDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52D99AAC1D22874B0089DBC1 /* IBExpandedBrandDetailCell.xib */; };
 		52D99AB21D228D9C0089DBC1 /* IBBrandHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52D99AB01D228D9C0089DBC1 /* IBBrandHeaderCell.swift */; };
 		52D99AB31D228D9C0089DBC1 /* IBBrandHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52D99AB11D228D9C0089DBC1 /* IBBrandHeaderCell.xib */; };
+		52DDA2121D3F42BF000AFC1B /* IBLocations+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52DDA2101D3F42BF000AFC1B /* IBLocations+CoreDataProperties.swift */; };
+		52DDA2131D3F42BF000AFC1B /* IBLocations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52DDA2111D3F42BF000AFC1B /* IBLocations.swift */; };
+		52DDA2151D3F4391000AFC1B /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52DDA2141D3F4391000AFC1B /* CoreDataManager.swift */; };
 		52E12ED51D094F13003F38A0 /* UIStoryboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E12ED41D094F13003F38A0 /* UIStoryboard.swift */; };
 		52E12EDE1D095109003F38A0 /* IBFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E12EDD1D095109003F38A0 /* IBFont.swift */; };
 		52E12EE01D095159003F38A0 /* IBLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E12EDF1D095159003F38A0 /* IBLabel.swift */; };
@@ -159,7 +161,6 @@
 		520A2D4F1D0A89F000216F94 /* SwiftAlertView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftAlertView.swift; sourceTree = "<group>"; };
 		520A2D6D1D0A8AE300216F94 /* IBLocationImages+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IBLocationImages+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		520A2D6E1D0A8AE300216F94 /* IBLocationImages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBLocationImages.swift; sourceTree = "<group>"; };
-		520A2D711D0A8B7300216F94 /* CoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		520A2D761D0A8D6900216F94 /* IBImageEditingVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBImageEditingVC.swift; sourceTree = "<group>"; };
 		520A2D781D0A8DB500216F94 /* IBImageCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		520A2D7D1D0A99E100216F94 /* RNGridMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNGridMenu.h; sourceTree = "<group>"; };
@@ -219,6 +220,9 @@
 		52D99AAC1D22874B0089DBC1 /* IBExpandedBrandDetailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IBExpandedBrandDetailCell.xib; sourceTree = "<group>"; };
 		52D99AB01D228D9C0089DBC1 /* IBBrandHeaderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBrandHeaderCell.swift; sourceTree = "<group>"; };
 		52D99AB11D228D9C0089DBC1 /* IBBrandHeaderCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IBBrandHeaderCell.xib; sourceTree = "<group>"; };
+		52DDA2101D3F42BF000AFC1B /* IBLocations+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IBLocations+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		52DDA2111D3F42BF000AFC1B /* IBLocations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBLocations.swift; sourceTree = "<group>"; };
+		52DDA2141D3F4391000AFC1B /* CoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
 		52E12ED41D094F13003F38A0 /* UIStoryboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIStoryboard.swift; sourceTree = "<group>"; };
 		52E12EDD1D095109003F38A0 /* IBFont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBFont.swift; sourceTree = "<group>"; };
 		52E12EDF1D095159003F38A0 /* IBLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBLabel.swift; sourceTree = "<group>"; };
@@ -402,7 +406,9 @@
 		520A2D6C1D0A8AE300216F94 /* CoreDataManager */ = {
 			isa = PBXGroup;
 			children = (
-				520A2D711D0A8B7300216F94 /* CoreDataManager.swift */,
+				52DDA2141D3F4391000AFC1B /* CoreDataManager.swift */,
+				52DDA2101D3F42BF000AFC1B /* IBLocations+CoreDataProperties.swift */,
+				52DDA2111D3F42BF000AFC1B /* IBLocations.swift */,
 				520A2D6D1D0A8AE300216F94 /* IBLocationImages+CoreDataProperties.swift */,
 				520A2D6E1D0A8AE300216F94 /* IBLocationImages.swift */,
 			);
@@ -1094,11 +1100,13 @@
 				520A2D5F1D0A89F000216F94 /* RMAlbumCell.swift in Sources */,
 				52FBC4CF1D141DC200128287 /* IBGeneralConstants.swift in Sources */,
 				52D592921D08286F00A64F1F /* SMBasicSegmentView.swift in Sources */,
+				52DDA2131D3F42BF000AFC1B /* IBLocations.swift in Sources */,
 				520A2D631D0A89F000216F94 /* RMAssetCollectionPicker.swift in Sources */,
 				52D592A91D0829F400A64F1F /* ParallaxTableHeaderView.swift in Sources */,
 				52E343851D37AF3E008B6D93 /* APIManager.swift in Sources */,
 				520A2D791D0A8DB500216F94 /* IBImageCollectionViewCell.swift in Sources */,
 				52CF60111D239C7000CC08D9 /* IBLocationDetailCell.swift in Sources */,
+				52DDA2151D3F4391000AFC1B /* CoreDataManager.swift in Sources */,
 				52D592A21D08293300A64F1F /* CustomTableViewCell.swift in Sources */,
 				52E12EE21D0951B7003F38A0 /* IBColor.swift in Sources */,
 				520A2D6F1D0A8AE300216F94 /* IBLocationImages+CoreDataProperties.swift in Sources */,
@@ -1107,6 +1115,7 @@
 				52E12EE71D0952E0003F38A0 /* IBApplication.swift in Sources */,
 				52E343881D37B066008B6D93 /* IBPlaceListapi.swift in Sources */,
 				52D5922D1D081ED200A64F1F /* AppDelegate.swift in Sources */,
+				52DDA2121D3F42BF000AFC1B /* IBLocations+CoreDataProperties.swift in Sources */,
 				52D592AE1D083CB400A64F1F /* HelperLocationManager.swift in Sources */,
 				52D5926B1D08206500A64F1F /* IBLoginVC.swift in Sources */,
 				52E343831D37AF3E008B6D93 /* APIBase.swift in Sources */,
@@ -1136,7 +1145,6 @@
 				520A2D541D0A89F000216F94 /* DKAssetGroup.swift in Sources */,
 				52D5927E1D08214300A64F1F /* IBTextField.swift in Sources */,
 				520A2D621D0A89F000216F94 /* RMAssetCell.swift in Sources */,
-				520A2D721D0A8B7300216F94 /* CoreDataManager.swift in Sources */,
 				520A2D571D0A89F000216F94 /* DKImagePickerController.swift in Sources */,
 				52D592911D08286F00A64F1F /* SMBasicSegment.swift in Sources */,
 				520A2D5B1D0A89F000216F94 /* DKAssetGroupDetailVC.swift in Sources */,

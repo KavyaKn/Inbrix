@@ -26,6 +26,7 @@ class IBPlaceListVC: UIViewController,SMSegmentViewDelegate , UISearchResultsUpd
     var helperLocation : HelperLocationManager?
     var tableHeaderViewHeight = CGFloat()
     var userCurrentLocation : CLLocation = CLLocation()
+    var titleArray = [IBLocations]()
     var annotationArray = [IBPlaceListAnnotations]()
     
     
@@ -33,11 +34,11 @@ class IBPlaceListVC: UIViewController,SMSegmentViewDelegate , UISearchResultsUpd
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //self.headerViewMethods()
         self.mapViewMethods()
         self.navigationBarMethod()
-        self.initializeView()
+        self.annotationView()
         self.segmentedview()
+        self.callPlaceListAPI()
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -64,19 +65,22 @@ class IBPlaceListVC: UIViewController,SMSegmentViewDelegate , UISearchResultsUpd
         }
     }
     
-    func initializeView() {
-        let titleArray = ["Agra", "Ahemadabad", "Allahabad", "Andhra Pradesh", "Arunachal Pradesh","Maharashtra","Bangalore", "Karnataka", "Kolar"]
-        var distanceArray = ["10.0m", "20.0m", "30.0m", "40.0m", "50.0m", "60", "70", "80", "90"]
-        var latitudeArray = [ 27.17, 23.00, 25.25,  18.00,  28.00, 19.50, 12.59, 13.15, 13.12]
-        var longitudeArray = [13.12,72.40, 81.58, 79.00, 95.00, 75.03, 77.40, 77.00, 78.15]
-        for (index, value) in titleArray.enumerate() {
-            let annotations = IBPlaceListAnnotations(title: value, coordinate: CLLocationCoordinate2D(latitude: latitudeArray[index], longitude: longitudeArray[index]), distance: distanceArray[index])
-            annotationArray .append(annotations)
-            
-            //            let locationModel = IBLocationModel(locationName: value, locationId: "\(index)", locationNumber:"\(index)")
-            //            locationArray.append(locationModel)
+    func callPlaceListAPI() {
+        let apiObject = IBPlaceListapi()
+        APIManager.sharedInstance.makeAPIRequest(apiObject, completionHandler: {(response :Dictionary<String, AnyObject>?, error:NSError?) -> Void in
+            print(apiObject.nearByPlaceListArray)
+            IBLocations.saveNearByPlaces(apiObject.nearByPlaceListArray)
+            self.annotationView()
+        })
+    }
+    
+    
+    func annotationView() {
+        titleArray = IBLocations.fetchNearByPlaces()!
+        for placeModel in titleArray {
+            let annotations = IBPlaceListAnnotations(title: placeModel.locationTitle!, coordinate: CLLocationCoordinate2D(latitude: Double(placeModel.latitude!.doubleValue), longitude: Double(placeModel.longitude!.doubleValue)), locationId:placeModel.locationId!, distance: placeModel.locationDistance!)
+            [annotationArray.append(annotations)]
         }
-        
     }
     
     func navigationBarMethod() {
@@ -98,7 +102,6 @@ class IBPlaceListVC: UIViewController,SMSegmentViewDelegate , UISearchResultsUpd
     }
     
     func addAction() {
-        
         if isTitleBar == true {
             self.navigationItem.titleView = locationSearchController.searchBar
             self.locationSearchController.searchBar.becomeFirstResponder()
@@ -143,14 +146,12 @@ class IBPlaceListVC: UIViewController,SMSegmentViewDelegate , UISearchResultsUpd
     // MARK: - Location update
     
     func getUserCurrentLocation() {
-        
         self.placeListMapView!.showsUserLocation = true
         helperLocation = HelperLocationManager()
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(IBPlaceListVC.getCurrentAddressToViewController(_:)), name: "sendCurrentAddressToViewController", object: nil)
     }
     
     func getCurrentAddressToViewController(notification: NSNotification) {
-        
         userCurrentLocation = (notification.object as? CLLocation)!
         let region = MKCoordinateRegion(center: userCurrentLocation.coordinate, span: MKCoordinateSpan(latitudeDelta:0.5, longitudeDelta:0.5))
         NSNotificationCenter.defaultCenter().removeObserver(self, name: "sendCurrentAddressToViewController", object: nil)
@@ -164,8 +165,7 @@ class IBPlaceListVC: UIViewController,SMSegmentViewDelegate , UISearchResultsUpd
         placeListMapView!.setRegion(region, animated: true)
     }
     
-    func mapView(mapView: MKMapView,
-                 viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
+    func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
         let identifier = "pin"
         var view: MKPinAnnotationView
         if let dequeuedView = mapView.dequeueReusableAnnotationViewWithIdentifier(identifier)
@@ -279,5 +279,4 @@ class IBPlaceListVC: UIViewController,SMSegmentViewDelegate , UISearchResultsUpd
             self.alphaSegmentView.frame = CGRect(x: self.margin, y: 200.0, width: self.view.frame.size.width - self.margin*2, height: 40.0)
         }
     }
-    
 }

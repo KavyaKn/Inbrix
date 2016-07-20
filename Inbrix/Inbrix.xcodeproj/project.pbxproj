@@ -97,6 +97,10 @@
 		52E12EF11D095DF4003F38A0 /* IBBaseNavigationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E12EF01D095DF4003F38A0 /* IBBaseNavigationVC.swift */; };
 		52E12EF41D09615C003F38A0 /* IBMenuHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E12EF31D09615C003F38A0 /* IBMenuHeaderView.swift */; };
 		52E12EF61D096181003F38A0 /* IBMenuHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52E12EF51D096181003F38A0 /* IBMenuHeaderView.xib */; };
+		52E343831D37AF3E008B6D93 /* APIBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E343801D37AF3E008B6D93 /* APIBase.swift */; };
+		52E343841D37AF3E008B6D93 /* APIKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E343811D37AF3E008B6D93 /* APIKeys.swift */; };
+		52E343851D37AF3E008B6D93 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E343821D37AF3E008B6D93 /* APIManager.swift */; };
+		52E343881D37B066008B6D93 /* IBPlaceListapi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E343871D37B066008B6D93 /* IBPlaceListapi.swift */; };
 		52F1E9E61D1951D1003C8465 /* IBEstablishmentDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F1E9E51D1951D1003C8465 /* IBEstablishmentDetailVC.swift */; };
 		52FBC4CA1D13E12D00128287 /* IBLocationModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52FBC4C91D13E12D00128287 /* IBLocationModel.swift */; };
 		52FBC4CD1D14082800128287 /* IBLocalizableKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52FBC4CC1D14082800128287 /* IBLocalizableKey.swift */; };
@@ -226,6 +230,10 @@
 		52E12EF01D095DF4003F38A0 /* IBBaseNavigationVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBBaseNavigationVC.swift; sourceTree = "<group>"; };
 		52E12EF31D09615C003F38A0 /* IBMenuHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBMenuHeaderView.swift; sourceTree = "<group>"; };
 		52E12EF51D096181003F38A0 /* IBMenuHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IBMenuHeaderView.xib; sourceTree = "<group>"; };
+		52E343801D37AF3E008B6D93 /* APIBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIBase.swift; sourceTree = "<group>"; };
+		52E343811D37AF3E008B6D93 /* APIKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIKeys.swift; sourceTree = "<group>"; };
+		52E343821D37AF3E008B6D93 /* APIManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
+		52E343871D37B066008B6D93 /* IBPlaceListapi.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBPlaceListapi.swift; sourceTree = "<group>"; };
 		52F1E9E51D1951D1003C8465 /* IBEstablishmentDetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBEstablishmentDetailVC.swift; sourceTree = "<group>"; };
 		52FBC4C91D13E12D00128287 /* IBLocationModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBLocationModel.swift; sourceTree = "<group>"; };
 		52FBC4CC1D14082800128287 /* IBLocalizableKey.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBLocalizableKey.swift; sourceTree = "<group>"; };
@@ -576,6 +584,8 @@
 		52D592651D081FBA00A64F1F /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				52E3437F1D37AF3E008B6D93 /* BaseApiObjects */,
+				52E343861D37AFA3008B6D93 /* PlaceListApiObject */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -841,6 +851,24 @@
 			path = CustomViews;
 			sourceTree = "<group>";
 		};
+		52E3437F1D37AF3E008B6D93 /* BaseApiObjects */ = {
+			isa = PBXGroup;
+			children = (
+				52E343801D37AF3E008B6D93 /* APIBase.swift */,
+				52E343811D37AF3E008B6D93 /* APIKeys.swift */,
+				52E343821D37AF3E008B6D93 /* APIManager.swift */,
+			);
+			path = BaseApiObjects;
+			sourceTree = "<group>";
+		};
+		52E343861D37AFA3008B6D93 /* PlaceListApiObject */ = {
+			isa = PBXGroup;
+			children = (
+				52E343871D37B066008B6D93 /* IBPlaceListapi.swift */,
+			);
+			path = PlaceListApiObject;
+			sourceTree = "<group>";
+		};
 		52F1E9E41D19518D003C8465 /* EstablishmentDetailVC */ = {
 			isa = PBXGroup;
 			children = (
@@ -1068,6 +1096,7 @@
 				52D592921D08286F00A64F1F /* SMBasicSegmentView.swift in Sources */,
 				520A2D631D0A89F000216F94 /* RMAssetCollectionPicker.swift in Sources */,
 				52D592A91D0829F400A64F1F /* ParallaxTableHeaderView.swift in Sources */,
+				52E343851D37AF3E008B6D93 /* APIManager.swift in Sources */,
 				520A2D791D0A8DB500216F94 /* IBImageCollectionViewCell.swift in Sources */,
 				52CF60111D239C7000CC08D9 /* IBLocationDetailCell.swift in Sources */,
 				52D592A21D08293300A64F1F /* CustomTableViewCell.swift in Sources */,
@@ -1076,9 +1105,11 @@
 				52D5928E1D08286F00A64F1F /* AEAccordionTableViewController.swift in Sources */,
 				52FBC4D11D141DE700128287 /* IBStoryboardConstants.swift in Sources */,
 				52E12EE71D0952E0003F38A0 /* IBApplication.swift in Sources */,
+				52E343881D37B066008B6D93 /* IBPlaceListapi.swift in Sources */,
 				52D5922D1D081ED200A64F1F /* AppDelegate.swift in Sources */,
 				52D592AE1D083CB400A64F1F /* HelperLocationManager.swift in Sources */,
 				52D5926B1D08206500A64F1F /* IBLoginVC.swift in Sources */,
+				52E343831D37AF3E008B6D93 /* APIBase.swift in Sources */,
 				520A2D771D0A8D6900216F94 /* IBImageEditingVC.swift in Sources */,
 				52D5928D1D08286F00A64F1F /* AEAccordionTableViewCell.swift in Sources */,
 				52D592941D08286F00A64F1F /* SMSegmentView.swift in Sources */,
@@ -1098,6 +1129,7 @@
 				520A2D5D1D0A89F000216F94 /* DKAssetGroupListVC.swift in Sources */,
 				52D592A61D08293300A64F1F /* HeaderView.swift in Sources */,
 				52FBC4CD1D14082800128287 /* IBLocalizableKey.swift in Sources */,
+				52E343841D37AF3E008B6D93 /* APIKeys.swift in Sources */,
 				5202D66A1D2E5CEB00E89FBF /* IBCheckListTableViewCell.swift in Sources */,
 				52E12ED51D094F13003F38A0 /* UIStoryboard.swift in Sources */,
 				52D592A41D08293300A64F1F /* DetailView.swift in Sources */,

@@ -10,21 +10,41 @@ import UIKit
 
 class IBLocationModel: NSObject {
     
-    var locationName: String?
-    var locationId: String?
-    var locationNumber: String?
-    var latitude: NSNumber?
-    var locationDistance: String?
-    var longitude: NSNumber?
+//    var locationName: String?
+//    var locationId: String?
+//    var locationNumber: String?
+//    var latitude: NSNumber?
+//    var locationDistance: String?
+//    var longitude: NSNumber?
+//    
+//    override init() {
+//        super.init()
+//    }
+//    
+//    init(locationName: String, locationId: String, locationNumber: String){
+//        self.locationName = locationName
+//        self.locationId = locationId
+//        self.locationNumber = locationNumber
+//    }
     
-    override init() {
-        super.init()
-    }
+    var locationTitle: String = ""
+    var locationDistance: String = ""
+    var latitude: Double = 0.0
+    var longitude: Double = 0.0
+    var locationId: String = ""
+    var locationNumber: String = ""
     
-    init(locationName: String, locationId: String, locationNumber: String){
-        self.locationName = locationName
-        self.locationId = locationId
-        self.locationNumber = locationNumber
+    class func initializeWithDictionary(response : Dictionary<String, String>) -> IBLocationModel {
+        
+        let placeModel = IBLocationModel()
+        placeModel.locationId = response["locationId"]!
+        placeModel.locationTitle = response["locationTitle"]!
+        placeModel.locationNumber = response["locationNumber"]!
+        placeModel.latitude = Double(response["latitude"]!)!
+        placeModel.longitude = Double(response["logitude"]!)!
+        placeModel.locationDistance = response["locationDistance"]!
+        return placeModel
     }
+
 
 }

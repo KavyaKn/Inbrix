@@ -114,7 +114,7 @@
                         <outlet property="loginButton" destination="ewh-cA-DKH" id="RU8-Xp-sxg"/>
                         <outlet property="passwordTextField" destination="v4z-QU-BTX" id="RpU-Ej-uKq"/>
                         <outlet property="usernameTextField" destination="trJ-3j-T0g" id="N3f-hx-S5G"/>
-                        <segue destination="ehs-Qf-qRD" kind="show" identifier="HomeScreenSegue" id="55q-U6-2aP"/>
+                        <segue destination="RtW-W3-ijf" kind="show" identifier="HomeScreenSegue" id="V9y-bN-0yw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="euv-V3-y09" sceneMemberID="firstResponder"/>
@@ -122,36 +122,37 @@
             <point key="canvasLocation" x="1867" y="440"/>
         </scene>
         <!--Place ListVC-->
-        <scene sceneID="5Et-dl-WGw">
+        <scene sceneID="wgm-CN-JiV">
             <objects>
-                <tableViewController storyboardIdentifier="IBPlaceListVC" id="ehs-Qf-qRD" customClass="IBPlaceListVC" customModule="Inbrix" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="EZM-Oh-32s">
+                <viewController storyboardIdentifier="IBPlaceListVC" id="RtW-W3-ijf" customClass="IBPlaceListVC" customModule="Inbrix" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="edx-Xp-ber"/>
+                        <viewControllerLayoutGuide type="bottom" id="kM9-8B-fxP"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="BTh-bN-Hbt">
                         <rect key="frame" x="0.0" y="64" width="600" height="536"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="i1X-Rg-eY8">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="536"/>
+                            </mapView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="GQP-fl-BiZ">
-                                <rect key="frame" x="0.0" y="28" width="600" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="GQP-fl-BiZ" id="Jwm-IT-0ML">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </tableViewCellContentView>
-                            </tableViewCell>
-                        </prototypes>
-                        <connections>
-                            <outlet property="dataSource" destination="ehs-Qf-qRD" id="waB-Nb-fiG"/>
-                            <outlet property="delegate" destination="ehs-Qf-qRD" id="EGS-VP-aY2"/>
-                        </connections>
-                    </tableView>
+                        <constraints>
+                            <constraint firstItem="i1X-Rg-eY8" firstAttribute="bottom" secondItem="kM9-8B-fxP" secondAttribute="top" id="DQE-qg-RFu"/>
+                            <constraint firstItem="i1X-Rg-eY8" firstAttribute="leading" secondItem="BTh-bN-Hbt" secondAttribute="leading" id="L6X-SK-TjS"/>
+                            <constraint firstItem="i1X-Rg-eY8" firstAttribute="top" secondItem="edx-Xp-ber" secondAttribute="bottom" id="NcH-hg-Ken"/>
+                            <constraint firstAttribute="trailing" secondItem="i1X-Rg-eY8" secondAttribute="trailing" id="T8f-Nf-QUh"/>
+                        </constraints>
+                    </view>
                     <connections>
-                        <outlet property="placelistTableView" destination="EZM-Oh-32s" id="KN6-82-z16"/>
-                        <segue destination="wls-s2-8IF" kind="show" identifier="LocationDetailSegue" id="GAF-be-Red"/>
+                        <outlet property="placeListMapView" destination="i1X-Rg-eY8" id="Jid-Rc-RcS"/>
+                        <segue destination="wls-s2-8IF" kind="show" identifier="LocationDetailSegue" id="Jj9-Pg-PEU"/>
                     </connections>
-                </tableViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="cue-2w-bd7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yzZ-vo-yI0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2583" y="457"/>
+            <point key="canvasLocation" x="2606" y="432"/>
         </scene>
         <!--Place DetailVC-->
         <scene sceneID="XBF-fa-VCb">

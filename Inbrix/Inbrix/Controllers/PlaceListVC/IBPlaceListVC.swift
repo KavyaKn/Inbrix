@@ -11,48 +11,53 @@ import MapKit
 import CoreLocation
 
 protocol HandleMapSearch {
-    func dropPinZoomIn(placemark:MKPlacemark)
+    func dropPinZoomIn(placemark:CLLocationCoordinate2D, title:String, locationId:String)
+    func didPressSearchBarCancelButton()
 }
 
-class IBPlaceListVC: UIViewController,SMSegmentViewDelegate , UISearchBarDelegate, MKMapViewDelegate {
-    
-    private var locationArray = [IBLocationModel]()
-    var segmentView: SMSegmentView!
-    var alphaSegmentView: SMBasicSegmentView!
-    var margin: CGFloat = 0.0
-    let searchBtn = UIButton()
-    var currentAnnotationPin : Bool = true
-    var isTitleBar : Bool = true
-    var helperLocation : HelperLocationManager?
-    var tableHeaderViewHeight = CGFloat()
-    var userCurrentLocation : CLLocation = CLLocation()
-    var titleArray = [IBLocations]()
-    var annotationArray = [IBPlaceListAnnotations]()
-    var annotation:MKAnnotation!
-    var localSearchRequest:MKLocalSearchRequest!
-    var localSearch:MKLocalSearch!
-    var error:NSError!
-    var pointAnnotation:MKPointAnnotation!
-    var pinAnnotationView:MKPinAnnotationView!
+class IBPlaceListVC: UIViewController, UISearchControllerDelegate {
     var locationSearchController: UISearchController = UISearchController()
-    var selectedPin:MKPlacemark? = nil
+    var userCurrentLocation : CLLocation = CLLocation()
+    var annotationArray = [IBPlaceListAnnotations]()
+    private var locationArray = [IBLocationModel]()
+    var selectedPin:CLLocationCoordinate2D? = nil
+    var helperLocation : HelperLocationManager?
+    var alphaSegmentView: SMBasicSegmentView!
     let locationManager = CLLocationManager()
-    
+    var currentAnnotationPin : Bool = true
+    var pointAnnotation:MKPointAnnotation!
+    var titleArray = [IBLocations]()
+    var segmentView: SMSegmentView!
+    var isTitleBar : Bool = true
+    let searchBtn = UIButton()
+    var margin: CGFloat = 0.0
+    var error:NSError!
     
     @IBOutlet weak var placeListMapView: MKMapView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.mapViewMethods()
-        self.navigationBarMethod()
-        self.annotationView()
-        self.segmentedview()
-        self.callPlaceListAPI()
+        self.initializeView()
     }
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         self.addLeftMenuBarMenuButtonItem()
+    }
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+    
+    func initializeView() {
+        self.navigationController?.navigationBarHidden = false
+        self.locationSearchController.delegate = self
+        self.locationSearchController.searchBar.delegate = self
+        self.placeListMapView.delegate = self
+        self.getUserCurrentLocation()
+        self.customizeNavigationBar()
+        self.annotationView()
+        self.segmentedview()
+        self.callPlaceListAPI()
     }
     
     func addLeftMenuBarMenuButtonItem() {
@@ -62,15 +67,33 @@ class IBPlaceListVC: UIViewController,SMSegmentViewDelegate , UISearchBarDelegat
         self.slideMenuController()?.addLeftGestures()
         self.navigationItem.leftBarButtonItem?.tintColor = UIColor.whiteColor()
     }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
-    
+  
     deinit{
         if let superView = locationSearchController.view.superview
         {
             superView.removeFromSuperview()
+        }
+    }
+    
+    func customizeNavigationBar() {
+        self.title = "NearBy"
+        self.navigationItem.hidesBackButton = true
+        self.navigationController?.navigationBar.barTintColor = UIColor.defaultNavigationBarTintColor()
+        self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
+        self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
+        searchBtn.frame = CGRectMake(0, 0, 30, 30)
+        searchBtn.setImage(UIImage(named: "SearchWhiteIcon"), forState: .Normal)
+        searchBtn.addTarget(self, action: #selector(IBPlaceListVC.addAction), forControlEvents: .TouchUpInside)
+        let rightBarButton = UIBarButtonItem()
+        rightBarButton.customView = searchBtn
+        self.navigationItem.rightBarButtonItem = rightBarButton
+    }
+    
+    func annotationView() {
+        titleArray = IBLocations.fetchNearByPlaces()!
+        for placeModel in titleArray {
+            let annotations = IBPlaceListAnnotations(title: placeModel.locationTitle!, coordinate: CLLocationCoordinate2D(latitude: Double(placeModel.latitude!.doubleValue), longitude: Double(placeModel.longitude!.doubleValue)), locationId:placeModel.locationId!, distance: placeModel.locationDistance!)
+            [annotationArray.append(annotations)]
         }
     }
     
@@ -82,33 +105,26 @@ class IBPlaceListVC: UIViewController,SMSegmentViewDelegate , UISearchBarDelegat
         })
     }
     
-    
-    func annotationView() {
-        titleArray = IBLocations.fetchNearByPlaces()!
-        for placeModel in titleArray {
-            let annotations = IBPlaceListAnnotations(title: placeModel.locationTitle!, coordinate: CLLocationCoordinate2D(latitude: Double(placeModel.latitude!.doubleValue), longitude: Double(placeModel.longitude!.doubleValue)), locationId:placeModel.locationId!, distance: placeModel.locationDistance!)
-            [annotationArray.append(annotations)]
+    func addAction() {
+        if isTitleBar == true {
+            self.searchBarMethods()
+            isTitleBar = false
+        } else {
+            self.addLabel()
+            searchBtn.setImage(UIImage(named: "SearchWhiteIcon"), forState: .Normal)
+            isTitleBar = true
         }
     }
     
-    func navigationBarMethod() {
-        self.navigationController?.navigationBarHidden = false
-        self.navigationController?.navigationBar.barTintColor = UIColor.defaultNavigationBarTintColor()
-        self.navigationItem.hidesBackButton = true
-        self.title = "NearBy"
-        let nav = self.navigationController?.navigationBar
-        nav?.barStyle = UIBarStyle.Black
-        nav?.tintColor = UIColor.whiteColor()
-        searchBtn.setImage(UIImage(named: "SearchWhiteIcon"), forState: .Normal)
-        searchBtn.frame = CGRectMake(0, 0, 30, 30)
-        searchBtn.addTarget(self, action: #selector(IBPlaceListVC.addAction), forControlEvents: .TouchUpInside)
-        //.... Set Right/Left Bar Button item
-        let rightBarButton = UIBarButtonItem()
-        rightBarButton.customView = searchBtn
-        self.navigationItem.rightBarButtonItem = rightBarButton
+    func addLabel() {
+        let label:UILabel = UILabel(frame: CGRectMake(0, 0, self.navigationItem.titleView!.frame.size.width, self.navigationItem.titleView!.frame.size.height))
+        label.text = "NearBy"
+        label.textAlignment = NSTextAlignment.Center
+        label.textColor = UIColor.whiteColor()
+        self.navigationItem.titleView = label
     }
     
-    func addAction() {
+    func searchBarMethods() {
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
@@ -117,10 +133,11 @@ class IBPlaceListVC: UIViewController,SMSegmentViewDelegate , UISearchBarDelegat
         } else {
             // Fallback on earlier versions
         }
-        let locationSearchTable = storyboard!.instantiateViewControllerWithIdentifier("LocationSearchTable") as! LocationSearchTable
+        let locationSearchTable = storyboard!.instantiateViewControllerWithIdentifier("IBLocationSearchTable") as! IBLocationSearchTable
         locationSearchController = UISearchController(searchResultsController: locationSearchTable)
         locationSearchController.searchResultsUpdater = locationSearchTable
         let searchBar = locationSearchController.searchBar
+        locationSearchController.searchBar.becomeFirstResponder()
         searchBar.sizeToFit()
         searchBar.placeholder = "Search for places"
         navigationItem.titleView = locationSearchController.searchBar
@@ -130,59 +147,17 @@ class IBPlaceListVC: UIViewController,SMSegmentViewDelegate , UISearchBarDelegat
         locationSearchTable.mapView = placeListMapView
         locationSearchTable.handleMapSearchDelegate = self
     }
-    
-    //func addAction() {
-    //    if isTitleBar == true {
-    //        self.navigationItem.titleView = locationSearchController.searchBar
-    //        self.locationSearchController.searchBar.becomeFirstResponder()
-    //        searchBtn.setImage(UIImage(named: "SearchGrayIcon"), forState: .Normal)
-    //        isTitleBar = false
-    //    } else {
-    //        let label:UILabel = UILabel(frame: CGRectMake(0, 0, self.navigationItem.titleView!.frame.size.width, self.navigationItem.titleView!.frame.size.height))
-    //        label.text = "NearBy"
-    //        label.textAlignment = NSTextAlignment.Center
-    //        label.textColor = UIColor.whiteColor()
-    //        self.navigationItem.titleView = label
-    //
-    //        searchBtn.setImage(UIImage(named: "SearchWhiteIcon"), forState: .Normal)
-    //        isTitleBar = true
-    //    }
-    //}
+}
 
-    
-    //MARK: UISearchBar Delegate
-    func searchBarSearchButtonClicked(searchBar: UISearchBar){
-        //1
-        searchBar.resignFirstResponder()
-        dismissViewControllerAnimated(true, completion: nil)
-        if self.placeListMapView.annotations.count != 0{
-            annotation = self.placeListMapView.annotations[0]
-            self.placeListMapView.removeAnnotation(annotation)
-        }
-        //2
-        localSearchRequest = MKLocalSearchRequest()
-        localSearchRequest.naturalLanguageQuery = searchBar.text
-        localSearch = MKLocalSearch(request: localSearchRequest)
-        localSearch.startWithCompletionHandler { (localSearchResponse, error) -> Void in
-            
-            if localSearchResponse == nil{
-                let alertController = UIAlertController(title: nil, message: "Place Not Found", preferredStyle: UIAlertControllerStyle.Alert)
-                alertController.addAction(UIAlertAction(title: "Dismiss", style: UIAlertActionStyle.Default, handler: nil))
-                self.presentViewController(alertController, animated: true, completion: nil)
-                return
-            }
-            //3
-            self.pointAnnotation = MKPointAnnotation()
-            self.pointAnnotation.title = searchBar.text
-            self.pointAnnotation.coordinate = CLLocationCoordinate2D(latitude: localSearchResponse!.boundingRegion.center.latitude, longitude:     localSearchResponse!.boundingRegion.center.longitude)
-            
-            self.pinAnnotationView = MKPinAnnotationView(annotation: self.pointAnnotation, reuseIdentifier: nil)
-            self.placeListMapView.centerCoordinate = self.pointAnnotation.coordinate
-            self.placeListMapView.addAnnotation(self.pinAnnotationView.annotation!)
-        }
+extension IBPlaceListVC : UISearchBarDelegate {
+    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+        
     }
-    
-    // MARK: - Location update
+}
+
+// MARK: - Location update
+
+extension IBPlaceListVC : MKMapViewDelegate {
     
     func getUserCurrentLocation() {
         self.placeListMapView!.showsUserLocation = true
@@ -230,15 +205,12 @@ class IBPlaceListVC: UIViewController,SMSegmentViewDelegate , UISearchBarDelegat
     func mapView(mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         let imagePickerVC:IBPlaceDetailVC = UIStoryboard(name:kIBMainStoryboardIdentifier, bundle: nil).instantiateViewControllerWithIdentifier(kIBPlaceDetailViewControllerIdentifier) as! IBPlaceDetailVC
         self.navigationController?.pushViewController(imagePickerVC, animated: true)
-        print("Callout tapped")
     }
-    
-    func mapViewMethods() {
-        self.placeListMapView.delegate = self
-        self.getUserCurrentLocation()
-    }
-    
-    // MARK: - Segmented control
+}
+
+// MARK: - Segmented control
+
+extension IBPlaceListVC : SMSegmentViewDelegate {
     
     func segmentedview() {
         /*
@@ -298,9 +270,7 @@ class IBPlaceListVC: UIViewController,SMSegmentViewDelegate , UISearchBarDelegat
     }
     
     override func willAnimateRotationToInterfaceOrientation(toInterfaceOrientation: UIInterfaceOrientation, duration: NSTimeInterval) {
-        /*
-         MARK: Replace the following line to your own frame setting for segmentView.
-         */
+        
         if toInterfaceOrientation == UIInterfaceOrientation.LandscapeLeft || toInterfaceOrientation == UIInterfaceOrientation.LandscapeRight {
             self.segmentView.vertical = true
             self.segmentView.segmentVerticalMargin = 25.0
@@ -333,7 +303,7 @@ extension IBPlaceListVC : CLLocationManagerDelegate {
     
     func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.first {
-            let span = MKCoordinateSpanMake(0.05, 0.05)
+            let span = MKCoordinateSpanMake(1, 1)
             let region = MKCoordinateRegion(center: location.coordinate, span: span)
             placeListMapView.setRegion(region, animated: true)
         }
@@ -345,21 +315,25 @@ extension IBPlaceListVC : CLLocationManagerDelegate {
 }
 
 extension IBPlaceListVC: HandleMapSearch {
-    func dropPinZoomIn(placemark:MKPlacemark){
+    
+    func dropPinZoomIn(placemark:CLLocationCoordinate2D, title:String, locationId:String){
         // cache the pin
         selectedPin = placemark
         // clear existing pins
         placeListMapView.removeAnnotations(placeListMapView.annotations)
         let annotation = MKPointAnnotation()
-        annotation.coordinate = placemark.coordinate
-        annotation.title = placemark.name
-        if let city = placemark.locality,
-            let state = placemark.administrativeArea {
-            annotation.subtitle = "\(city) \(state)"
-        }
+        annotation.coordinate = placemark
+        annotation.title = title
+        annotation.subtitle = locationId
         placeListMapView.addAnnotation(annotation)
-        let span = MKCoordinateSpanMake(0.05, 0.05)
-        let region = MKCoordinateRegionMake(placemark.coordinate, span)
+        let span = MKCoordinateSpanMake(4, 4)
+        let region = MKCoordinateRegionMake(placemark, span)
         placeListMapView.setRegion(region, animated: true)
+    }
+    
+    func didPressSearchBarCancelButton(){
+        self.locationSearchController.searchBar.hidden = true
+        self.addLabel()
+        isTitleBar = true
     }
 }

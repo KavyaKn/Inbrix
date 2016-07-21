@@ -40,6 +40,7 @@
 		520A2D771D0A8D6900216F94 /* IBImageEditingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520A2D761D0A8D6900216F94 /* IBImageEditingVC.swift */; };
 		520A2D791D0A8DB500216F94 /* IBImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520A2D781D0A8DB500216F94 /* IBImageCollectionViewCell.swift */; };
 		520A2D7F1D0A99E100216F94 /* RNGridMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 520A2D7E1D0A99E100216F94 /* RNGridMenu.m */; };
+		52395E6E1D40A11E00150D98 /* IBLocationSearchTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52395E6D1D40A11E00150D98 /* IBLocationSearchTable.swift */; };
 		525367AE1D336D6A006F1ECD /* IBMobileFormImageEditingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525367AD1D336D6A006F1ECD /* IBMobileFormImageEditingVC.swift */; };
 		5262F66A1D11138B0010C230 /* IBImageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5262F6691D11138B0010C230 /* IBImageView.xib */; };
 		526FB3311D24D22400B0AE20 /* IBEstablishmentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526FB32F1D24D22400B0AE20 /* IBEstablishmentCell.swift */; };
@@ -88,7 +89,6 @@
 		52DDA2121D3F42BF000AFC1B /* IBLocations+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52DDA2101D3F42BF000AFC1B /* IBLocations+CoreDataProperties.swift */; };
 		52DDA2131D3F42BF000AFC1B /* IBLocations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52DDA2111D3F42BF000AFC1B /* IBLocations.swift */; };
 		52DDA2151D3F4391000AFC1B /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52DDA2141D3F4391000AFC1B /* CoreDataManager.swift */; };
-		52DDA2181D3F889B000AFC1B /* LocationSearchTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52DDA2171D3F889B000AFC1B /* LocationSearchTable.swift */; };
 		52E12ED51D094F13003F38A0 /* UIStoryboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E12ED41D094F13003F38A0 /* UIStoryboard.swift */; };
 		52E12EDE1D095109003F38A0 /* IBFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E12EDD1D095109003F38A0 /* IBFont.swift */; };
 		52E12EE01D095159003F38A0 /* IBLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52E12EDF1D095159003F38A0 /* IBLabel.swift */; };
@@ -166,6 +166,7 @@
 		520A2D781D0A8DB500216F94 /* IBImageCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		520A2D7D1D0A99E100216F94 /* RNGridMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNGridMenu.h; sourceTree = "<group>"; };
 		520A2D7E1D0A99E100216F94 /* RNGridMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNGridMenu.m; sourceTree = "<group>"; };
+		52395E6D1D40A11E00150D98 /* IBLocationSearchTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBLocationSearchTable.swift; sourceTree = "<group>"; };
 		525367AD1D336D6A006F1ECD /* IBMobileFormImageEditingVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBMobileFormImageEditingVC.swift; sourceTree = "<group>"; };
 		5262F6691D11138B0010C230 /* IBImageView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IBImageView.xib; sourceTree = "<group>"; };
 		526FB32F1D24D22400B0AE20 /* IBEstablishmentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBEstablishmentCell.swift; sourceTree = "<group>"; };
@@ -224,7 +225,6 @@
 		52DDA2101D3F42BF000AFC1B /* IBLocations+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "IBLocations+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		52DDA2111D3F42BF000AFC1B /* IBLocations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBLocations.swift; sourceTree = "<group>"; };
 		52DDA2141D3F4391000AFC1B /* CoreDataManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataManager.swift; sourceTree = "<group>"; };
-		52DDA2171D3F889B000AFC1B /* LocationSearchTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationSearchTable.swift; sourceTree = "<group>"; };
 		52E12ED41D094F13003F38A0 /* UIStoryboard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIStoryboard.swift; sourceTree = "<group>"; };
 		52E12EDD1D095109003F38A0 /* IBFont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBFont.swift; sourceTree = "<group>"; };
 		52E12EDF1D095159003F38A0 /* IBLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBLabel.swift; sourceTree = "<group>"; };
@@ -577,6 +577,7 @@
 			children = (
 				52D592951D0828AE00A64F1F /* IBPlaceListVC.swift */,
 				52D592AF1D083CF200A64F1F /* IBPlaceListAnnotations.swift */,
+				52395E6D1D40A11E00150D98 /* IBLocationSearchTable.swift */,
 			);
 			path = PlaceListVC;
 			sourceTree = "<group>";
@@ -671,7 +672,6 @@
 		52D592811D08286F00A64F1F /* ThirdParty */ = {
 			isa = PBXGroup;
 			children = (
-				52DDA2161D3F889B000AFC1B /* MapView */,
 				5202D6641D2E5C7200E89FBF /* CheckBox */,
 				520A2D7C1D0A99E100216F94 /* CustomAlertView */,
 				520A2D2F1D0A89F000216F94 /* Camera */,
@@ -800,14 +800,6 @@
 				52D99AB11D228D9C0089DBC1 /* IBBrandHeaderCell.xib */,
 			);
 			path = IBBrandHeaderCell;
-			sourceTree = "<group>";
-		};
-		52DDA2161D3F889B000AFC1B /* MapView */ = {
-			isa = PBXGroup;
-			children = (
-				52DDA2171D3F889B000AFC1B /* LocationSearchTable.swift */,
-			);
-			path = MapView;
 			sourceTree = "<group>";
 		};
 		52E12ECE1D094E4E003F38A0 /* MenuDrawer */ = {
@@ -1104,7 +1096,6 @@
 				52E12EEB1D0953F7003F38A0 /* IBMenuDrawer.swift in Sources */,
 				52D592351D081ED200A64F1F /* Inbrix.xcdatamodeld in Sources */,
 				526FB3311D24D22400B0AE20 /* IBEstablishmentCell.swift in Sources */,
-				52DDA2181D3F889B000AFC1B /* LocationSearchTable.swift in Sources */,
 				52D592AB1D083B3B00A64F1F /* IBPlaceDetailVC.swift in Sources */,
 				52D5927C1D08214300A64F1F /* IBResizeImage.swift in Sources */,
 				520A2D551D0A89F000216F94 /* DKImageManager.swift in Sources */,
@@ -1165,6 +1156,7 @@
 				520A2D501D0A89F000216F94 /* DKCamera.swift in Sources */,
 				52D592931D08286F00A64F1F /* SMSegment.swift in Sources */,
 				52D99AA91D22871A0089DBC1 /* IBSegmentHeaderViewCell.swift in Sources */,
+				52395E6E1D40A11E00150D98 /* IBLocationSearchTable.swift in Sources */,
 				52D5927A1D08214300A64F1F /* IBButtons.swift in Sources */,
 				52E12EDE1D095109003F38A0 /* IBFont.swift in Sources */,
 				526FB3351D24E70F00B0AE20 /* IBSegmentedControl.swift in Sources */,

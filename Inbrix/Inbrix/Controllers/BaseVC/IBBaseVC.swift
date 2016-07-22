@@ -14,7 +14,7 @@ class IBBaseVC: UIViewController, UIAlertViewDelegate {
     
     func addCustomBackButton() {
         let backBtn: UIButton = UIButton(type: .Custom)
-        let backBtnImage: UIImage = UIImage(named: "back.png")!
+        let backBtnImage: UIImage = UIImage(named:kIBBackButtonImageName)!
         backBtn.setBackgroundImage(backBtnImage, forState: .Normal)
         backBtn.addTarget(self, action: #selector(IBBaseVC.backButtonClicked(_:)), forControlEvents: .TouchUpInside)
         backBtn.frame = CGRectMake(0, 0, 16, 16)
@@ -23,7 +23,7 @@ class IBBaseVC: UIViewController, UIAlertViewDelegate {
     }
     
     func addLeftMenuBarMenuButtonItem() {
-        self.addLeftBarButtonWithImage(UIImage(named: "Menu")!)
+        self.addLeftBarButtonWithImage(UIImage(named: kIBMenuButtonImageName)!)
         self.slideMenuController()?.removeLeftGestures()
         self.slideMenuController()?.removeRightGestures()
         self.slideMenuController()?.addLeftGestures()

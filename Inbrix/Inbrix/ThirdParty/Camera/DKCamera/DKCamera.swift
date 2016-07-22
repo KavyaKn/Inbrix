@@ -384,7 +384,7 @@ public class DKCamera: UIViewController, RMImagePickerControllerDelegate {
         
         if self.gallaryAssets.count != 0 {
             let imageEditingVC:IBImageEditingVC = UIStoryboard(name:"Main" , bundle: nil).instantiateViewControllerWithIdentifier("IBImageEditingVC") as! IBImageEditingVC
-            imageEditingVC.gallaryAssets = self.gallaryAssets
+            imageEditingVC.imageAssets = self.gallaryAssets
             self.navigationController!.pushViewController(imageEditingVC , animated: true)
         }
         imagePicker.dismissViewControllerAnimated(true, completion: nil)

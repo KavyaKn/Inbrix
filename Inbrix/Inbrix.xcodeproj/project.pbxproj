@@ -41,6 +41,9 @@
 		520A2D791D0A8DB500216F94 /* IBImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 520A2D781D0A8DB500216F94 /* IBImageCollectionViewCell.swift */; };
 		520A2D7F1D0A99E100216F94 /* RNGridMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 520A2D7E1D0A99E100216F94 /* RNGridMenu.m */; };
 		52395E6E1D40A11E00150D98 /* IBLocationSearchTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52395E6D1D40A11E00150D98 /* IBLocationSearchTable.swift */; };
+		523D04C11D41E1930094F115 /* IBCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523D04BF1D41E1930094F115 /* IBCollectionViewCell.swift */; };
+		523D04C21D41E1930094F115 /* IBCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 523D04C01D41E1930094F115 /* IBCollectionViewCell.xib */; };
+		523F9F041D42297A00A5E810 /* IBImageConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523F9F031D42297A00A5E810 /* IBImageConstants.swift */; };
 		525367AE1D336D6A006F1ECD /* IBMobileFormImageEditingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525367AD1D336D6A006F1ECD /* IBMobileFormImageEditingVC.swift */; };
 		5262F66A1D11138B0010C230 /* IBImageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5262F6691D11138B0010C230 /* IBImageView.xib */; };
 		526FB3311D24D22400B0AE20 /* IBEstablishmentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526FB32F1D24D22400B0AE20 /* IBEstablishmentCell.swift */; };
@@ -167,6 +170,9 @@
 		520A2D7D1D0A99E100216F94 /* RNGridMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RNGridMenu.h; sourceTree = "<group>"; };
 		520A2D7E1D0A99E100216F94 /* RNGridMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RNGridMenu.m; sourceTree = "<group>"; };
 		52395E6D1D40A11E00150D98 /* IBLocationSearchTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBLocationSearchTable.swift; sourceTree = "<group>"; };
+		523D04BF1D41E1930094F115 /* IBCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBCollectionViewCell.swift; sourceTree = "<group>"; };
+		523D04C01D41E1930094F115 /* IBCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IBCollectionViewCell.xib; sourceTree = "<group>"; };
+		523F9F031D42297A00A5E810 /* IBImageConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBImageConstants.swift; sourceTree = "<group>"; };
 		525367AD1D336D6A006F1ECD /* IBMobileFormImageEditingVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBMobileFormImageEditingVC.swift; sourceTree = "<group>"; };
 		5262F6691D11138B0010C230 /* IBImageView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IBImageView.xib; sourceTree = "<group>"; };
 		526FB32F1D24D22400B0AE20 /* IBEstablishmentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBEstablishmentCell.swift; sourceTree = "<group>"; };
@@ -434,6 +440,15 @@
 			path = CustomAlertView;
 			sourceTree = "<group>";
 		};
+		523D04BE1D41E1720094F115 /* IBCollectionViewCell */ = {
+			isa = PBXGroup;
+			children = (
+				523D04BF1D41E1930094F115 /* IBCollectionViewCell.swift */,
+				523D04C01D41E1930094F115 /* IBCollectionViewCell.xib */,
+			);
+			path = IBCollectionViewCell;
+			sourceTree = "<group>";
+		};
 		526FB32E1D24D20A00B0AE20 /* IBEstablishmentCell */ = {
 			isa = PBXGroup;
 			children = (
@@ -528,6 +543,7 @@
 				52FBC4CC1D14082800128287 /* IBLocalizableKey.swift */,
 				52FBC4CE1D141DC200128287 /* IBGeneralConstants.swift */,
 				52FBC4D01D141DE700128287 /* IBStoryboardConstants.swift */,
+				523F9F031D42297A00A5E810 /* IBImageConstants.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -735,6 +751,7 @@
 		52D592991D08293300A64F1F /* TableViewCell */ = {
 			isa = PBXGroup;
 			children = (
+				523D04BE1D41E1720094F115 /* IBCollectionViewCell */,
 				5202D6671D2E5CC100E89FBF /* IBCheckListTableViewCell */,
 				526FB32E1D24D20A00B0AE20 /* IBEstablishmentCell */,
 				52CF600E1D239C5300CC08D9 /* IBLocationDetailCell */,
@@ -957,6 +974,7 @@
 				TargetAttributes = {
 					52D592281D081ED100A64F1F = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = 8ASPD44426;
 					};
 					52D5923F1D081ED200A64F1F = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -1008,6 +1026,7 @@
 				52D592A71D08293300A64F1F /* HeaderView.xib in Resources */,
 				52D99AAE1D22874B0089DBC1 /* IBExpandedBrandDetailCell.xib in Resources */,
 				52D592321D081ED200A64F1F /* Main.storyboard in Resources */,
+				523D04C21D41E1930094F115 /* IBCollectionViewCell.xib in Resources */,
 				526FB3321D24D22400B0AE20 /* IBEstablishmentCell.xib in Resources */,
 				520A2D651D0A89F000216F94 /* RMImages.xcassets in Resources */,
 				5202D66B1D2E5CEB00E89FBF /* IBCheckListTableViewCell.xib in Resources */,
@@ -1111,6 +1130,7 @@
 				52CF60111D239C7000CC08D9 /* IBLocationDetailCell.swift in Sources */,
 				52DDA2151D3F4391000AFC1B /* CoreDataManager.swift in Sources */,
 				52D592A21D08293300A64F1F /* CustomTableViewCell.swift in Sources */,
+				523F9F041D42297A00A5E810 /* IBImageConstants.swift in Sources */,
 				52E12EE21D0951B7003F38A0 /* IBColor.swift in Sources */,
 				520A2D6F1D0A8AE300216F94 /* IBLocationImages+CoreDataProperties.swift in Sources */,
 				52D5928E1D08286F00A64F1F /* AEAccordionTableViewController.swift in Sources */,
@@ -1152,6 +1172,7 @@
 				52D592911D08286F00A64F1F /* SMBasicSegment.swift in Sources */,
 				520A2D5B1D0A89F000216F94 /* DKAssetGroupDetailVC.swift in Sources */,
 				52D592901D08286F00A64F1F /* SMAlphaImageSegment.swift in Sources */,
+				523D04C11D41E1930094F115 /* IBCollectionViewCell.swift in Sources */,
 				520A2D7F1D0A99E100216F94 /* RNGridMenu.m in Sources */,
 				520A2D501D0A89F000216F94 /* DKCamera.swift in Sources */,
 				52D592931D08286F00A64F1F /* SMSegment.swift in Sources */,
@@ -1237,6 +1258,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -1283,6 +1305,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -1309,6 +1332,7 @@
 			baseConfigurationReference = 5510CFAD5527273EAE48BCB0 /* Pods-Inbrix.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = Inbrix/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1323,6 +1347,7 @@
 			baseConfigurationReference = 2B629CAE9E32BC552569883A /* Pods-Inbrix.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				INFOPLIST_FILE = Inbrix/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

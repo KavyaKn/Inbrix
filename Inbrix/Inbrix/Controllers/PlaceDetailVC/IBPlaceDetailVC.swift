@@ -21,8 +21,7 @@ class IBPlaceDetailVC: IBBaseVC, RMImagePickerControllerDelegate, DKImagePickerC
     @IBOutlet weak var locationDetailTableView: UITableView!
     lazy var imageManager = PHImageManager.defaultManager()
     var selectedIndexPath : NSIndexPath?
-    var gallaryAssets: [PHAsset] = []
-    var CameraAssets: [DKAsset]?
+    var images: [PHAsset] = []
     var imageAssets = [IBLocationImages]()
     var numberOfOptions : NSInteger = 2
     var items : NSArray = []
@@ -95,38 +94,35 @@ class IBPlaceDetailVC: IBBaseVC, RMImagePickerControllerDelegate, DKImagePickerC
     // MARK: - RMImagePickerControllerDelegate
     
     func rmImagePickerController(picker: RMImagePickerController, didFinishPickingAssets assets: [PHAsset]) {
-        self.gallaryAssets.appendContentsOf(assets)
+        self.images.appendContentsOf(assets)
         self.dismissPickerPopover()
+        picker.dismissViewControllerAnimated(true, completion: nil)
     }
     
     func rmImagePickerControllerDidCancel(picker: RMImagePickerController) {
-        self.dismissPickerPopover()
+        self.dismissViewControllerAnimated(true, completion: nil)
     }
     
     // MARK: - Utility
     
     func dismissPickerPopover() {
         let imageEditingVC:IBImageEditingVC = UIStoryboard(name:kIBMainStoryboardIdentifier, bundle: nil).instantiateViewControllerWithIdentifier(kIBImageEditingViewControllerIdentifier) as! IBImageEditingVC
-        imageEditingVC.gallaryAssets = self.gallaryAssets
+        imageEditingVC.imageAssets = self.images
         self.navigationController!.pushViewController(imageEditingVC , animated: true)
-        imagePicker.dismissViewControllerAnimated(true, completion: nil)
     }
     
     // MARK: - DKImagePickerControllerDelegate
     
     func dkImagePickerController(picker: DKImagePickerController, didFinishPickingAssets assets: [DKAsset]) {
-        self.dismissCameraPopover()
+        for asset in assets {
+            self.images.append(asset.originalAsset!)
+        }
+        self.dismissPickerPopover()
+        picker.dismissViewControllerAnimated(true, completion: nil)
     }
     
     func dkImagePickerControllerDidCancel(picker: DKImagePickerController) {
-        self.dismissCameraPopover()
-    }
-    
-    func dismissCameraPopover() {
-        let imageEditingVC:IBImageEditingVC = UIStoryboard(name:kIBMainStoryboardIdentifier, bundle: nil).instantiateViewControllerWithIdentifier(kIBImageEditingViewControllerIdentifier) as! IBImageEditingVC
-        imageEditingVC.cameraAssets = self.CameraAssets!
-        self.navigationController!.pushViewController(imageEditingVC , animated: true)
-        pickerController.dismissViewControllerAnimated(true, completion: nil)
+        picker.dismissViewControllerAnimated(true, completion: nil)
     }
     
     func showGrid() {
@@ -190,12 +186,12 @@ class IBPlaceDetailVC: IBBaseVC, RMImagePickerControllerDelegate, DKImagePickerC
         pickerController.allowMultipleTypes = allowMultipleType
         pickerController.sourceType = sourceType
         pickerController.singleSelect = singleSelect
-        pickerController.defaultSelectedAssets = self.CameraAssets
-        pickerController.didSelectAssets = { [unowned self] (assets: [DKAsset]) in
-            print("didSelectAssets")
-            
-            self.CameraAssets = assets
-        }
+//        pickerController.didSelectAssets = { [unowned self] (assets: [DKAsset]) in
+//            print("didSelectAssets")
+//            for asset in assets {
+//                self.images.append(asset.originalAsset!)
+//            }
+//        }
         self.dismissViewControllerAnimated(true, completion: nil)
         self.presentViewController(pickerController, animated: true) {}
     }

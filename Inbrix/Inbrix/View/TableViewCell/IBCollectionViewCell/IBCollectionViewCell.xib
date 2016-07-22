@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="IBCollectionViewCell" customModule="Inbrix" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="110" height="110"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="110" height="110"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kHO-nP-FcP">
+                        <rect key="frame" x="0.0" y="10" width="100" height="100"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="1Gd-s0-9Yg">
+                        <rect key="frame" x="0.0" y="10" width="100" height="100"/>
+                    </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ewR-QG-DfD">
+                        <rect key="frame" x="90" y="0.0" width="20" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="Beb-cY-r3P"/>
+                            <constraint firstAttribute="width" constant="20" id="ydb-Kz-adq"/>
+                        </constraints>
+                        <state key="normal" title="X">
+                            <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        </state>
+                        <connections>
+                            <action selector="deleteButtonClicked:" destination="gTV-IL-0wX" eventType="touchUpInside" id="fwb-la-2iG"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            </view>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="kHO-nP-FcP" secondAttribute="trailing" constant="10" id="AHI-sC-G5V"/>
+                <constraint firstItem="ewR-QG-DfD" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="CKN-fG-WXY"/>
+                <constraint firstItem="kHO-nP-FcP" firstAttribute="trailing" secondItem="1Gd-s0-9Yg" secondAttribute="trailing" id="FrG-KB-Nl0"/>
+                <constraint firstItem="1Gd-s0-9Yg" firstAttribute="bottom" secondItem="kHO-nP-FcP" secondAttribute="bottom" id="GuB-xJ-bX7"/>
+                <constraint firstAttribute="trailing" secondItem="ewR-QG-DfD" secondAttribute="trailing" id="P2t-kW-Dq6"/>
+                <constraint firstAttribute="bottom" secondItem="1Gd-s0-9Yg" secondAttribute="bottom" id="epa-ga-yxI"/>
+                <constraint firstItem="kHO-nP-FcP" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="iNN-FO-lar"/>
+                <constraint firstItem="1Gd-s0-9Yg" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="10" id="kwC-dw-Qw8"/>
+                <constraint firstItem="kHO-nP-FcP" firstAttribute="leading" secondItem="1Gd-s0-9Yg" secondAttribute="leading" id="tv8-nc-Td2"/>
+                <constraint firstItem="kHO-nP-FcP" firstAttribute="top" secondItem="1Gd-s0-9Yg" secondAttribute="top" id="xQn-vS-z6q"/>
+            </constraints>
+            <connections>
+                <outlet property="collectionImageView" destination="1Gd-s0-9Yg" id="o7y-Dm-sYh"/>
+                <outlet property="deleteButton" destination="ewR-QG-DfD" id="cRf-Gw-QRQ"/>
+                <outlet property="textLabel" destination="kHO-nP-FcP" id="ErU-JR-wMy"/>
+            </connections>
+        </collectionViewCell>
+    </objects>
+</document>

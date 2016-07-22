@@ -14,41 +14,41 @@ import CoreData
 let cellSize = CGSize(width: 80, height: 80)
 var cellImageViewTag : Int = 1
 
-class IBPlaceDetailVC: IBBaseVC, RMImagePickerControllerDelegate, DKImagePickerControllerDelegate, SwiftAlertViewDelegate, UIScrollViewDelegate, RNGridMenuDelegate {
+class IBPlaceDetailVC: IBBaseVC, SwiftAlertViewDelegate {
     
+    @IBOutlet weak var locationDetailTableView: UITableView!
     @IBOutlet weak var imagePageControl: UIPageControl!
     @IBOutlet weak var imageScrollView: UIScrollView!
-    @IBOutlet weak var locationDetailTableView: UITableView!
-    lazy var imageManager = PHImageManager.defaultManager()
-    var selectedIndexPath : NSIndexPath?
-    var images: [PHAsset] = []
-    var imageAssets = [IBLocationImages]()
-    var numberOfOptions : NSInteger = 2
-    var items : NSArray = []
-    var imagePicker = RMImagePickerController()
-    var pickerController = DKImagePickerController()
-    var isGallary : Bool = false
-    var totalPages = Int()
     
-    var countriesinAsia = []
+    lazy var imageManager = PHImageManager.defaultManager()
+    var pickerController = DKImagePickerController()
+    var imagePicker = RMImagePickerController()
+    var imageAssets = [IBLocationImages]()
+    var selectedIndexPath : NSIndexPath?
+    var numberOfOptions : NSInteger = 2
+    var isGallary : Bool = false
+    var images: [PHAsset] = []
+    var items : NSArray = []
+    var totalPages = Int()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        if let result = CoreDataManager.sharedInstance.fetchImages() {
-//            self.imageAssets = result
-//        }
-//        for (_, element) in imageAssets.enumerate() {
-//            print(element.valueForKey("imageId"))
-//        }
-        countriesinAsia = ["Japan","China","India"]
+        //        if let result = CoreDataManager.sharedInstance.fetchImages() {
+        //            self.imageAssets = result
+        //        }
+        //        for (_, element) in imageAssets.enumerate() {
+        //            print(element.valueForKey("imageId"))
+        //        }
         totalPages = self.imageAssets.count
         self.initializeView()
-        self.registerCell()
     }
     
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(true)
+        print(self.imageAssets.count)
+        print(self.images.count)
+        self.navigationController?.navigationBarHidden = false
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -62,36 +62,124 @@ class IBPlaceDetailVC: IBBaseVC, RMImagePickerControllerDelegate, DKImagePickerC
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func changePage(sender: AnyObject) {
+        // Calculate the frame that should scroll to based on the page control current page.
+        var newFrame = imageScrollView.frame
+        newFrame.origin.x = newFrame.size.width * CGFloat(imagePageControl.currentPage)
+        imageScrollView.scrollRectToVisible(newFrame, animated: true)
+    }
+}
+
+// MARK : Helper Methods..
+
+extension IBPlaceDetailVC {
     func initializeView() {
-        let cameraImage   = UIImage(named: "CameraPlaceHolder")!
-        let locationImage = UIImage(named: "Location")!
+        let cameraImage   = UIImage(named: kIBCameraPlaceHolderImageName)!
+        let locationImage = UIImage(named: kIBLocationIconImageName)!
         let cameraButton   = UIBarButtonItem(image: cameraImage,  style: .Plain, target: self, action: #selector(IBPlaceDetailVC.didTapCameraButton(_:)))
         let locationButton = UIBarButtonItem(image: locationImage,  style: .Plain, target: self, action: #selector(IBPlaceDetailVC.didTapLocationButton(_:)))
         navigationItem.rightBarButtonItems = [cameraButton, locationButton]
         self.locationDetailTableView.tag = 0
+        self.registerCell()
     }
     
     func registerCell() {
-        let locationDetailCellNib = UINib(nibName:"IBLocationDetailCell" , bundle: nil)
-        locationDetailTableView.registerNib(locationDetailCellNib, forCellReuseIdentifier: "IBLocationDetailCell")
-        let segmentHeaderCellNib = UINib(nibName:"IBSegmentHeaderViewCell" , bundle: nil)
-        locationDetailTableView.registerNib(segmentHeaderCellNib, forCellReuseIdentifier: "IBSegmentHeaderViewCell")
-        let brandHeaderCellNib = UINib(nibName:"IBBrandHeaderCell" , bundle: nil)
-        locationDetailTableView.registerNib(brandHeaderCellNib, forCellReuseIdentifier: "IBBrandHeaderCell")
-        let expandedBrandDetailCellNib = UINib(nibName:"IBExpandedBrandDetailCell" , bundle: nil)
-        locationDetailTableView.registerNib(expandedBrandDetailCellNib, forCellReuseIdentifier: "IBExpandedBrandDetailCell")
-        let establishmentCellNib = UINib(nibName:"IBEstablishmentCell" , bundle: nil)
-        locationDetailTableView.registerNib(establishmentCellNib, forCellReuseIdentifier: "IBEstablishmentCell")
+        let locationDetailCellNib = UINib(nibName:kIBLocationDetailCellNibName , bundle: nil)
+        locationDetailTableView.registerNib(locationDetailCellNib, forCellReuseIdentifier: kIBLocationDetailCellNibName)
+        let segmentHeaderCellNib = UINib(nibName:kIBSegmentHeaderViewCellNibName , bundle: nil)
+        locationDetailTableView.registerNib(segmentHeaderCellNib, forCellReuseIdentifier: kIBSegmentHeaderViewCellNibName)
+        let brandHeaderCellNib = UINib(nibName:kIBBrandHeaderCellNibName , bundle: nil)
+        locationDetailTableView.registerNib(brandHeaderCellNib, forCellReuseIdentifier: kIBBrandHeaderCellNibName)
+        let expandedBrandDetailCellNib = UINib(nibName:kIBExpandedBrandDetailCellNibName , bundle: nil)
+        locationDetailTableView.registerNib(expandedBrandDetailCellNib, forCellReuseIdentifier:kIBExpandedBrandDetailCellNibName)
+        let establishmentCellNib = UINib(nibName:kIBEstablishmentCellNibName , bundle: nil)
+        locationDetailTableView.registerNib(establishmentCellNib, forCellReuseIdentifier:kIBEstablishmentCellNibName)
     }
     
     func didTapCameraButton(sender: AnyObject){
-        self.showGrid()
+        self.showSelectionAlert()
     }
     
     func didTapLocationButton(sender: AnyObject){
     }
     
-    // MARK: - RMImagePickerControllerDelegate
+    func segmentedControlClicked(sender :UISegmentedControl){
+        let sortedViews = sender.subviews.sort( { $0.frame.origin.x < $1.frame.origin.x } )
+        
+        for (index, view) in sortedViews.enumerate() {
+            if index == sender.selectedSegmentIndex {
+                view.tintColor = UIColor.orangeColor()
+            } else {
+                view.tintColor = UIColor.orangeColor()
+            }
+        }
+        if (locationDetailTableView.tag != sender.selectedSegmentIndex) {
+            self.locationDetailTableView.tag = sender.selectedSegmentIndex
+            self.locationDetailTableView.reloadData()
+        }
+    }
+    
+    //Custom Page control method implementation
+    
+    func configureScrollView() {
+        // Enable paging.
+        imageScrollView.pagingEnabled = true
+        
+        // Set the following flag values.
+        imageScrollView.showsHorizontalScrollIndicator = false
+        imageScrollView.showsVerticalScrollIndicator = false
+        imageScrollView.scrollsToTop = false
+        
+        // Set the scrollview content size.
+        imageScrollView.contentSize = CGSizeMake(imageScrollView.frame.size.width * CGFloat(totalPages), imageScrollView.frame.size.height)
+        
+        // Set self as the delegate of the scrollview.
+        imageScrollView.delegate = self
+        
+        // Load the TestView view from the TestView.xib file and configure it properly.
+        for i in 0 ..< totalPages {
+            // Load the TestView view.
+            let testView = NSBundle.mainBundle().loadNibNamed(kIBPageControlerImageViewNibName, owner: self, options: nil)[0] as! UIView
+            
+            // Set its frame and the background color.
+            testView.frame = CGRectMake(CGFloat(i) * imageScrollView.frame.size.width, 0, imageScrollView.frame.size.width, imageScrollView.frame.size.height)
+            
+            let pageImage = testView.viewWithTag(1) as! UIImageView
+            let locationImage = self.imageAssets[i] as IBLocationImages
+            let data = locationImage.image
+            pageImage.image = UIImage(data: data!)
+            
+            // Add the test view as a subview to the scrollview.
+            imageScrollView.addSubview(testView)
+        }
+    }
+    
+    
+    func configurePageControl() {
+        // Set the total pages to the page control.
+        imagePageControl.numberOfPages = totalPages
+        
+        // Set the initial page.
+        imagePageControl.currentPage = 0
+    }
+}
+
+// MARK: UIScrollViewDelegate Methods..
+
+extension IBPlaceDetailVC : UIScrollViewDelegate {
+    
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        // Calculate the new page index depending on the content offset.
+        let currentPage = floor(scrollView.contentOffset.x / UIScreen.mainScreen().bounds.size.width);
+        
+        // Set the new page index to the page control.
+        imagePageControl.currentPage = Int(currentPage)
+    }
+}
+
+// MARK: RMImagePickerControllerDelegate
+
+extension IBPlaceDetailVC : RMImagePickerControllerDelegate {
     
     func rmImagePickerController(picker: RMImagePickerController, didFinishPickingAssets assets: [PHAsset]) {
         self.images.appendContentsOf(assets)
@@ -103,15 +191,16 @@ class IBPlaceDetailVC: IBBaseVC, RMImagePickerControllerDelegate, DKImagePickerC
         self.dismissViewControllerAnimated(true, completion: nil)
     }
     
-    // MARK: - Utility
-    
     func dismissPickerPopover() {
         let imageEditingVC:IBImageEditingVC = UIStoryboard(name:kIBMainStoryboardIdentifier, bundle: nil).instantiateViewControllerWithIdentifier(kIBImageEditingViewControllerIdentifier) as! IBImageEditingVC
         imageEditingVC.imageAssets = self.images
         self.navigationController!.pushViewController(imageEditingVC , animated: true)
     }
-    
-    // MARK: - DKImagePickerControllerDelegate
+}
+
+// MARK: DKImagePickerControllerDelegate
+
+extension IBPlaceDetailVC : DKImagePickerControllerDelegate {
     
     func dkImagePickerController(picker: DKImagePickerController, didFinishPickingAssets assets: [DKAsset]) {
         for asset in assets {
@@ -125,9 +214,31 @@ class IBPlaceDetailVC: IBBaseVC, RMImagePickerControllerDelegate, DKImagePickerC
         picker.dismissViewControllerAnimated(true, completion: nil)
     }
     
-    func showGrid() {
-        items = [RNGridMenuItem(image: UIImage(named: "Camera"), title: "Camera"),
-                 RNGridMenuItem(image: UIImage(named: "Gallery"), title: "Gallery")]
+    func showImagePickerWithAssetType(assetType: DKImagePickerControllerAssetType,
+                                      allowMultipleType: Bool,
+                                      sourceType: DKImagePickerControllerSourceType = [.Camera, .Photo],
+                                      allowsLandscape: Bool,
+                                      singleSelect: Bool) {
+        
+        pickerController.dkPickerDelegate = self
+        pickerController.assetType = assetType
+        pickerController.allowsLandscape = allowsLandscape
+        pickerController.allowMultipleTypes = allowMultipleType
+        pickerController.sourceType = sourceType
+        pickerController.singleSelect = singleSelect
+        self.dismissViewControllerAnimated(true, completion: nil)
+        self.presentViewController(pickerController, animated: true) {}
+    }
+    
+}
+
+// MARK: RNGridMenuDelegate methods..
+
+extension IBPlaceDetailVC : RNGridMenuDelegate {
+    
+    func showSelectionAlert() {
+        items = [RNGridMenuItem(image: UIImage(named:kIBCameraIconImageName), title: kIBCameraIconImageName),
+                 RNGridMenuItem(image: UIImage(named:kIBGalleryIconImageName), title: kIBGalleryIconImageName)]
         let gridItems = RNGridMenu.init(items:items.subarrayWithRange(NSMakeRange(0, numberOfOptions)) )
         gridItems.delegate = self
         gridItems.showInViewController(self, center: CGPointMake(self.view.bounds.size.width/2, self.view.bounds.size.height/2))
@@ -140,8 +251,6 @@ class IBPlaceDetailVC: IBBaseVC, RMImagePickerControllerDelegate, DKImagePickerC
             self.pickImages()
         }
     }
-    
-    // MARK: - Actions
     
     func pickImages() {
         isGallary = true
@@ -158,51 +267,16 @@ class IBPlaceDetailVC: IBBaseVC, RMImagePickerControllerDelegate, DKImagePickerC
         let sourceType:DKImagePickerControllerSourceType = .Camera
         showImagePickerWithAssetType(.AllPhotos, allowMultipleType: true, sourceType: sourceType, allowsLandscape: true, singleSelect: true)
     }
-    
-    func updateProfileButtonOffsets(button: UIButton) {
-        button.titleLabel!.textAlignment = .Center
-        button.imageView!.contentMode = .Center
-        // get the size of the elements here for readability
-        let imageSize: CGSize = button.imageView!.frame.size
-        var titleSize: CGSize = button.titleLabel!.frame.size
-        // lower the text and push it left to center it
-        button.titleEdgeInsets = UIEdgeInsetsMake(0.0, -imageSize.width, 0.0, 0.0)
-        // the text width might have changed (in case it was shortened before due to
-        // lack of space and isn't anymore now), so we get the frame size again
-        titleSize = button.titleLabel!.frame.size
-        // raise the image and push it right to center it
-        button.imageEdgeInsets = UIEdgeInsetsMake(0.0, 0.0, 0.0, -titleSize.width)
-    }
-    
-    func showImagePickerWithAssetType(assetType: DKImagePickerControllerAssetType,
-                                      allowMultipleType: Bool,
-                                      sourceType: DKImagePickerControllerSourceType = [.Camera, .Photo],
-                                      allowsLandscape: Bool,
-                                      singleSelect: Bool) {
-        
-        pickerController.dkPickerDelegate = self
-        pickerController.assetType = assetType
-        pickerController.allowsLandscape = allowsLandscape
-        pickerController.allowMultipleTypes = allowMultipleType
-        pickerController.sourceType = sourceType
-        pickerController.singleSelect = singleSelect
-//        pickerController.didSelectAssets = { [unowned self] (assets: [DKAsset]) in
-//            print("didSelectAssets")
-//            for asset in assets {
-//                self.images.append(asset.originalAsset!)
-//            }
-//        }
-        self.dismissViewControllerAnimated(true, completion: nil)
-        self.presentViewController(pickerController, animated: true) {}
-    }
-    
-    // MARK: - Tableview Methods
-    
+}
+
+// MARK: UITableViewDataSource and UITableViewDelegate
+
+extension IBPlaceDetailVC : UITableViewDataSource, UITableViewDelegate {
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         if (self.locationDetailTableView.tag == 0) {
-            return 2
+            return kIBNumberOfSections
         } else {
-            return 1
+            return kIBNumberOfSection
         }
     }
     
@@ -248,7 +322,7 @@ class IBPlaceDetailVC: IBBaseVC, RMImagePickerControllerDelegate, DKImagePickerC
                 cell = expandedBrandDetailCell
             }
         } else {
-            let establishmentCell = tableView.dequeueReusableCellWithIdentifier("IBEstablishmentCell", forIndexPath: indexPath) as? IBEstablishmentCell
+            let establishmentCell = tableView.dequeueReusableCellWithIdentifier(kIBEstablishmentCellNibName, forIndexPath: indexPath) as? IBEstablishmentCell
             establishmentCell!.establishmentCellLabel.text = "Establishment \(indexPath.row)"
             cell = establishmentCell
         }
@@ -264,7 +338,7 @@ class IBPlaceDetailVC: IBBaseVC, RMImagePickerControllerDelegate, DKImagePickerC
             segmentedControlClicked((segmentedHeaderView.segmentedControl)!)
             headerCell = segmentedHeaderView
         } else {
-            let  brandHeaderCell = NSBundle.mainBundle().loadNibNamed("IBBrandHeaderCell", owner: nil, options: nil)[0] as! IBBrandHeaderCell
+            let  brandHeaderCell = NSBundle.mainBundle().loadNibNamed(kIBBrandHeaderCellNibName, owner: nil, options: nil)[0] as! IBBrandHeaderCell
             brandHeaderCell.brandHeaderLabel.text = "Brands"
             headerCell = brandHeaderCell
         }
@@ -291,7 +365,7 @@ class IBPlaceDetailVC: IBBaseVC, RMImagePickerControllerDelegate, DKImagePickerC
                 tableView.reloadRowsAtIndexPaths(indexPaths, withRowAnimation: UITableViewRowAnimation.Automatic)
             }
         } else {
-            self.performSegueWithIdentifier("EstablismentDetailSegue", sender: nil)
+            self.performSegueWithIdentifier(kIBEstablismentDetailSegueIdentifier , sender: nil)
         }
         
     }
@@ -313,88 +387,5 @@ class IBPlaceDetailVC: IBBaseVC, RMImagePickerControllerDelegate, DKImagePickerC
         }
         return rowHeight
     }
-    
-    func segmentedControlClicked(sender :UISegmentedControl){
-        let sortedViews = sender.subviews.sort( { $0.frame.origin.x < $1.frame.origin.x } )
-        
-        for (index, view) in sortedViews.enumerate() {
-            if index == sender.selectedSegmentIndex {
-                view.tintColor = UIColor.orangeColor()
-            } else {
-                view.tintColor = UIColor.orangeColor()
-            }
-        }
-        if (locationDetailTableView.tag != sender.selectedSegmentIndex) {
-            self.locationDetailTableView.tag = sender.selectedSegmentIndex
-            self.locationDetailTableView.reloadData()
-        }
-    }
-    
-    // MARK: Custom Page control method implementation
-    
-    func configureScrollView() {
-        // Enable paging.
-        imageScrollView.pagingEnabled = true
-        
-        // Set the following flag values.
-        imageScrollView.showsHorizontalScrollIndicator = false
-        imageScrollView.showsVerticalScrollIndicator = false
-        imageScrollView.scrollsToTop = false
-        
-        // Set the scrollview content size.
-        imageScrollView.contentSize = CGSizeMake(imageScrollView.frame.size.width * CGFloat(totalPages), imageScrollView.frame.size.height)
-        
-        // Set self as the delegate of the scrollview.
-        imageScrollView.delegate = self
-        
-        // Load the TestView view from the TestView.xib file and configure it properly.
-        for i in 0 ..< totalPages {
-            // Load the TestView view.
-            let testView = NSBundle.mainBundle().loadNibNamed(kIBPageControlerImageViewNibName, owner: self, options: nil)[0] as! UIView
-            
-            // Set its frame and the background color.
-            testView.frame = CGRectMake(CGFloat(i) * imageScrollView.frame.size.width, 0, imageScrollView.frame.size.width, imageScrollView.frame.size.height)
-            
-            let pageImage = testView.viewWithTag(1) as! UIImageView
-            let locationImage = self.imageAssets[i] as IBLocationImages
-            let data = locationImage.image
-            pageImage.image = UIImage(data: data!)
-            
-            // Add the test view as a subview to the scrollview.
-            imageScrollView.addSubview(testView)
-        }
-    }
-    
-    
-    func configurePageControl() {
-        // Set the total pages to the page control.
-        imagePageControl.numberOfPages = totalPages
-        
-        // Set the initial page.
-        imagePageControl.currentPage = 0
-    }
-    
-    
-    // MARK: UIScrollViewDelegate method implementation
-    
-    func scrollViewDidScroll(scrollView: UIScrollView) {
-        // Calculate the new page index depending on the content offset.
-        let currentPage = floor(scrollView.contentOffset.x / UIScreen.mainScreen().bounds.size.width);
-        
-        // Set the new page index to the page control.
-        imagePageControl.currentPage = Int(currentPage)
-    }
-    
-    
-    // MARK: IBAction method implementation
-    
-    @IBAction func changePage(sender: AnyObject) {
-        // Calculate the frame that should scroll to based on the page control current page.
-        var newFrame = imageScrollView.frame
-        newFrame.origin.x = newFrame.size.width * CGFloat(imagePageControl.currentPage)
-        imageScrollView.scrollRectToVisible(newFrame, animated: true)
-        
-    }
-    
-    
 }
+

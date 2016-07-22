@@ -35,7 +35,6 @@ extension IBLocationSearchTable : UISearchResultsUpdating {
             if handleMapSearchDelegate != nil {
                 handleMapSearchDelegate?.didPressSearchBarCancelButton()
             }
-            print("Not Active")
         }
     }
 }
@@ -52,9 +51,7 @@ extension IBLocationSearchTable {
         cell.detailTextLabel!.text = annotationObject.locationId!
         return cell
     }
-}
-
-extension IBLocationSearchTable {
+    
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let selectedItem = titleArray[indexPath.row]
         let coordinate = CLLocationCoordinate2D(latitude: Double(selectedItem.latitude!.doubleValue), longitude: Double(selectedItem.longitude!.doubleValue))

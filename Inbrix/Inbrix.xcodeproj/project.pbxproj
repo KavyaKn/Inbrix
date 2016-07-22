@@ -44,6 +44,7 @@
 		523D04C11D41E1930094F115 /* IBCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523D04BF1D41E1930094F115 /* IBCollectionViewCell.swift */; };
 		523D04C21D41E1930094F115 /* IBCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 523D04C01D41E1930094F115 /* IBCollectionViewCell.xib */; };
 		523F9F041D42297A00A5E810 /* IBImageConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523F9F031D42297A00A5E810 /* IBImageConstants.swift */; };
+		523F9F061D424C8B00A5E810 /* IBLocationImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 523F9F051D424C8B00A5E810 /* IBLocationImageModel.swift */; };
 		525367AE1D336D6A006F1ECD /* IBMobileFormImageEditingVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 525367AD1D336D6A006F1ECD /* IBMobileFormImageEditingVC.swift */; };
 		5262F66A1D11138B0010C230 /* IBImageView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5262F6691D11138B0010C230 /* IBImageView.xib */; };
 		526FB3311D24D22400B0AE20 /* IBEstablishmentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 526FB32F1D24D22400B0AE20 /* IBEstablishmentCell.swift */; };
@@ -173,6 +174,7 @@
 		523D04BF1D41E1930094F115 /* IBCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBCollectionViewCell.swift; sourceTree = "<group>"; };
 		523D04C01D41E1930094F115 /* IBCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IBCollectionViewCell.xib; sourceTree = "<group>"; };
 		523F9F031D42297A00A5E810 /* IBImageConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBImageConstants.swift; sourceTree = "<group>"; };
+		523F9F051D424C8B00A5E810 /* IBLocationImageModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBLocationImageModel.swift; sourceTree = "<group>"; };
 		525367AD1D336D6A006F1ECD /* IBMobileFormImageEditingVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBMobileFormImageEditingVC.swift; sourceTree = "<group>"; };
 		5262F6691D11138B0010C230 /* IBImageView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IBImageView.xib; sourceTree = "<group>"; };
 		526FB32F1D24D22400B0AE20 /* IBEstablishmentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IBEstablishmentCell.swift; sourceTree = "<group>"; };
@@ -602,6 +604,7 @@
 			isa = PBXGroup;
 			children = (
 				52FBC4C91D13E12D00128287 /* IBLocationModel.swift */,
+				523F9F051D424C8B00A5E810 /* IBLocationImageModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1108,6 +1111,7 @@
 				52E12EE01D095159003F38A0 /* IBLabel.swift in Sources */,
 				52F1E9E61D1951D1003C8465 /* IBEstablishmentDetailVC.swift in Sources */,
 				52D592691D081FDF00A64F1F /* IBBaseVC.swift in Sources */,
+				523F9F061D424C8B00A5E810 /* IBLocationImageModel.swift in Sources */,
 				520A2D5C1D0A89F000216F94 /* DKAssetGroupGridLayout.swift in Sources */,
 				520A2D641D0A89F000216F94 /* RMImagePickerController.swift in Sources */,
 				520A2D701D0A8AE300216F94 /* IBLocationImages.swift in Sources */,

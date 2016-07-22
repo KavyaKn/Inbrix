@@ -37,22 +37,12 @@ class IBBaseVC: UIViewController, UIAlertViewDelegate {
     // Alert view methods
     
     func showAlertWithTitle(title: String, message messageString: String) {
-        
         let myAlert: UIAlertController = UIAlertController(title: title, message: messageString, preferredStyle: .Alert)
-//        myAlert.addAction(UIAlertAction(title:String.localizedValueForKey("AlertOkButtonTitle"), style: .Default, handler: nil))
         self.presentViewController(myAlert, animated: true, completion: nil)
-    }
-    
-    func showAlertWithTitle(title: String, message messageString: String, delegate: AnyObject, tag: Int, cancelButtonTitle cancelTitle: String, otherButtonTitle otherTitle: String) {
-        
-        let myAlertView: UIAlertController = UIAlertController(title: title, message: messageString, preferredStyle: .Alert)
-//        myAlertView.addAction(UIAlertAction(title:String.localizedValueForKey("AlertOkButtonTitle"), style: .Default, handler: nil))
-        self.presentViewController(myAlertView, animated: true, completion: nil)
     }
     
     func endViewEditing() {
         self.view!.endEditing(true)
     }
-
 
 }

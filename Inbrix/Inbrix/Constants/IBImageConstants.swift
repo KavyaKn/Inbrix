@@ -8,7 +8,34 @@
 
 import Foundation
 
-// MARK: - Storyboard Identifier
+// MARK: - Image Identifier
 
 let kIBMenuButtonImageName = "Menu"
 let kIBBackButtonImageName = "back.png"
+let kIBBackgroundScreenImageName = "Screen"
+let kIBHomeButtonImageName = "Home"
+let kIBAboutButtonImageName = "About"
+let kIBLogoutButtonImageName = "Logout"
+let kIBSearchWhiteIconImageName = "SearchWhiteIcon"
+let kIBRightarrowIconImageName = "right-arrow"
+let kIBLocationIconImageName = "Location"
+let kIBAllLocationIconImageName = "All Location"
+let kIBRecentIconImageName = "Recent"
+let kIBOverviewIconImageName = "OverviewIcon"
+let kIBCameraIconImageName = "Camera"
+let kIBGalleryIconImageName = "Gallery"
+let kIBCameraPlaceHolderImageName = "CameraPlaceHolder"
+let kIBAddButtonImageName = "add"
+let kIBGalleryPlaceHolderImageName = "GalleryPlaceHolder"
+
+
+
+
+
+
+
+
+
+
+
+

@@ -44,19 +44,19 @@ class IBLocations: NSManagedObject {
         }
         return result as? [IBLocations]
     }
-//
-//    //Add near by location Images
-//    
-//    
-//    class func fetchNearByLocationWithId(nearByPlaceId: String) -> IBNearByLocations {
-//        
-//        let privateContext = CoreDataManager.sharedInstance.managedObjectContext
-//        let resultPredicate = NSPredicate(format: "locationId == %@", nearByPlaceId)
-//        let  (result, error) = CoreDataManager.sharedInstance.fetchRequest("IBNearByLocations", predicate: resultPredicate, sortDescriptors: nil, context: privateContext)
-//        if (error != nil) {
-//            print(error?.userInfo)
-//        }
-//        return (result?.first as? IBNearByLocations)!
-//    }
+
+    //Add near by location Images
+    
+    
+    class func fetchNearByLocationWithId(nearByPlaceId: String) -> IBLocations {
+        
+        let privateContext = CoreDataManager.sharedInstance.managedObjectContext
+        let resultPredicate = NSPredicate(format: "locationId == %@", nearByPlaceId)
+        let  (result, error) = CoreDataManager.sharedInstance.fetchRequest("IBNearByLocations", predicate: resultPredicate, sortDescriptors: nil, context: privateContext)
+        if (error != nil) {
+            print(error?.userInfo)
+        }
+        return (result?.first as? IBLocations)!
+    }
 
 }

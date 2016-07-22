@@ -21,7 +21,7 @@ class IBLoginVC: IBBaseVC {
     
     func initializeView() {
         let backgroundImage = UIImageView(frame: UIScreen.mainScreen().bounds)
-        backgroundImage.image = UIImage(named: "Screen")
+        backgroundImage.image = UIImage(named:kIBBackgroundScreenImageName)
         self.view.insertSubview(backgroundImage, atIndex: 0)
         self.navigationController?.navigationBarHidden = true
         self.loginButton.configureButton()
@@ -79,7 +79,6 @@ class IBLoginVC: IBBaseVC {
         self.createMenuView()
     }
     
-    
     func createMenuView() {
         let sideMenuStoryboard = UIStoryboard(name:kIBSideManuStoryboardIdentifier, bundle: nil)
         let mainStoryboard  = UIStoryboard(name:kIBMainStoryboardIdentifier, bundle: nil)
@@ -93,8 +92,6 @@ class IBLoginVC: IBBaseVC {
         let slideMenuController = IBMenuDrawer(mainViewController:nvc, leftMenuViewController: leftViewController)
         slideMenuController.automaticallyAdjustsScrollViewInsets = true
         self.navigationController?.pushViewController(slideMenuController, animated: true)
-
-
     }
 
 }

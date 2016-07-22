@@ -8,37 +8,47 @@
 
 import UIKit
 
-class IBEstablishmentDetailVC: IBBaseVC, UITableViewDataSource, UITableViewDelegate {
-
-    @IBOutlet weak var establismentNameLabel: UILabel!
-    @IBOutlet weak var establishmentIdLabel: UILabel!
-    @IBOutlet weak var establismentPhoneNoLabel: UILabel!
-    @IBOutlet weak var establismentEmailLabel: UILabel!
-    @IBOutlet weak var establishmentAddressLabel: UILabel!
+class IBEstablishmentDetailVC: IBBaseVC {
+    
     @IBOutlet weak var establismentSegmentedControl: UISegmentedControl!
     @IBOutlet weak var establismentDetailTableView: UITableView!
+    @IBOutlet weak var establishmentAddressLabel: UILabel!
+    @IBOutlet weak var establismentPhoneNoLabel: UILabel!
+    @IBOutlet weak var establismentEmailLabel: UILabel!
+    @IBOutlet weak var establismentNameLabel: UILabel!
+    @IBOutlet weak var establishmentIdLabel: UILabel!
     
     var addButton : UIBarButtonItem = UIBarButtonItem()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.initializeView()
-        self.registerCell()
-        self.labelInitialData()
     }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+}
+
+// MARK: Helper Methods
+
+extension IBEstablishmentDetailVC {
     
     func initializeView () {
         self.establismentSegmentedControl.customSegmentView()
         self.establismentSegmentedControl.addTarget(self, action: #selector(IBPlaceDetailVC.segmentedControlClicked), forControlEvents: UIControlEvents.ValueChanged)
         segmentedControlClicked((self.establismentSegmentedControl)!)
         self.addCustomBackButton()
-        let addButtonImage   = UIImage(named: "add")!
+        let addButtonImage   = UIImage(named: kIBAddButtonImageName)!
         addButton = UIBarButtonItem(image: addButtonImage,  style: .Plain, target: self, action: #selector(IBEstablishmentDetailVC.didTapAddButton(_:)))
+        self.registerCell()
+        self.labelInitialData()
     }
     
     func registerCell() {
-        let establishmentCellNib = UINib(nibName:"IBEstablishmentCell" , bundle: nil)
-        establismentDetailTableView.registerNib(establishmentCellNib, forCellReuseIdentifier: "IBEstablishmentCell")
+        let establishmentCellNib = UINib(nibName:kIBEstablishmentCellNibName , bundle: nil)
+        establismentDetailTableView.registerNib(establishmentCellNib, forCellReuseIdentifier: kIBEstablishmentCellNibName)
     }
     
     func labelInitialData() {
@@ -53,19 +63,34 @@ class IBEstablishmentDetailVC: IBBaseVC, UITableViewDataSource, UITableViewDeleg
     }
     
     func didTapAddButton(sender: AnyObject) {
-        self.performSegueWithIdentifier("MobileFormSegue", sender: nil)
+        self.performSegueWithIdentifier(kIBMobileFormSegueIdentifier, sender: nil)
     }
+    
+    func segmentedControlClicked(sender :UISegmentedControl) {
+        let sortedViews = sender.subviews.sort( { $0.frame.origin.x < $1.frame.origin.x } )
+        
+        for (index, view) in sortedViews.enumerate() {
+            if index == sender.selectedSegmentIndex {
+                view.tintColor = UIColor.orangeColor()
+            } else {
+                view.tintColor = UIColor.orangeColor()
+            }
+        }
+        if (establismentDetailTableView.tag != sender.selectedSegmentIndex) {
+            self.establismentDetailTableView.tag = sender.selectedSegmentIndex
+            self.establismentDetailTableView.reloadData()
+        }
+    }
+}
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+// MARK: UITableViewDataSource and UITableViewDelegate
+
+extension IBEstablishmentDetailVC : UITableViewDataSource, UITableViewDelegate {
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
         var returnValue = 0
         
-        switch(establismentSegmentedControl.selectedSegmentIndex)
-        {
+        switch(establismentSegmentedControl.selectedSegmentIndex) {
         case 0:
             returnValue = 1
             break
@@ -89,8 +114,7 @@ class IBEstablishmentDetailVC: IBBaseVC, UITableViewDataSource, UITableViewDeleg
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         var returnValue = 0
         
-        switch(establismentSegmentedControl.selectedSegmentIndex)
-        {
+        switch(establismentSegmentedControl.selectedSegmentIndex) {
         case 0:
             returnValue = 15
             break
@@ -104,11 +128,8 @@ class IBEstablishmentDetailVC: IBBaseVC, UITableViewDataSource, UITableViewDeleg
             
         default:
             break
-            
         }
-        
         return returnValue
-        
     }
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -142,7 +163,7 @@ class IBEstablishmentDetailVC: IBBaseVC, UITableViewDataSource, UITableViewDeleg
         }
         return headerCell
     }
-
+    
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if (establismentSegmentedControl.selectedSegmentIndex == 1) {
             return 50
@@ -151,8 +172,7 @@ class IBEstablishmentDetailVC: IBBaseVC, UITableViewDataSource, UITableViewDeleg
         }
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell
-    {
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let establishmentCell = tableView.dequeueReusableCellWithIdentifier("IBEstablishmentCell", forIndexPath: indexPath) as! IBEstablishmentCell
         
         switch(establismentSegmentedControl.selectedSegmentIndex)
@@ -201,21 +221,5 @@ class IBEstablishmentDetailVC: IBBaseVC, UITableViewDataSource, UITableViewDeleg
         }
         edit.backgroundColor = UIColor.orangeColor()
         return [delete,edit]
-    }
-    
-    func segmentedControlClicked(sender :UISegmentedControl) {
-        let sortedViews = sender.subviews.sort( { $0.frame.origin.x < $1.frame.origin.x } )
-        
-        for (index, view) in sortedViews.enumerate() {
-            if index == sender.selectedSegmentIndex {
-                view.tintColor = UIColor.orangeColor()
-            } else {
-                view.tintColor = UIColor.orangeColor()
-            }
-        }
-        if (establismentDetailTableView.tag != sender.selectedSegmentIndex) {
-            self.establismentDetailTableView.tag = sender.selectedSegmentIndex
-            self.establismentDetailTableView.reloadData()
-        }
     }
 }

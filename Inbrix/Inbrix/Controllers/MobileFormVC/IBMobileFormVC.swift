@@ -8,33 +8,20 @@
 
 import UIKit
 
-class IBMobileFormVC: IBBaseVC , UITableViewDelegate, UITableViewDataSource {
+class IBMobileFormVC: IBBaseVC {
 
-    @IBOutlet weak var locationNameTextField: UITextField!
     @IBOutlet weak var locationNumberTextField: UITextField!
+    @IBOutlet weak var locationNameTextField: UITextField!
+    @IBOutlet weak var checkListTableView: UITableView!
     @IBOutlet weak var onelineTextField: UITextField!
     @IBOutlet weak var paraTextView: UITextView!
-    @IBOutlet weak var checkListTableView: UITableView!
     
-    var array : NSMutableArray = NSMutableArray()
-    var selectedArray : NSMutableArray = NSMutableArray()
+    var selectedArray = NSMutableArray()
+    var array = NSMutableArray()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.addCustomBackButton()
-        self.registerCell()
-        let gallaryImage   = UIImage(named: "GalleryPlaceHolder")!
-        let gallaryButton   = UIBarButtonItem(image: gallaryImage,  style: .Plain, target: self, action: #selector(IBMobileFormVC.didTapGallaryButton(_:)))
-        navigationItem.rightBarButtonItems = [gallaryButton]
-    }
-    
-    func didTapGallaryButton(sender: AnyObject){
-        
-    }
-    
-    func registerCell() {
-        let checkListCellNib = UINib(nibName:"IBCheckListTableViewCell" , bundle: nil)
-        checkListTableView.registerNib(checkListCellNib, forCellReuseIdentifier: "IBCheckListTableViewCell")
+        self.initializeView()
     }
 
     override func didReceiveMemoryWarning() {
@@ -47,10 +34,32 @@ class IBMobileFormVC: IBBaseVC , UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-// MARK: - UITableViewDataSource
 extension IBMobileFormVC {
+    
+    func initializeView() {
+        let gallaryImage   = UIImage(named:kIBGalleryPlaceHolderImageName)!
+        let gallaryButton   = UIBarButtonItem(image: gallaryImage,  style: .Plain, target: self, action: #selector(IBMobileFormVC.didTapGallaryButton(_:)))
+        navigationItem.rightBarButtonItems = [gallaryButton]
+        self.addCustomBackButton()
+        self.registerCell()
+    }
+    
+    func didTapGallaryButton(sender: AnyObject){
+        
+    }
+    
+    func registerCell() {
+        let checkListCellNib = UINib(nibName:kIBCheckListTableViewCellNibName , bundle: nil)
+        checkListTableView.registerNib(checkListCellNib, forCellReuseIdentifier:kIBCheckListTableViewCellNibName)
+    }
+}
+
+// MARK: - UITableViewDataSource and UITableViewDelegate
+
+extension IBMobileFormVC : UITableViewDelegate, UITableViewDataSource {
+    
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
+        return kIBNumberOfSection
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -63,7 +72,7 @@ extension IBMobileFormVC {
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         // Configure the cell...
-        let cell = tableView.dequeueReusableCellWithIdentifier("IBCheckListTableViewCell", forIndexPath: indexPath) as! IBCheckListTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(kIBCheckListTableViewCellNibName, forIndexPath: indexPath) as! IBCheckListTableViewCell
         cell.selectionStyle = UITableViewCellSelectionStyle.None
         cell.checkListLabel.text = "Task \(indexPath.row)"
         return cell

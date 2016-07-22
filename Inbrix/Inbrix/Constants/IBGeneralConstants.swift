@@ -7,3 +7,10 @@
 //
 
 import Foundation
+
+// MARK: - General Identifier
+
+let kIBNumberOfSection = 1
+let kIBNumberOfSections = 2
+let kIBHeightForHeaderInSection : CGFloat = 200
+let kIBHeightForRowAtIndexPath : CGFloat = 50.0

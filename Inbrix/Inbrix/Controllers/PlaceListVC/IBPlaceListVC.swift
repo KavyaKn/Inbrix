@@ -51,7 +51,6 @@ class IBPlaceListVC: UIViewController, UISearchControllerDelegate {
     func initializeView() {
         self.navigationController?.navigationBarHidden = false
         self.locationSearchController.delegate = self
-        self.locationSearchController.searchBar.delegate = self
         self.placeListMapView.delegate = self
         self.getUserCurrentLocation()
         self.customizeNavigationBar()
@@ -60,19 +59,23 @@ class IBPlaceListVC: UIViewController, UISearchControllerDelegate {
         self.callPlaceListAPI()
     }
     
+    deinit{
+        if let superView = locationSearchController.view.superview {
+            superView.removeFromSuperview()
+        }
+    }
+}
+
+// MARK: Helper Methods 
+
+extension IBPlaceListVC {
+    
     func addLeftMenuBarMenuButtonItem() {
-        self.addLeftBarButtonWithImage(UIImage(named: "Menu")!)
+        self.addLeftBarButtonWithImage(UIImage(named: kIBMenuButtonImageName)!)
         self.slideMenuController()?.removeLeftGestures()
         self.slideMenuController()?.removeRightGestures()
         self.slideMenuController()?.addLeftGestures()
         self.navigationItem.leftBarButtonItem?.tintColor = UIColor.whiteColor()
-    }
-  
-    deinit{
-        if let superView = locationSearchController.view.superview
-        {
-            superView.removeFromSuperview()
-        }
     }
     
     func customizeNavigationBar() {
@@ -82,7 +85,7 @@ class IBPlaceListVC: UIViewController, UISearchControllerDelegate {
         self.navigationController?.navigationBar.barStyle = UIBarStyle.Black
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         searchBtn.frame = CGRectMake(0, 0, 30, 30)
-        searchBtn.setImage(UIImage(named: "SearchWhiteIcon"), forState: .Normal)
+        searchBtn.setImage(UIImage(named: kIBSearchWhiteIconImageName), forState: .Normal)
         searchBtn.addTarget(self, action: #selector(IBPlaceListVC.addAction), forControlEvents: .TouchUpInside)
         let rightBarButton = UIBarButtonItem()
         rightBarButton.customView = searchBtn
@@ -111,7 +114,7 @@ class IBPlaceListVC: UIViewController, UISearchControllerDelegate {
             isTitleBar = false
         } else {
             self.addLabel()
-            searchBtn.setImage(UIImage(named: "SearchWhiteIcon"), forState: .Normal)
+            searchBtn.setImage(UIImage(named: kIBSearchWhiteIconImageName), forState: .Normal)
             isTitleBar = true
         }
     }
@@ -133,7 +136,7 @@ class IBPlaceListVC: UIViewController, UISearchControllerDelegate {
         } else {
             // Fallback on earlier versions
         }
-        let locationSearchTable = storyboard!.instantiateViewControllerWithIdentifier("IBLocationSearchTable") as! IBLocationSearchTable
+        let locationSearchTable = storyboard!.instantiateViewControllerWithIdentifier(kIBLocationSearchTableControllerIdentifier) as! IBLocationSearchTable
         locationSearchController = UISearchController(searchResultsController: locationSearchTable)
         locationSearchController.searchResultsUpdater = locationSearchTable
         let searchBar = locationSearchController.searchBar
@@ -147,12 +150,7 @@ class IBPlaceListVC: UIViewController, UISearchControllerDelegate {
         locationSearchTable.mapView = placeListMapView
         locationSearchTable.handleMapSearchDelegate = self
     }
-}
-
-extension IBPlaceListVC : UISearchBarDelegate {
-    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
-        
-    }
+    
 }
 
 // MARK: - Location update
@@ -192,7 +190,7 @@ extension IBPlaceListVC : MKMapViewDelegate {
             view.canShowCallout = true
             view.calloutOffset = CGPoint(x: -5, y: 5)
             let imageview = UIImageView(frame: CGRectMake(0, 0, 30, 50))
-            imageview.image = UIImage(named: "right-arrow")
+            imageview.image = UIImage(named: kIBRightarrowIconImageName)
             
             let button   = UIButton(type: UIButtonType.Custom) as UIButton
             button.frame = CGRectMake(0, 0, 30, 50)
@@ -230,10 +228,10 @@ extension IBPlaceListVC : SMSegmentViewDelegate {
         
         //        let view = self.segmentView
         // Add segments
-        self.segmentView.addSegmentWithTitle("Near By", onSelectionImage: UIImage(named: "Location"), offSelectionImage: UIImage(named: "Location"))
-        self.segmentView.addSegmentWithTitle("All Locations", onSelectionImage: UIImage(named: "All Location"), offSelectionImage: UIImage(named: "All Location"))
-        self.segmentView.addSegmentWithTitle("Recents", onSelectionImage: UIImage(named: "Recent"), offSelectionImage: UIImage(named: "Recent"))
-        self.segmentView.addSegmentWithTitle("Overview", onSelectionImage: UIImage(named: "OverviewIcon"), offSelectionImage: UIImage(named: "OverviewIcon"))
+        self.segmentView.addSegmentWithTitle("Near By", onSelectionImage: UIImage(named:kIBLocationIconImageName), offSelectionImage: UIImage(named: kIBLocationIconImageName))
+        self.segmentView.addSegmentWithTitle("All Locations", onSelectionImage: UIImage(named: kIBAllLocationIconImageName), offSelectionImage: UIImage(named: kIBAllLocationIconImageName))
+        self.segmentView.addSegmentWithTitle("Recents", onSelectionImage: UIImage(named: kIBRecentIconImageName), offSelectionImage: UIImage(named: kIBRecentIconImageName))
+        self.segmentView.addSegmentWithTitle("Overview", onSelectionImage: UIImage(named: kIBOverviewIconImageName), offSelectionImage: UIImage(named: kIBOverviewIconImageName))
         
         // Set segment with index 0 as selected by default
         segmentView.selectSegmentAtIndex(0)
@@ -241,7 +239,6 @@ extension IBPlaceListVC : SMSegmentViewDelegate {
         
     }
     
-    // MARK: -SMSegment Delegate
     func segmentView(segmentView: SMBasicSegmentView, didSelectSegmentAtIndex index: Int) {
         switch (index) {
         case 0:

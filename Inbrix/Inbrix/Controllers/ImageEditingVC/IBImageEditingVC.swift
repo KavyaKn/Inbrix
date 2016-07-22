@@ -16,28 +16,27 @@ let editCellSize = CGSize(width: 80, height: 80)
 var editCellImageViewTag : Int = 10
 
 class IBImageEditingVC: UIViewController {
-
-    @IBOutlet weak var imagedescriptin: UITextView!
-    @IBOutlet weak var imageNameTextField: UITextField!
-    @IBOutlet weak var selectedImage: UIImageView!
-    @IBOutlet weak var editingImageCollectionView: UICollectionView!
-    var pickerController = DKImagePickerController()
     
-    var selectedIndex : Int = -1
-    var isuploading : Bool = false
-    var items : NSArray = []
+    @IBOutlet weak var editingImageCollectionView: UICollectionView!
+    @IBOutlet weak var imageNameTextField: UITextField!
+    @IBOutlet weak var imagedescriptin: UITextView!
+    @IBOutlet weak var selectedImage: UIImageView!
+    
     lazy var imageManager = PHImageManager.defaultManager()
-    var imageAssets: [PHAsset] = []
     var selectedImageModel: [String: AnyObject] = [:]
-    var imagesArray : [[String: AnyObject]] = []
+    var pickerController = DKImagePickerController()
+    var imagesArray : [IBLocationImageModel] = []
     var numberOfOptions : NSInteger = 2
+    var imageAssets: [PHAsset] = []
+    var isuploading : Bool = false
+    var selectedIndex : Int = -1
     var isGallary : Bool = false
+    var items : NSArray = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.initializeView()
         self.registerCollectionViewNib()
-        //        self.storingInDictionary()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -53,20 +52,24 @@ class IBImageEditingVC: UIViewController {
     
     @IBAction func saveButtonClicked(sender: AnyObject) {
         print(self.imagesArray.count)
+        IBLocationImages.addLocationImages(self.imagesArray)
         let imagePickerVC:IBPlaceDetailVC = UIStoryboard(name:kIBMainStoryboardIdentifier, bundle: nil).instantiateViewControllerWithIdentifier(kIBPlaceDetailViewControllerIdentifier) as! IBPlaceDetailVC
         self.navigationController?.pushViewController(imagePickerVC, animated: true)
     }
     
-    
     @IBAction func cancelButtonClicked(sender: AnyObject) {
-        self.dismissViewControllerAnimated(true, completion: nil)
+        self.imageAssets.removeAll()
+        self.imagesArray.removeAll()
+        self.navigationController?.popViewControllerAnimated(true)
     }
 }
+
+// MARK: Helper methods..
+
 extension IBImageEditingVC {
-    // MARK: Helper methods..
     
     func registerCollectionViewNib() {
-        editingImageCollectionView.registerNib(UINib(nibName: "IBCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "IBCollectionViewCell")
+        editingImageCollectionView.registerNib(UINib(nibName: kIBCollectionViewCellIdentifier, bundle: nil), forCellWithReuseIdentifier: kIBCollectionViewCellIdentifier)
     }
     
     func initializeView() {
@@ -85,13 +88,12 @@ extension IBImageEditingVC {
     
     func loadImageFromAssets(asset : PHAsset)  {
         self.imageManager.requestImageDataForAsset(asset, options: nil, resultHandler: { (data: NSData?, dataStrig: String?, imageOrirntation: UIImageOrientation, info: [NSObject : AnyObject]?) -> Void in
-            var dic: [String: AnyObject] = [:]
-            dic["imageName"] = ""
-            dic["imageId"] = NSProcessInfo.processInfo().globallyUniqueString
-            dic["imageAddedTime"] = NSDate()
-            dic["image"] = asset
-            dic["imageData"] = data
-            self.imagesArray.append(dic)
+            let imageModel = IBLocationImageModel()
+            imageModel.imageName = String.localizedValueForKey("EmptyString")
+            imageModel.imageId = NSProcessInfo.processInfo().globallyUniqueString
+            imageModel.imageAddedTime = NSDate()
+            imageModel.image = data
+            self.imagesArray.append(imageModel)
             self.editingImageCollectionView.reloadData()
         })
     }
@@ -121,26 +123,19 @@ extension IBImageEditingVC {
         }
         
     }
-    
-    func presentPhotoLibraryView () {
-        isGallary = true
-        let newpicker =  RMImagePickerController()
-        newpicker.pickerDelegate = self
-        
-        self.presentViewController(newpicker, animated: true, completion: nil)
-    }
 }
 
+// MARK: UITextFieldDelegate methods..
+
 extension IBImageEditingVC: UITextFieldDelegate {
-    // MARK: UITextFieldDelegate methods..
     
     func textFieldDidEndEditing(textField: UITextField) {
-        self.imagesArray[selectedIndex]["imageName"] = textField.text
+        self.imagesArray[selectedIndex].imageName = textField.text
         print(textField.text)
     }
     
     func textFieldDidChange(textField: UITextField) {
-        self.imagesArray[selectedIndex]["imageName"] = textField.text
+        self.imagesArray[selectedIndex].imageName = textField.text
     }
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {
@@ -150,26 +145,26 @@ extension IBImageEditingVC: UITextFieldDelegate {
     
 }
 
+// MARK: UICollectionViewDataSource methods..
+
 extension IBImageEditingVC: UICollectionViewDelegateFlowLayout, UICollectionViewDataSource {
-    
-    // MARK: UICollectionViewDataSource methods..
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return imagesArray.count + 1
     }
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("IBCollectionViewCell", forIndexPath: indexPath) as? IBCollectionViewCell
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(kIBCollectionViewCellIdentifier, forIndexPath: indexPath) as? IBCollectionViewCell
         
         if indexPath.row == imagesArray.count {
             cell!.styleAddButton()
             cell!.collectionImageView.image = nil;
         } else {
             cell!.styleImage()
-            let imagedata = self.imagesArray[indexPath.row]["imageData"] as! NSData
+            let imagedata = self.imagesArray[indexPath.row].image!
             cell!.collectionImageView.image = UIImage(data: imagedata)
             cell?.deleteCallBack = {(sender: UIButton) -> Void in
-            self.deleteImage(at: indexPath.row)
+                self.deleteImage(at: indexPath.row)
             }
         }
         
@@ -179,20 +174,20 @@ extension IBImageEditingVC: UICollectionViewDelegateFlowLayout, UICollectionView
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         
         if indexPath.row == imagesArray.count {
-            self.showGrid()
+            self.showSelectionAlert()
         }else{
             selectedIndex = indexPath.row
-            selectedImageModel = self.imagesArray[indexPath.row]
-            let imageName = selectedImageModel["imageName"] as! String
-            if (!imageName.isEmpty) {
+            let imageModel = self.imagesArray[indexPath.row]
+            
+            let imageName = imageModel.imageName
+            if (!imageName!.isEmpty) {
                 self.imageNameTextField.text = imageName
             } else {
                 self.imageNameTextField.text = ""
             }
             let cell: UICollectionViewCell = collectionView.dequeueReusableCellWithReuseIdentifier(kIBImageEditingCollectionViewCellIdentifier, forIndexPath: indexPath)
-            let imagedata = self.imagesArray[indexPath.row]["imageData"] as! NSData
             let imageView = cell.viewWithTag(editCellImageViewTag) as! UIImageView
-            imageView.image = UIImage(data: imagedata)
+            imageView.image = UIImage(data: imageModel.image!)
             self.selectedImage.image = imageView.image
             imageView.layer.borderWidth = 1.0
             imageView.layer.masksToBounds = false
@@ -201,6 +196,8 @@ extension IBImageEditingVC: UICollectionViewDelegateFlowLayout, UICollectionView
         }
     }
 }
+
+// MARK: RMImagePickerControllerDelegate methods..
 
 extension IBImageEditingVC: RMImagePickerControllerDelegate {
     
@@ -217,11 +214,13 @@ extension IBImageEditingVC: RMImagePickerControllerDelegate {
     
 }
 
+// MARK: RNGridMenuDelegate methods..
+
 extension IBImageEditingVC : RNGridMenuDelegate {
     
-    func showGrid() {
-        items = [RNGridMenuItem(image: UIImage(named: "Camera"), title: "Camera"),
-                 RNGridMenuItem(image: UIImage(named: "Gallery"), title: "Gallery")]
+    func showSelectionAlert() {
+        items = [RNGridMenuItem(image: UIImage(named:kIBCameraIconImageName), title:kIBCameraIconImageName),
+                 RNGridMenuItem(image: UIImage(named:kIBGalleryIconImageName), title:kIBGalleryIconImageName)]
         let gridItems = RNGridMenu.init(items:items.subarrayWithRange(NSMakeRange(0, numberOfOptions)) )
         gridItems.delegate = self
         gridItems.showInViewController(self, center: CGPointMake(self.view.bounds.size.width/2, self.view.bounds.size.height/2))
@@ -241,8 +240,16 @@ extension IBImageEditingVC : RNGridMenuDelegate {
         let sourceType:DKImagePickerControllerSourceType = .Camera
         showImagePickerWithAssetType(.AllPhotos, allowMultipleType: true, sourceType: sourceType, allowsLandscape: true, singleSelect: true)
     }
-
+    
+    func presentPhotoLibraryView () {
+        isGallary = true
+        let newpicker =  RMImagePickerController()
+        newpicker.pickerDelegate = self
+        self.presentViewController(newpicker, animated: true, completion: nil)
+    }
 }
+
+// MARK: DKImagePickerControllerDelegate methods..
 
 extension IBImageEditingVC : DKImagePickerControllerDelegate {
     

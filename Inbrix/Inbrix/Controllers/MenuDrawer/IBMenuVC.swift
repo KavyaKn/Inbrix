@@ -17,7 +17,6 @@ enum IBMenuOptions: Int {
 class IBMenuVC: IBBaseVC {
 
     @IBOutlet weak var menuTableView: UITableView!
-    
     var menuDataSourceArray = [String]()
     var menuImagesArray = [String]()
     
@@ -25,10 +24,6 @@ class IBMenuVC: IBBaseVC {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         initializeDataSourceArray()
-        
-        let indexPath = NSIndexPath(forRow: 0, inSection: 0)
-        menuTableView.selectRowAtIndexPath(indexPath, animated: true, scrollPosition: UITableViewScrollPosition.None)
-        self.tableView(menuTableView, didSelectRowAtIndexPath: indexPath);
     }
     
     override func didReceiveMemoryWarning() {
@@ -38,16 +33,19 @@ class IBMenuVC: IBBaseVC {
     
     func initializeDataSourceArray() {
         menuDataSourceArray = ["Home", "About", "Logout"]
-        menuImagesArray = ["Home", "About", "Logout"]
+        menuImagesArray = [kIBHomeButtonImageName, kIBAboutButtonImageName,kIBLogoutButtonImageName]
+        let indexPath = NSIndexPath(forRow: 0, inSection: 0)
+        menuTableView.selectRowAtIndexPath(indexPath, animated: true, scrollPosition: UITableViewScrollPosition.None)
+        self.tableView(menuTableView, didSelectRowAtIndexPath: indexPath);
     }
 }
 
+// MARK: - UITableViewDataSource
+
 extension IBMenuVC: UITableViewDataSource {
     
-    // MARK: - UITableViewDataSource
-    
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
-        return 1
+        return kIBNumberOfSection
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -55,7 +53,7 @@ extension IBMenuVC: UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cellIdentifier = "MenuCell"
+        let cellIdentifier = kIBSideMenuCellIdentifier
         var menuCell: UITableViewCell? = tableView.dequeueReusableCellWithIdentifier(cellIdentifier)
         
         
@@ -79,12 +77,12 @@ extension IBMenuVC: UITableViewDataSource {
     
 }
 
+// MARK: - UITableViewDelegate
+
 extension IBMenuVC: UITableViewDelegate {
     
-    // MARK: - UITableViewDelegate
-    
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let array = NSBundle.mainBundle().loadNibNamed("IBMenuHeaderView", owner: self, options: nil)
+        let array = NSBundle.mainBundle().loadNibNamed(kIBMenuHeaderViewNibName, owner: self, options: nil)
         let headerView = array.first as! IBMenuHeaderView
         headerView.initializeView()
         
@@ -92,11 +90,11 @@ extension IBMenuVC: UITableViewDelegate {
     }
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 200.0
+        return kIBHeightForHeaderInSection
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 50.0
+        return kIBHeightForRowAtIndexPath
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -124,16 +122,16 @@ extension IBMenuVC: UITableViewDelegate {
         
         switch menu {
         case .IBMenuHome:
-            viewController = UIStoryboard.viewController("IBPlaceListVC", storyBoardName: "Main") as! IBPlaceListVC
+            viewController = UIStoryboard.viewController(kIBPlaceListViewControllerIdentifier, storyBoardName: kIBMainStoryboardIdentifier) as! IBPlaceListVC
             break
             
         case .IBMenuAbout:
-            viewController = UIStoryboard.viewController("IBPlaceListVC", storyBoardName: "Main") as! IBPlaceListVC
+            viewController = UIStoryboard.viewController(kIBPlaceListViewControllerIdentifier, storyBoardName: kIBMainStoryboardIdentifier) as! IBPlaceListVC
             break
             
             
         case .IBMenuLogout:
-            viewController = UIStoryboard.viewController("IBLoginVC", storyBoardName: "Main") as! IBLoginVC
+            viewController = UIStoryboard.viewController(kIBLoginViewControllerIdentifier, storyBoardName: kIBMainStoryboardIdentifier) as! IBLoginVC
             break
         }
         
